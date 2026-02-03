@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-vue": "^0.10.13",
     "vue": "^3.5.27"
   },
   "devDependencies": {
