@@ -6,9 +6,9 @@
     >
       <WelcomePage :active="currentIndex === 0" />
 
-      <section class="section s2">
-        <h1>Seção 2</h1>
-      </section>
+      
+        <CurriculumPage :active="currentIndex === 1" />
+      
 
       <section class="section s3">
         <h1>Seção 3</h1>
@@ -20,6 +20,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import WelcomePage from '@/components/sections/WelcomePage.vue'
+import CurriculumPage from '@/components/sections/CurriculumPage.vue'
 
 
 /**

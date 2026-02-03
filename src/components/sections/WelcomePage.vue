@@ -5,10 +5,7 @@
         I design and build<br />
         <span class="gradient-text">digital experiences</span>
       </h1>
-      <p :class="{ show: isVisible }">
-        Crafting beautiful, functional interfaces that users love
-      </p>
-      
+  
       <!-- Canvas para partículas conectadas -->
       <canvas ref="canvasRef" class="particle-canvas"></canvas>
 
