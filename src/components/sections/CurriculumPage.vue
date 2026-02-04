@@ -32,81 +32,99 @@
           </div>
 
           <!-- Conteúdo do carrossel -->
-          <Transition name="fade" mode="out-in">
-            <div :key="currentSection" class="section-content">
-              <h1 class="leo" style="white-space: nowrap;" :class="{ show: isVisible }">
-                {{ sections[currentSection].title }}
-              </h1>
-              <p class="leo2">{{ sections[currentSection].content }}</p>
+  <Transition name="fade" mode="out-in">
+  <div :key="currentSection" class="section-content">
 
-              <!-- ACCORDION de Experience -->
-<div 
-  v-if="sections[currentSection].title === 'Professional Experience'" 
-  class="experience-accordion"
->
-  <div 
-    v-for="(exp, idx) in sections[currentSection].experiences" 
-    :key="idx"
-    class="accordion-item"
-  >
-    <button 
-      class="accordion-header"
-      @click="toggleExperience(idx)"
+    <!-- TÍTULO -->
+    <h1 class="leo" style="white-space: nowrap;" :class="{ show: isVisible }">
+      {{ sections[currentSection].title }}
+    </h1>
+
+    <!-- TEXTO NORMAL (só aparece se existir) -->
+    <p v-if="sections[currentSection].content" class="leo2">
+      {{ sections[currentSection].content }}
+    </p>
+
+    <!-- EXPERIENCE (accordion) -->
+    <div
+      v-if="sections[currentSection].type === 'experience'"
+      class="experience-accordion"
     >
-      <span 
-  class="accordion-title"
-  :class="{ open: openExperience === idx }"
+      <div
+        v-for="(exp, idx) in sections[currentSection].experiences"
+        :key="idx"
+        class="accordion-item"
+      >
+        <button class="accordion-header" @click="toggleExperience(idx)">
+          <span
+            class="accordion-title"
+            :class="{ open: openExperience === idx }"
+          >
+            {{ exp.company }}
+          </span>
+
+          <span class="accordion-icon">
+            {{ openExperience === idx ? '−' : '+' }}
+          </span>
+        </button>
+
+        <Transition name="accordion">
+          <div v-if="openExperience === idx" class="accordion-body">
+            <div
+              v-for="(pos, pIndex) in exp.positions"
+              :key="pIndex"
+              class="position-block"
+            >
+              <p class="accordion-role">{{ pos.role }}</p>
+
+              <ul class="accordion-list">
+                <li v-for="(b, i) in pos.bullets" :key="i">
+                  {{ b }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </Transition>
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+<div
+  v-if="sections[currentSection].type === 'education'"
+  class="education-block"
 >
-  {{ exp.company }}
-</span>
-
-      <span class="accordion-icon">
-        {{ openExperience === idx ? '−' : '+' }}
-      </span>
-    </button>
-
-    <Transition name="accordion">
-   <div class="accordion-body" v-if="openExperience === idx">
-  <div 
-    v-for="(pos, pIndex) in exp.positions" 
-    :key="pIndex"
-    class="position-block"
+  <div
+    v-for="(edu, i) in sections[currentSection].items"
+    :key="i"
+    class="education-item"
   >
-    <p class="accordion-role">{{ pos.role }}</p>
-
-    <ul class="accordion-list">
-      <li v-for="(b, i) in pos.bullets" :key="i">
-        {{ b }}
-      </li>
-    </ul>
+    <p class="edu-degree">{{ edu.degree }}</p>
+    <p class="edu-school">{{ edu.school }} | {{ edu.period }}</p>
   </div>
 </div>
 
-    </Transition>
-  </div>
-</div>
 
-              
-              <!-- Segunda seção aparece embaixo se existir -->
-              <div v-if="sections[currentSection].subtitle" class="second-section">
-                <h1 class="leo" style="white-space: nowrap;" :class="{ show: isVisible }">
-                  {{ sections[currentSection].subtitle }}
-                </h1>
-                <ul class="skills-list">
-  <li 
-    v-for="(skill, index) in sections[currentSection].subcontent" 
+    <!-- SKILLS (só aparece se existir subtitle) -->
+    <div v-if="sections[currentSection].subtitle" class="second-section">
+      <h1 class="leo" style="white-space: nowrap;" :class="{ show: isVisible }">
+        {{ sections[currentSection].subtitle }}
+      </h1>
+
+    <ul class="courses-list">
+  <li
+    v-for="(course, index) in sections[currentSection].subcontent"
     :key="index"
-    class="skill-item"
+    class="course-item"
   >
-    {{ skill }}
-    <span class="tooltip">
-      {{ sections[currentSection].tooltips[index] }}
-    </span>
+    {{ course }}
   </li>
 </ul>
-              </div>
-            </div>
-          </Transition>
+
+    </div>
+
+  </div>
+</Transition>
+
         </div>
       </div>
     </div>
@@ -139,82 +157,104 @@ const toggleExperience = (index) => {
 
 const sections = [
   {
-    title: 'Professional Summary',
-    content: 'Technology professional with nearly 3 years of experience in B2B products within the agribusiness sector, combining software development, quality assurance and strong proximity to Product, UX and Business teams. Hands on experience in agile environments (Scrum), working from requirements definition and backlog prioritization through delivery and solution validation. Hybrid and technical profile, with strong ability to translate business needs into clear and feasible requirements, support development teams, remove impediments and ensure value driven deliveries.',
-    subtitle: 'Core Skills',
+    type: "summary",
+    title: "Professional Summary",
+    content:
+      "Technology professional with nearly 3 years of experience in B2B products within the agribusiness sector, combining software development, quality assurance and strong proximity to Product, UX and Business teams. Hands on experience in agile environments (Scrum), working from requirements definition and backlog prioritization through delivery and solution validation. Hybrid and technical profile, with strong ability to translate business needs into clear and feasible requirements, support development teams, remove impediments and ensure value driven deliveries.",
+    subtitle: "Core Skills",
     subcontent: [
-      'Agile Methodologies (Scrum)',
-      'Requirements Analysis',
-      'Quality Assurance',
-      'Software Development',
-      'Cross-functional Collaboration',
-      'Product Management',
-      'Technical Documentation',
-      'Stakeholder Communication'
+      "Agile Methodologies (Scrum)",
+      "Requirements Analysis",
+      "Quality Assurance",
+      "Software Development",
+      "Cross-functional Collaboration",
+      "Product Management",
+      "Technical Documentation",
+      "Stakeholder Communication",
     ],
     tooltips: [
-  'Usei Scrum para organizar sprints e reuniões diárias.',
-  'Analisei requisitos para transformar em histórias de usuário.',
-  'Fiz testes manuais e automatizados para garantir qualidade.',
-  'Fiz testes manuais e automatizados para garantir qualidade.',
-  'Fiz testes manuais e automatizados para garantir qualidade.',
-  'Fiz testes manuais e automatizados para garantir qualidade.',
-  'Fiz testes manuais e automatizados para garantir qualidade.',
-  'Fiz testes manuais e automatizados para garantir qualidade.',
-  // ...
-]
+      "Planned and organized weekly sprints and agile routines.",
+      "Translated business needs into clear requirements and user stories.",
+      "Implemented tests and validation flows to ensure quality.",
+      "Built features and improvements with scalable frontend/backend patterns.",
+      "Worked as a bridge between Engineering, Product, UX and stakeholders.",
+      "Supported prioritization and value-driven delivery decisions.",
+      "Created technical documentation to improve clarity and alignment.",
+      "Kept constant communication with internal and external stakeholders.",
+    ],
   },
- {
-  title: 'Professional Experience',
-  content: '',
-  experiences: [
+
+  {
+    type: "experience",
+    title: "Professional Experience",
+    experiences: [
+      {
+        company: "Yeb Inteligência de Mercado",
+        positions: [
+          {
+            role: "Full Stack Developer | Jan/2023 – Nov/2025",
+            bullets: [
+              "Worked on the development of the B2B software Cotagri, participating in scope definition and requirements gathering together with the product team.",
+              "Implemented features using Vue.js, Vuex, Vue Router, Node.js, GraphQL and TypeScript, ensuring scalability and maintainability.",
+              "Planned and organized weekly sprints, supporting the team in technical prioritization and removal of impediments.",
+              "Acted directly as an interface between engineering, product, UX and stakeholders, with frequent contact with enterprise clients such as Cerradinho Bioenergia and Raízen, ensuring technical deliveries aligned with real business needs.",
+            ],
+          },
+          {
+            role: "Quality Assurance Specialist | Jul/2024 – Nov/2025",
+            bullets: [
+              "Implemented and automated tests for the Cotagri and SGF systems, ensuring delivery quality and stability.",
+              "Worked closely with product and development teams to create test plans aligned with business requirements.",
+              "Acted in risk identification, requirements validation and prevention of production issues.",
+              "Actively contributed to the continuous improvement of agile and quality processes.",
+            ],
+          },
+        ],
+      },
+
+      {
+        company: "CRM Soluções",
+        positions: [
+          {
+            role: "Full Stack Developer | Jun/2021 – Oct/2021",
+            bullets: [
+              "Worked on cross-functional projects supporting product and engineering teams.",
+              "Collaborated on requirement analysis, documentation and delivery validation.",
+              "Contributed to process improvements and quality routines in agile environments.",
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
 {
-  company: 'Yeb Inteligência de Mercado',
-  positions: [
+  type: "education",
+  title: "Education",
+  content: "",
+  subtitle: "Courses and Certifications",
+    subcontent: [
+      "Principles and Practices of Project Management – University of São Paulo (USP)",
+      "Bug Bounty Hunting & Web Security Testing – Udemy",
+      "Tech Lead: Key Skills and Strategies for Success – Udemy",
+      "Cybersecurity Essentials - Cisco Networking Academy",
+      "Specialization in Software Design and Architecture - University of Alberta (In Progress)",
+    ],
+    tooltips: [],
+  items: [
     {
-      role: 'Full Stack Developer | Jan/2023 – Nov/2025',
-      bullets: [
-        'Worked on the development of the B2B software Cotagri, participating in scope definition and requirements gathering together with the product team.',
-        'Implemented features using Vue.js, Vuex, Vue Router, Node.js, GraphQL and TypeScript, ensuring scalability and maintainability.',
-        'Planned and organized weekly sprints, supporting the team in technical prioritization and removal of impediments.',
-        'Acted directly as an interface between engineering, product, UX and stakeholders, with frequent contact with enterprise clients such as Cerradinho Bioenergia and Raízen, ensuring technical deliveries aligned with real business needs.'
-      ]
+      degree: "Bachelor’s Degree in Computer Engineering",
+      school: "FHO – Fundação Hermínio Ometto",
+      period: "2020 – 2026"
     },
     {
-      role: 'Quality Assurance Specialist | Jul/2024 – Nov/2025',
-      bullets: [
-        'Implemented and automated tests for the Cotagri and SGF systems, ensuring delivery quality and stability.',
-        'Worked closely with product and development teams to create test plans aligned with business requirements.',
-        'Acted in risk identification, requirements validation and prevention of production issues.',
-        'Actively contributed to the continuous improvement of agile and quality processes.'
-      ]
-    }
-  ]
-},
-
-
-{
-  company: 'CRM Soluções',
-  positions: [
-    {
-      role: 'Full Stack Developer | Jun/2021 – Oct/2021',
-       bullets: [
-        'Maintained and evolved ERP systems, implementing bug fixes and new features.',
-        'Maintained direct contact with clients for requirements gathering and understanding business needs.',
-        'Planned technical solutions and provided clear communication regarding scope and deliveries.',
-      ]
+      degree: "Technical Degree in Information Technology",
+      school: "ETEC – São Paulo State Technical School",
+      period: "2017 – 2019"
     }
   ]
 }
 
-
-  ]
-},
-
-  {
-    title: 'Education',
-    content: 'Your educational background...'
-  }
 ]
 
 const nextSection = () => {
@@ -679,6 +719,65 @@ h1.show {
 .position-block:last-child {
   margin-bottom: 0;
 }
+
+.education-block {
+  margin-top: 30px;
+  padding: 0 30px;
+}
+
+.education-item {
+  margin-bottom: 25px;
+}
+
+.edu-degree {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #222;
+  margin-bottom: 6px;
+}
+
+.edu-school {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+.courses-list {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 20px 0 0 20px;
+  text-align: left;
+}
+
+.course-item {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  letter-spacing: 0.8px;
+  padding: 8px 0;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  transition: 0.4s ease;
+  text-transform: none; /* <- ESSENCIAL */
+}
+
+/* hover com gradiente */
+.course-item:hover {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease infinite;
+}
+
+
 
 
 </style>
