@@ -2,10 +2,32 @@
   <Transition name="modal">
     <div v-if="open" class="gallery-overlay" @click.self="$emit('close')">
       <div class="gallery-modal">
-        <div class="gallery-header">
-          <h2 class="gallery-title">{{ course?.title }}</h2>
-          <button class="gallery-close" @click="$emit('close')">✕</button>
-        </div>
+<div class="gallery-header">
+  <h2 class="gallery-title">{{ course?.title }}</h2>
+
+  <div class="gallery-actions">
+    <button
+      v-if="course?.certificates?.length"
+      class="gallery-download"
+      @click="downloadCurrent"
+    >
+      ⬇ Current
+    </button>
+
+    <button
+      class="gallery-download secondary"
+      :disabled="!canDownloadZip"
+      @click="downloadAllAsZip"
+      :title="canDownloadZip ? 'Download all certificates as .zip' : 'Only available when there are 2+ certificates'"
+    >
+      📦 ZIP
+    </button>
+
+    <button class="gallery-close" @click="$emit('close')">✕</button>
+  </div>
+</div>
+
+
 
         <div v-if="course?.certificates?.length" class="gallery-body">
           <button class="gallery-nav left" @click="prevCertificate">‹</button>
@@ -39,7 +61,8 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue"
+import { ref, watch, computed } from "vue"
+import JSZip from "jszip"
 
 const props = defineProps({
   open: Boolean,
@@ -57,15 +80,97 @@ watch(
   }
 )
 
-const nextCertificate = () => {
-  const total = props.course.certificates.length
-  currentCertificate.value = (currentCertificate.value + 1) % total
+const canDownloadZip = computed(() => {
+  return (props.course?.certificates?.length || 0) > 1
+})
+
+const getSafeTitle = () => {
+  return (props.course?.title || "certificates")
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "_")
 }
 
-const prevCertificate = () => {
-  const total = props.course.certificates.length
-  currentCertificate.value = (currentCertificate.value - 1 + total) % total
+const getExtensionFromUrl = (url) => {
+  const clean = url.split("?")[0]
+  const ext = clean.split(".").pop()?.toLowerCase()
+
+  if (["jpg", "jpeg", "png", "webp"].includes(ext)) return ext
+  return "jpg"
 }
+
+const downloadBlob = (blob, filename) => {
+  const blobUrl = URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.href = blobUrl
+  a.download = filename
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+  URL.revokeObjectURL(blobUrl)
+}
+
+const downloadCurrent = async () => {
+  if (!props.course?.certificates?.length) return
+
+  const url = props.course.certificates[currentCertificate.value]
+  const title = getSafeTitle()
+  const index = String(currentCertificate.value + 1).padStart(2, "0")
+  const ext = getExtensionFromUrl(url)
+  const filename = `${title}_${index}.${ext}`
+
+  try {
+    const res = await fetch(url)
+    const blob = await res.blob()
+    downloadBlob(blob, filename)
+  } catch (err) {
+    // fallback quando fetch é bloqueado por CORS
+    const a = document.createElement("a")
+    a.href = url
+    a.download = filename
+    a.target = "_blank"
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+  }
+}
+
+const downloadAllAsZip = async () => {
+  if (!canDownloadZip.value) return
+
+  const title = getSafeTitle()
+  const zip = new JSZip()
+
+  const urls = props.course.certificates
+
+  try {
+    // Baixa todos como blob
+    const results = await Promise.all(
+      urls.map(async (url, i) => {
+        const res = await fetch(url)
+        const blob = await res.blob()
+        const ext = getExtensionFromUrl(url)
+        const index = String(i + 1).padStart(2, "0")
+        const filename = `${title}_${index}.${ext}`
+        return { filename, blob }
+      })
+    )
+
+    // adiciona no zip
+    results.forEach(({ filename, blob }) => {
+      zip.file(filename, blob)
+    })
+
+    // gera zip
+    const zipBlob = await zip.generateAsync({ type: "blob" })
+    downloadBlob(zipBlob, `${title}.zip`)
+  } catch (err) {
+    alert("Could not generate ZIP. Some certificates may be blocked by CORS.")
+    console.error(err)
+  }
+}
+
+
 </script>
 
 <style scoped>
@@ -221,4 +326,41 @@ const prevCertificate = () => {
   opacity: 0;
   transform: scale(0.97);
 }
+
+.gallery-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gallery-download {
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  transition: 0.25s ease;
+}
+
+.gallery-download:hover {
+  transform: translateY(-1px) scale(1.03);
+}
+
+.gallery-download.secondary {
+  background: rgba(0, 0, 0, 0.08);
+  color: #222;
+  box-shadow: none;
+}
+
+.gallery-download:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+
 </style>

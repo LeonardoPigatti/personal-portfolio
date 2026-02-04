@@ -27,8 +27,9 @@ defineProps({
 }
 
 .left-side {
-  flex: 0 0 400px;
+  flex: 0 0 clamp(320px, 40vw, 620px);
 }
+
 
 .profile-image {
   width: 100%;
