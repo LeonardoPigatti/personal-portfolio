@@ -103,24 +103,66 @@
   </div>
 </div>
 
+<!-- LANGUAGES -->
+<div
+  v-if="sections[currentSection].type === 'languages'"
+  class="languages-block"
+>
+  <div
+    v-for="(lang, i) in sections[currentSection].items"
+    :key="i"
+    class="language-item"
+  >
+    <p class="lang-name">{{ lang.language }}</p>
+    <p class="lang-level">{{ lang.level }}</p>
+  </div>
+</div>
+
+
+
 
     <!-- SKILLS (só aparece se existir subtitle) -->
-    <div v-if="sections[currentSection].subtitle" class="second-section">
-      <h1 class="leo" style="white-space: nowrap;" :class="{ show: isVisible }">
-        {{ sections[currentSection].subtitle }}
-      </h1>
+<!-- SEGUNDA SEÇÃO (Core Skills / Courses) -->
+<div v-if="sections[currentSection].subtitle" class="second-section">
+  <h1 class="leo" style="white-space: nowrap;" :class="{ show: isVisible }">
+    {{ sections[currentSection].subtitle }}
+  </h1>
 
-    <ul class="courses-list">
-  <li
-    v-for="(course, index) in sections[currentSection].subcontent"
-    :key="index"
-    class="course-item"
+  <!-- SUMMARY: CORE SKILLS -->
+  <ul
+  v-if="sections[currentSection].type === 'summary' || sections[currentSection].type === 'languages'"
+  class="skills-list"
+>
+<li
+  v-for="(skill, index) in sections[currentSection].subcontent"
+  :key="index"
+  class="skill-item"
+>
+  {{ skill }}
+
+  <!-- Tooltip só no Summary -->
+  <span
+    v-if="sections[currentSection].type === 'summary' && sections[currentSection].tooltips?.[index]"
+    class="tooltip"
   >
-    {{ course }}
-  </li>
-</ul>
+    {{ sections[currentSection].tooltips[index] }}
+  </span>
+</li>
 
-    </div>
+  </ul>
+
+  <!-- EDUCATION: COURSES -->
+  <ul v-else-if="sections[currentSection].type === 'education'" class="courses-list">
+    <li
+      v-for="(course, index) in sections[currentSection].courses"
+      :key="index"
+      class="course-item"
+      @click="openCourseGallery(course)"
+    >
+      {{ course.title }}
+    </li>
+  </ul>
+</div>
 
   </div>
 </Transition>
@@ -128,6 +170,52 @@
         </div>
       </div>
     </div>
+    <!-- MODAL GALERIA CERTIFICADOS -->
+<Transition name="modal">
+  <div v-if="galleryOpen" class="gallery-overlay" @click.self="closeGallery">
+    <div class="gallery-modal">
+
+      <div class="gallery-header">
+        <h2 class="gallery-title">{{ selectedCourse?.title }}</h2>
+        <button class="gallery-close" @click="closeGallery">✕</button>
+      </div>
+
+      <div v-if="selectedCourse?.certificates?.length" class="gallery-body">
+
+        <button class="gallery-nav left" @click="prevCertificate">‹</button>
+
+        <img
+          :src="selectedCourse.certificates[currentCertificate]"
+          class="gallery-image"
+          alt="Certificate"
+        />
+
+        <button class="gallery-nav right" @click="nextCertificate">›</button>
+
+      </div>
+
+      <div v-else class="gallery-empty">
+        No certificates uploaded yet.
+      </div>
+
+      <!-- thumbnails -->
+      <div
+        v-if="selectedCourse?.certificates?.length > 1"
+        class="gallery-thumbs"
+      >
+        <img
+          v-for="(img, i) in selectedCourse.certificates"
+          :key="i"
+          :src="img"
+          class="thumb"
+          :class="{ active: i === currentCertificate }"
+          @click="currentCertificate = i"
+        />
+      </div>
+    </div>
+  </div>
+</Transition>
+
   </section>
 </template>
 
@@ -140,6 +228,34 @@ const props = defineProps({
     required: true
   }
 })
+
+const galleryOpen = ref(false)
+const selectedCourse = ref(null)
+const currentCertificate = ref(0)
+
+const openCourseGallery = (course) => {
+  selectedCourse.value = course
+  currentCertificate.value = 0
+  galleryOpen.value = true
+}
+
+const closeGallery = () => {
+  galleryOpen.value = false
+  selectedCourse.value = null
+  currentCertificate.value = 0
+}
+
+const nextCertificate = () => {
+  const total = selectedCourse.value.certificates.length
+  currentCertificate.value = (currentCertificate.value + 1) % total
+}
+
+const prevCertificate = () => {
+  const total = selectedCourse.value.certificates.length
+  currentCertificate.value =
+    (currentCertificate.value - 1 + total) % total
+}
+
 
 const isVisible = ref(false)
 const canvasRef = ref(null)
@@ -233,13 +349,42 @@ const sections = [
   title: "Education",
   content: "",
   subtitle: "Courses and Certifications",
-    subcontent: [
-      "Principles and Practices of Project Management – University of São Paulo (USP)",
-      "Bug Bounty Hunting & Web Security Testing – Udemy",
-      "Tech Lead: Key Skills and Strategies for Success – Udemy",
-      "Cybersecurity Essentials - Cisco Networking Academy",
-      "Specialization in Software Design and Architecture - University of Alberta (In Progress)",
+courses: [
+  {
+    title: "Principles and Practices of Project Management – University of São Paulo (USP)",
+certificates: [
+  "/src/assets/certifications/certs-gp-usp/_1Introdução aos Princípios e Práticas da Gestão De Projetos Certificado de Especialização!_page-0001.jpg",
+  "/src/assets/certifications/certs-gp-usp/Gestão de Riscos e de Mudanças em Projetos_page-0001.jpg",
+  "/src/assets/certifications/certs-gp-usp/Iniciação e Planejamento de Projetos_page-0001.jpg",
+  "/src/assets/certifications/certs-gp-usp/Orçamento e Cronograma de Projetos_page-0001.jpg",
+  "/src/assets/certifications/certs-gp-usp/Projeto Aplicado - Introdução a Gestão de Projetos_page-0001.jpg",
+],
+
+  },
+  {
+    title: "Bug Bounty Hunting & Web Security Testing – Udemy",
+    certificates: [
+      "/src/assets/certifications/bug-bounty/bug-bounty.jpg",
     ],
+  },
+  {
+    title: "Tech Lead: Key Skills and Strategies for Success – Udemy",
+    certificates: [
+      "/src/assets/certifications/tech-leader-udemy/tech-leader.jpg",
+    ],
+  },
+  {
+    title: "Cybersecurity Essentials - Cisco Networking Academy",
+    certificates: [
+      "/src/assets/certifications/cisco/cisco.jpg",
+    ],
+  },
+  {
+    title: "Specialization in Software Design and Architecture - University of Alberta (In Progress)",
+    certificates: [],
+  },
+],
+
     tooltips: [],
   items: [
     {
@@ -252,6 +397,18 @@ const sections = [
       school: "ETEC – São Paulo State Technical School",
       period: "2017 – 2019"
     }
+  ]
+},
+{
+  type: "languages",
+  title: "Languages",
+  content: "",
+  subtitle: "Technological Languages",
+  subcontent: ["TESTE 1", "TESTE 2"],
+  items: [
+    { language: "Portuguese", level: "Native" },
+    { language: "English", level: "Advanced (C1)" },
+    { language: "Spanish", level: "Intermediate (B2)" }
   ]
 }
 
@@ -776,6 +933,191 @@ h1.show {
   -webkit-text-fill-color: transparent;
   animation: gradientShift 3s ease infinite;
 }
+
+/* ===== MODAL GALERIA ===== */
+
+.gallery-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 20, 0.65);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 30px;
+}
+
+.gallery-modal {
+  width: min(1100px, 95vw);
+  max-height: 90vh;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 22px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.gallery-title {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #222;
+  max-width: 90%;
+}
+
+.gallery-close {
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #333;
+  transition: 0.3s ease;
+}
+
+.gallery-close:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gallery-body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.gallery-image {
+  width: 100%;
+  max-width: 860px;
+  max-height: 62vh;
+  object-fit: contain;
+  border-radius: 18px;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.15);
+}
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  cursor: pointer;
+  font-size: 2.2rem;
+  font-weight: 700;
+  width: 55px;
+  height: 55px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  transition: 0.25s ease;
+}
+
+.gallery-nav:hover {
+  transform: translateY(-50%) scale(1.07);
+  background: white;
+}
+
+.gallery-nav.left {
+  left: 18px;
+}
+
+.gallery-nav.right {
+  right: 18px;
+}
+
+.gallery-thumbs {
+  display: flex;
+  gap: 12px;
+  padding: 14px 18px 18px 18px;
+  justify-content: center;
+  overflow-x: auto;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+.thumb {
+  height: 70px;
+  width: auto;
+  border-radius: 12px;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: 0.25s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.thumb:hover {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+.thumb.active {
+  opacity: 1;
+  outline: 2px solid rgba(118, 75, 162, 0.55);
+}
+
+.gallery-empty {
+  padding: 50px 20px;
+  text-align: center;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* animação modal */
+.modal-enter-active,
+.modal-leave-active {
+  transition: all 0.35s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+  transform: scale(0.97);
+}
+
+.languages-block {
+  margin-top: 30px;
+  padding: 0 30px;
+}
+
+.language-item {
+  margin-bottom: 22px;
+}
+
+.lang-name {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #222;
+  margin-bottom: 6px;
+}
+
+.lang-level {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+
 
 
 
