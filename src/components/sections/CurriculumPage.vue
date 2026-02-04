@@ -6,7 +6,7 @@
       </div>
       
       <div class="right-side">
-        <h1 style="white-space: nowrap;" :class="{ show: isVisible }">
+        <h1 style="white-space: nowrap; color: black;" :class="{ show: isVisible }">
           Leonardo Vinicius Pigatti<br />
           <span class="gradient-text">Creative Technologist</span>
         </h1>
@@ -37,7 +37,7 @@
           <h1 class="leo" style="white-space: nowrap;" :class="{ show: isVisible }">
             {{ sections[currentSection].title }}
           </h1>
-          <p>{{ sections[currentSection].content }}</p>
+          <p class="leo2">{{ sections[currentSection].content }}</p>
         </div>
       </Transition>
     </div>
@@ -308,7 +308,7 @@ h1.show {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -328,7 +328,7 @@ h1.show {
 /* Parágrafo */
 
 .s1 {
-  background: #ccc2c2;
+  background: #ffffff;
 }
 
 .info-curriculum{
@@ -336,10 +336,35 @@ h1.show {
   width: 1050px;
   border-radius: 10px;
   background-color: white;
+  border: 2px solid red;
 }
 
-.leo{
-  color: red ;
+.leo {
+  color: black;
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  text-transform: uppercase;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* align-items: center; */ /* Descomente esta linha se quiser centralizar verticalmente também */
+}
+
+.leo2 {
+  color: #333;               /* Um cinza bem escuro é mais confortável que o preto puro */
+  text-align: center;         /* Centralização horizontal */
+  text-transform: uppercase;  /* Tudo em maiúsculo como você pediu */
+  
+  /* Estilo e Espaçamento */
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.1rem;          /* Tamanho levemente maior que o padrão */
+  line-height: 1.6;           /* Espaçamento entre linhas para não sufocar o texto */
+  letter-spacing: 1.5px;      /* Espaço entre letras (fica ótimo em maiúsculas) */
+  
+  /* Margens */
+  margin-top: 20px;           /* Garante o distanciamento do elemento de cima */
+  padding: 0 15px;            /* Evita que o texto encoste nas bordas em telas pequenas */
+  
+  /* Opcional: Um detalhe sutil */
+  font-weight: 500;           /* Nem tão fino, nem tão negrito */
 }
 
 .carousel-nav {
