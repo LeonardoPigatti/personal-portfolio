@@ -53,21 +53,35 @@
       class="accordion-header"
       @click="toggleExperience(idx)"
     >
-      <span class="accordion-title">{{ exp.company }}</span>
+      <span 
+  class="accordion-title"
+  :class="{ open: openExperience === idx }"
+>
+  {{ exp.company }}
+</span>
+
       <span class="accordion-icon">
         {{ openExperience === idx ? '−' : '+' }}
       </span>
     </button>
 
     <Transition name="accordion">
-      <div 
-        v-if="openExperience === idx" 
-        class="accordion-body"
-      >
-        <p class="accordion-text">
-          {{ exp.text }}
-        </p>
-      </div>
+   <div class="accordion-body" v-if="openExperience === idx">
+  <div 
+    v-for="(pos, pIndex) in exp.positions" 
+    :key="pIndex"
+    class="position-block"
+  >
+    <p class="accordion-role">{{ pos.role }}</p>
+
+    <ul class="accordion-list">
+      <li v-for="(b, i) in pos.bullets" :key="i">
+        {{ b }}
+      </li>
+    </ul>
+  </div>
+</div>
+
     </Transition>
   </div>
 </div>
@@ -154,14 +168,46 @@ const sections = [
   title: 'Professional Experience',
   content: '',
   experiences: [
+{
+  company: 'Yeb Inteligência de Mercado',
+  positions: [
     {
-      company: 'Yeb Inteligência de Mercado',
-      text: 'Atuei no desenvolvimento e validação de soluções B2B no agronegócio, colaborando com Produto, UX e stakeholders para transformar requisitos em entregas de valor.'
+      role: 'Full Stack Developer | Jan/2023 – Nov/2025',
+      bullets: [
+        'Worked on the development of the B2B software Cotagri, participating in scope definition and requirements gathering together with the product team.',
+        'Implemented features using Vue.js, Vuex, Vue Router, Node.js, GraphQL and TypeScript, ensuring scalability and maintainability.',
+        'Planned and organized weekly sprints, supporting the team in technical prioritization and removal of impediments.',
+        'Acted directly as an interface between engineering, product, UX and stakeholders, with frequent contact with enterprise clients such as Cerradinho Bioenergia and Raízen, ensuring technical deliveries aligned with real business needs.'
+      ]
     },
     {
-      company: 'CRM Soluções',
-      text: 'Trabalhei com análise de requisitos, documentação e suporte ao time técnico, garantindo qualidade, alinhamento e consistência nas entregas.'
+      role: 'Quality Assurance Specialist | Jul/2024 – Nov/2025',
+      bullets: [
+        'Implemented and automated tests for the Cotagri and SGF systems, ensuring delivery quality and stability.',
+        'Worked closely with product and development teams to create test plans aligned with business requirements.',
+        'Acted in risk identification, requirements validation and prevention of production issues.',
+        'Actively contributed to the continuous improvement of agile and quality processes.'
+      ]
     }
+  ]
+},
+
+
+{
+  company: 'CRM Soluções',
+  positions: [
+    {
+      role: 'Full Stack Developer | Jun/2021 – Oct/2021',
+       bullets: [
+        'Maintained and evolved ERP systems, implementing bug fixes and new features.',
+        'Maintained direct contact with clients for requirements gathering and understanding business needs.',
+        'Planned technical solutions and provided clear communication regarding scope and deliveries.',
+      ]
+    }
+  ]
+}
+
+
   ]
 },
 
@@ -558,7 +604,10 @@ h1.show {
   font-size: 1.1rem;
   letter-spacing: 1px;
   text-transform: uppercase;
+  color: #333;
+}
 
+.accordion-title.open {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
@@ -566,6 +615,7 @@ h1.show {
   -webkit-text-fill-color: transparent;
   animation: gradientShift 3s ease infinite;
 }
+
 
 .accordion-icon {
   font-size: 1.4rem;
@@ -597,5 +647,38 @@ h1.show {
   opacity: 0;
   transform: translateY(-8px);
 }
+
+.accordion-role {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.accordion-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.accordion-list li {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  letter-spacing: 0.5px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.position-block {
+  margin-bottom: 22px;
+}
+
+.position-block:last-child {
+  margin-bottom: 0;
+}
+
 
 </style>
