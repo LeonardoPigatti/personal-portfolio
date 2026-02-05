@@ -22,7 +22,6 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
 import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
 
-
 /**
  * ESTADO
  * currentIndex controla qual "página/seção" está ativa

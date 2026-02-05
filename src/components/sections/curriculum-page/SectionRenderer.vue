@@ -37,17 +37,20 @@
 
       <!-- SUMMARY -->
       <ul v-if="section.type === 'summary'" class="skills-list">
-        <li
-          v-for="(skill, index) in section.subcontent"
-          :key="index"
-          class="skill-item"
-        >
-          {{ skill }}
+      <li
+  v-for="(skill, index) in section.subcontent"
+  :key="index"
+  class="skill-item"
+>
+  <span class="skill-text">
+    {{ skill }}
 
-          <span v-if="section.tooltips?.[index]" class="tooltip">
-            {{ section.tooltips[index] }}
-          </span>
-        </li>
+    <span v-if="section.tooltips?.[index]" class="tooltip">
+      {{ section.tooltips[index] }}
+    </span>
+  </span>
+</li>
+
       </ul>
 
       <!-- EDUCATION: COURSES -->

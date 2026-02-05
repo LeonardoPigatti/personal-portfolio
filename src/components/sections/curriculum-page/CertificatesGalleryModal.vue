@@ -11,21 +11,22 @@
       class="gallery-download"
       @click="downloadCurrent"
     >
-      ⬇ Current
+      ⬇ Save This Certificate
     </button>
 
     <button
       class="gallery-download secondary"
       :disabled="!canDownloadZip"
       @click="downloadAllAsZip"
-      :title="canDownloadZip ? 'Download all certificates as .zip' : 'Only available when there are 2+ certificates'"
+      :title="canDownloadZip ? 'Download all certificates as .zip' : 'Only available quando houver 2+ certificados'"
     >
-      📦 ZIP
+      📦 Save All Certificates
     </button>
-
-    <button class="gallery-close" @click="$emit('close')">✕</button>
   </div>
+
+  <button class="gallery-close" @click="$emit('close')">✕</button>
 </div>
+
 
 
 
@@ -209,9 +210,9 @@ const downloadAllAsZip = async () => {
 .gallery-modal {
   width: min(1100px, 95vw);
   max-height: 90vh;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 22px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 14px; /* cantos suavemente arredondados */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -219,20 +220,35 @@ const downloadAllAsZip = async () => {
 
 .gallery-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* título em cima, botões abaixo */
+  gap: 10px;
   padding: 18px 22px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  position: relative;
 }
+
+.title-and-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* espaço entre título e botões */
+}
+
 
 .gallery-title {
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   font-weight: 800;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   color: #222;
   max-width: 90%;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease infinite;
 }
 
 .gallery-close {
@@ -242,6 +258,10 @@ const downloadAllAsZip = async () => {
   cursor: pointer;
   color: #333;
   transition: 0.3s ease;
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  cursor: pointer;
 }
 
 .gallery-close:hover {
@@ -281,14 +301,16 @@ const downloadAllAsZip = async () => {
   width: 55px;
   height: 55px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   transition: 0.25s ease;
 }
 
 .gallery-nav:hover {
   transform: translateY(-50%) scale(1.07);
-  background: white;
 }
 
 .gallery-nav.left {
@@ -324,8 +346,10 @@ const downloadAllAsZip = async () => {
 }
 
 .thumb.active {
-  opacity: 1;
-  outline: 2px solid rgba(118, 75, 162, 0.55);
+  border: 6px solid transparent;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) border-box;
 }
 
 .gallery-empty {
@@ -348,16 +372,18 @@ const downloadAllAsZip = async () => {
 }
 
 .gallery-actions {
-  display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
+  display: flex;
+  margin-top: 10px;
 }
 
 .gallery-download {
   border: none;
   cursor: pointer;
-  padding: 10px 14px;
-  border-radius: 999px;
+  padding: 8px 16px;
+  border-radius: 10px;
   font-weight: 700;
   font-size: 0.9rem;
   color: white;
@@ -374,6 +400,8 @@ const downloadAllAsZip = async () => {
   background: rgba(0, 0, 0, 0.08);
   color: #222;
   box-shadow: none;
+  border-radius: 10px;
+
 }
 
 .gallery-download:disabled {
