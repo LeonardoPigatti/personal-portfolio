@@ -32,11 +32,16 @@
         <div class="shape shape-4"></div>
       </div>
     </div>
+      <div class="lowpoly-wrapper">
+  <GeometricCanvas />
+</div>
+
   </section>
 </template>
 
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from 'vue'
+import GeometricCanvas from "/src/components/sections/GeometricCanvas.vue";
 
 const props = defineProps({
   active: {
@@ -448,4 +453,17 @@ p.show {
     display: none;
   }
 }
+
+.lowpoly-wrapper {
+  position: absolute;
+  top: 25%;          /* centraliza verticalmente */
+  right:40vw;       /* distância do lado direito */
+  transform: translateY(-50%); /* ajuste perfeito vertical */
+  pointer-events: none; /* não interfere em cliques */
+  z-index: 2;        /* acima do fundo mas abaixo do texto */
+  
+  width: 220px;      /* tamanho do LowPolyAnimation */
+  height: 220px;
+}
+
 </style>
