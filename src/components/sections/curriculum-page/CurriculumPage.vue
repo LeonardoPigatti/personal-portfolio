@@ -27,9 +27,9 @@
 <script setup>
 import { ref, watch, onMounted } from "vue"
 
-import S1Hero from "/src/components/sections/S1Hero.vue"
-import CurriculumCarousel from "/src/components/sections/CurriculumCarousel.vue"
-import CertificatesGalleryModal from "/src/components/sections/CertificatesGalleryModal.vue"
+import S1Hero from "/src/components/sections/curriculum-page/S1Hero.vue"
+import CurriculumCarousel from "/src/components/sections/curriculum-page/CurriculumCarousel.vue"
+import CertificatesGalleryModal from "/src/components/sections/curriculum-page/CertificatesGalleryModal.vue"
 
 import { cvSections } from "@/data/cvSections"
 

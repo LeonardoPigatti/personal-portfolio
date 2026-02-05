@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import ExperienceAccordion from "./ExperienceAccordion.vue"
+import ExperienceAccordion from '@/components/sections/curriculum-page/ExperienceAccordion.vue'
 
 defineProps({
   section: Object,

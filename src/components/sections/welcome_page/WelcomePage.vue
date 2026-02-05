@@ -41,7 +41,7 @@
 
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from 'vue'
-import GeometricCanvas from "/src/components/sections/GeometricCanvas.vue";
+import GeometricCanvas from "/src/components/sections/welcome_page/GeometricCanvas.vue";
 
 const props = defineProps({
   active: {

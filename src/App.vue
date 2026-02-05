@@ -19,8 +19,8 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import WelcomePage from '@/components/sections/WelcomePage.vue'
-import CurriculumPage from '@/components/sections/CurriculumPage.vue'
+import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
+import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
 
 
 /**
