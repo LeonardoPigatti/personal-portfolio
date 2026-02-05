@@ -76,38 +76,41 @@ export const cvSections = [
     title: "Education",
     content: "",
     subtitle: "Courses and Certifications",
-    courses: [
-      {
-        title:
-          "Principles and Practices of Project Management – University of São Paulo (USP)",
-        certificates: [
-          "/src/assets/certifications/certs-gp-usp/_1Introdução aos Princípios e Práticas da Gestão De Projetos Certificado de Especialização!_page-0001.jpg",
-          "/src/assets/certifications/certs-gp-usp/Gestão de Riscos e de Mudanças em Projetos_page-0001.jpg",
-          "/src/assets/certifications/certs-gp-usp/Iniciação e Planejamento de Projetos_page-0001.jpg",
-          "/src/assets/certifications/certs-gp-usp/Orçamento e Cronograma de Projetos_page-0001.jpg",
-          "/src/assets/certifications/certs-gp-usp/Projeto Aplicado - Introdução a Gestão de Projetos_page-0001.jpg",
-        ],
-      },
-      {
-        title: "Bug Bounty Hunting & Web Security Testing – Udemy",
-        certificates: ["/src/assets/certifications/bug-bounty/bug-bounty.jpg"],
-      },
-      {
-        title: "Tech Lead: Key Skills and Strategies for Success – Udemy",
-        certificates: [
-          "/src/assets/certifications/tech-leader-udemy/tech-leader.jpg",
-        ],
-      },
-      {
-        title: "Cybersecurity Essentials - Cisco Networking Academy",
-        certificates: ["/src/assets/certifications/cisco/cisco.jpg"],
-      },
-      {
-        title:
-          "Specialization in Software Design and Architecture - University of Alberta (In Progress)",
-        certificates: [],
-      },
+ courses: [
+  {
+    title:
+      "Principles and Practices of Project Management – University of São Paulo (USP)",
+    certificates: [
+      "/src/assets/certifications/certs-gp-usp/_1Introdução aos Princípios e Práticas da Gestão De Projetos Certificado de Especialização!_page-0001.jpg",
+      "/src/assets/certifications/certs-gp-usp/Gestão de Riscos e de Mudanças em Projetos_page-0001.jpg",
+      "/src/assets/certifications/certs-gp-usp/Iniciação e Planejamento de Projetos_page-0001.jpg",
+      "/src/assets/certifications/certs-gp-usp/Orçamento e Cronograma de Projetos_page-0001.jpg",
+      "/src/assets/certifications/certs-gp-usp/Projeto Aplicado - Introdução a Gestão de Projetos_page-0001.jpg",
     ],
+    verifyUrl: "https://LINK-DA-USP-AQUI",
+  },
+  {
+    title: "Bug Bounty Hunting & Web Security Testing – Udemy",
+    certificates: ["/src/assets/certifications/bug-bounty/bug-bounty.jpg"],
+    verifyUrl: "https://LINK-DA-UDEMY-AQUI",
+  },
+  {
+    title: "Tech Lead: Key Skills and Strategies for Success – Udemy",
+    certificates: ["/src/assets/certifications/tech-leader-udemy/tech-leader.jpg"],
+    verifyUrl: "https://LINK-DA-UDEMY-AQUI",
+  },
+  {
+    title: "Cybersecurity Essentials - Cisco Networking Academy",
+    certificates: ["/src/assets/certifications/cisco/cisco.jpg"],
+    verifyUrl: "https://LINK-DA-CISCO-AQUI",
+  },
+  {
+    title:
+      "Specialization in Software Design and Architecture - University of Alberta (In Progress)",
+    certificates: [],
+    verifyUrl: "https://LINK-DA-PLATAFORMA-AQUI",
+  },
+],
     items: [
       {
         degree: "Bachelor’s Degree in Computer Engineering",

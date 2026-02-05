@@ -1,34 +1,44 @@
 <template>
   <Transition name="modal">
-    <div v-if="open" class="gallery-overlay" @click.self="$emit('close')">
+    <div v-if="open" class="gallery-overlay" @click.self="emit('close')">
       <div class="gallery-modal">
-<div class="gallery-header">
-  <h2 class="gallery-title">{{ course?.title }}</h2>
+        <div class="gallery-header">
+          <h2 class="gallery-title">{{ course?.title }}</h2>
 
-  <div class="gallery-actions">
-    <button
-      v-if="course?.certificates?.length"
-      class="gallery-download"
-      @click="downloadCurrent"
-    >
-      ⬇ Save This Certificate
-    </button>
+          <div class="gallery-actions">
+            <button
+              v-if="course?.certificates?.length"
+              class="gallery-download"
+              @click="downloadCurrent"
+            >
+              ⬇ Save This Certificate
+            </button>
 
-    <button
-      class="gallery-download secondary"
-      :disabled="!canDownloadZip"
-      @click="downloadAllAsZip"
-      :title="canDownloadZip ? 'Download all certificates as .zip' : 'Only available quando houver 2+ certificados'"
-    >
-      📦 Save All Certificates
-    </button>
-  </div>
+            <button
+              v-if="course?.verifyUrl"
+              class="gallery-download secondary"
+              @click="openVerifyLink"
+              title="Open credential verification"
+            >
+              🔎 Verify Credential
+            </button>
 
-  <button class="gallery-close" @click="$emit('close')">✕</button>
-</div>
+            <button
+              class="gallery-download secondary"
+              :disabled="!canDownloadZip"
+              @click="downloadAllAsZip"
+              :title="
+                canDownloadZip
+                  ? 'Download all certificates as .zip'
+                  : 'Only available quando houver 2+ certificados'
+              "
+            >
+              📦 Save All Certificates
+            </button>
+          </div>
 
-
-
+          <button class="gallery-close" @click="emit('close')">✕</button>
+        </div>
 
         <div v-if="course?.certificates?.length" class="gallery-body">
           <button class="gallery-nav left" @click="prevCertificate">‹</button>
@@ -42,9 +52,7 @@
           <button class="gallery-nav right" @click="nextCertificate">›</button>
         </div>
 
-        <div v-else class="gallery-empty">
-          No certificates uploaded yet.
-        </div>
+        <div v-else class="gallery-empty">No certificates uploaded yet.</div>
 
         <div v-if="course?.certificates?.length > 1" class="gallery-thumbs">
           <img
@@ -65,26 +73,12 @@
 import { ref, watch, computed } from "vue"
 import JSZip from "jszip"
 
-const nextCertificate = () => {
-  const total = props.course?.certificates?.length || 0
-  if (!total) return
-  currentCertificate.value = (currentCertificate.value + 1) % total
-}
-
-const prevCertificate = () => {
-  const total = props.course?.certificates?.length || 0
-  if (!total) return
-  currentCertificate.value =
-    (currentCertificate.value - 1 + total) % total
-}
-
-
 const props = defineProps({
   open: Boolean,
   course: Object,
 })
 
-defineEmits(["close"])
+const emit = defineEmits(["close"])
 
 const currentCertificate = ref(0)
 
@@ -98,6 +92,23 @@ watch(
 const canDownloadZip = computed(() => {
   return (props.course?.certificates?.length || 0) > 1
 })
+
+const nextCertificate = () => {
+  const total = props.course?.certificates?.length || 0
+  if (!total) return
+  currentCertificate.value = (currentCertificate.value + 1) % total
+}
+
+const prevCertificate = () => {
+  const total = props.course?.certificates?.length || 0
+  if (!total) return
+  currentCertificate.value = (currentCertificate.value - 1 + total) % total
+}
+
+const openVerifyLink = () => {
+  if (!props.course?.verifyUrl) return
+  window.open(props.course.verifyUrl, "_blank", "noopener,noreferrer")
+}
 
 const getSafeTitle = () => {
   return (props.course?.title || "certificates")
@@ -189,9 +200,6 @@ const downloadAllAsZip = async () => {
   const zipBlob = await zip.generateAsync({ type: "blob" })
   downloadBlob(zipBlob, `${title}.zip`)
 }
-
-
-
 </script>
 
 <style scoped>
@@ -211,7 +219,7 @@ const downloadAllAsZip = async () => {
   width: min(1100px, 95vw);
   max-height: 90vh;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 14px; /* cantos suavemente arredondados */
+  border-radius: 14px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   display: flex;
@@ -220,19 +228,12 @@ const downloadAllAsZip = async () => {
 
 .gallery-header {
   display: flex;
-  flex-direction: column; /* título em cima, botões abaixo */
+  flex-direction: column;
   gap: 10px;
   padding: 18px 22px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   position: relative;
 }
-
-.title-and-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 8px; /* espaço entre título e botões */
-}
-
 
 .gallery-title {
   font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -261,7 +262,6 @@ const downloadAllAsZip = async () => {
   position: absolute;
   top: 18px;
   right: 22px;
-  cursor: pointer;
 }
 
 .gallery-close:hover {
@@ -302,7 +302,7 @@ const downloadAllAsZip = async () => {
   height: 55px;
   border-radius: 999px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -347,8 +347,7 @@ const downloadAllAsZip = async () => {
 
 .thumb.active {
   border: 6px solid transparent;
-  background:
-    linear-gradient(white, white) padding-box,
+  background: linear-gradient(white, white) padding-box,
     linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) border-box;
 }
 
@@ -401,7 +400,6 @@ const downloadAllAsZip = async () => {
   color: #222;
   box-shadow: none;
   border-radius: 10px;
-
 }
 
 .gallery-download:disabled {
@@ -409,6 +407,4 @@ const downloadAllAsZip = async () => {
   cursor: not-allowed;
   transform: none !important;
 }
-
-
 </style>
