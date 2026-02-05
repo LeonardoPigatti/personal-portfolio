@@ -8,9 +8,18 @@
       <h1 :class="{ show: isVisible }">
         <span style="color: black;" class="line name nowrap">Leonardo Vinicius Pigatti</span><br />
 
-        <span class="gradient-text line l1 nowrap">Creative Technologist</span><br />
-        <span class="gradient-text line l2 nowrap">UX Designer</span><br />
-        <span class="gradient-text line l3 nowrap">Builder</span>
+<span class="line l1 nowrap">
+  <span class="gradient-text hoverable">Creative Technologist</span>
+</span><br />
+
+<span class="line l2 nowrap">
+  <span class="gradient-text hoverable">UX Designer</span>
+</span><br />
+
+<span class="line l3 nowrap">
+  <span class="gradient-text hoverable">Builder</span>
+</span>
+
       </h1>
     </div>
   </div>
@@ -112,6 +121,18 @@ h1.show .l3 {
     transform: translateX(0);
   }
 }
+
+.hoverable {
+  display: inline-block;
+  transition: transform 0.25s ease;
+  cursor: default;
+}
+
+.hoverable:hover {
+  transform: scale(1.1);
+}
+
+
 
 
 
