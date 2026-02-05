@@ -5,8 +5,11 @@
     </h1>
 
     <p v-if="section.content" class="leo2">
-      {{ section.content }}
-    </p>
+  {{ section.content.split('. ')[0] }}.
+  <br><br>
+  {{ section.content.split('. ').slice(1).join('. ') }}
+</p>
+
 
     <ExperienceAccordion
       v-if="section.type === 'experience'"
@@ -84,7 +87,7 @@ defineEmits(["open-course"])
 
 .leo2 {
   color: #333;
-  text-align: center;
+  text-align: justify;
   text-transform: uppercase;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-size: 1.1rem;
@@ -97,7 +100,7 @@ defineEmits(["open-course"])
 
 .second-section {
   margin-top: 40px;
-  margin-left: 40px;
+  /* margin-left: 40px; */
 }
 
 /* skills */
