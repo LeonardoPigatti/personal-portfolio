@@ -154,35 +154,41 @@ const downloadAllAsZip = async () => {
 
   const title = getSafeTitle()
   const zip = new JSZip()
-
   const urls = props.course.certificates
 
-  try {
-    // Baixa todos como blob
-    const results = await Promise.all(
-      urls.map(async (url, i) => {
-        const res = await fetch(url)
-        const blob = await res.blob()
-        const ext = getExtensionFromUrl(url)
-        const index = String(i + 1).padStart(2, "0")
-        const filename = `${title}_${index}.${ext}`
-        return { filename, blob }
-      })
-    )
+  let successCount = 0
 
-    // adiciona no zip
-    results.forEach(({ filename, blob }) => {
+  for (let i = 0; i < urls.length; i++) {
+    const url = urls[i]
+
+    try {
+      const res = await fetch(url)
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`)
+      }
+
+      const blob = await res.blob()
+      const ext = getExtensionFromUrl(url)
+      const index = String(i + 1).padStart(2, "0")
+      const filename = `${title}_${index}.${ext}`
+
       zip.file(filename, blob)
-    })
-
-    // gera zip
-    const zipBlob = await zip.generateAsync({ type: "blob" })
-    downloadBlob(zipBlob, `${title}.zip`)
-  } catch (err) {
-    alert("Could not generate ZIP. Some certificates may be blocked by CORS.")
-    console.error(err)
+      successCount++
+    } catch (err) {
+      console.warn(`Could not fetch certificate #${i + 1}:`, url, err)
+    }
   }
+
+  if (successCount === 0) {
+    alert("Could not generate ZIP. All certificates are blocked (CORS).")
+    return
+  }
+
+  const zipBlob = await zip.generateAsync({ type: "blob" })
+  downloadBlob(zipBlob, `${title}.zip`)
 }
+
 
 
 </script>
