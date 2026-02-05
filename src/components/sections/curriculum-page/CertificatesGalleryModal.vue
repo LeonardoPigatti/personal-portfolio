@@ -64,6 +64,20 @@
 import { ref, watch, computed } from "vue"
 import JSZip from "jszip"
 
+const nextCertificate = () => {
+  const total = props.course?.certificates?.length || 0
+  if (!total) return
+  currentCertificate.value = (currentCertificate.value + 1) % total
+}
+
+const prevCertificate = () => {
+  const total = props.course?.certificates?.length || 0
+  if (!total) return
+  currentCertificate.value =
+    (currentCertificate.value - 1 + total) % total
+}
+
+
 const props = defineProps({
   open: Boolean,
   course: Object,
