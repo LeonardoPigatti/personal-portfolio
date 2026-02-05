@@ -86,6 +86,8 @@ defineEmits(["open-course"])
   justify-content: center;
   text-transform: uppercase;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 56px;
+
 }
 
 .leo2 {

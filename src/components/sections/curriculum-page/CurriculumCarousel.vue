@@ -37,7 +37,7 @@ defineEmits(["next", "prev", "open-course"])
 <style scoped>
 .info-curriculum {
   height: 810px;
-  width: 1050px;
+  width: 1000px;
   border-radius: 10px;
   background-color: white;
 }
