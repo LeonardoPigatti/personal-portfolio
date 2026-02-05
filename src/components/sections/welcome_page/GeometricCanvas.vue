@@ -35,7 +35,6 @@
   justify-content: center;
   align-items: center;
 
-  /* antes era 100vh, agora fica do tamanho do conteúdo */
   width: fit-content;
   height: fit-content;
 
@@ -46,7 +45,6 @@
 .wrapper {
   position: relative;
 
-  /* controla o tamanho do desenho */
   width: 900px;
   height: 900px;
 }
@@ -55,6 +53,11 @@
   width: 100%;
   height: 100%;
   position: absolute;
+
+  /* ✅ gradiente aplicado em TODOS os pedaços */
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
 }
 
 .pl:hover {
@@ -74,244 +77,267 @@
   animation: animateShadow 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
 }
 
-/* Animações aplicadas manualmente */
+/* ============================================================
+   ANIMAÇÕES: cada peça recebe:
+   1) transformX (clip-path)
+   2) gradientShift (movimento do gradiente)
+   ============================================================ */
+
+/* transform + gradiente */
 .wrapper .pl:nth-child(1) {
-  animation: transform1 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform1 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(2) {
-  animation: transform2 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform2 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(3) {
-  animation: transform3 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform3 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(4) {
-  animation: transform4 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform4 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(5) {
-  animation: transform5 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform5 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(6) {
-  animation: transform6 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform6 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(7) {
-  animation: transform7 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform7 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(8) {
-  animation: transform8 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform8 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(9) {
-  animation: transform9 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform9 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(10) {
-  animation: transform10 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform10 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(11) {
-  animation: transform11 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform11 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(12) {
-  animation: transform12 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform12 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(13) {
-  animation: transform13 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform13 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(14) {
-  animation: transform14 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform14 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(15) {
-  animation: transform15 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform15 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(16) {
-  animation: transform16 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform16 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(17) {
-  animation: transform17 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform17 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 .wrapper .pl:nth-child(18) {
-  animation: transform18 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1);
+  animation:
+    transform18 3s infinite alternate cubic-bezier(0.93, 0, 0.27, 1),
+    gradientShift 3s ease infinite;
 }
 
-/* keyframes (iguais) */
+/* ============================================================
+   KEYFRAMES: seus clip-paths (iguais)
+   ============================================================ */
+
 @keyframes transform1 {
   from {
     clip-path: polygon(33.862% 16.402%, 27.513% 21.693%, 26.455% 12.698%);
-    background-color: #a93f32;
   }
   to {
     clip-path: polygon(41.267% 13.87%, 44.692% 25.685%, 40.411% 31.507%);
-    background-color: #787681;
   }
 }
 @keyframes transform2 {
   from {
     clip-path: polygon(26.455% 12.698%, 15.873% 29.63%, 29.042% 35.921%);
-    background-color: #d76644;
   }
   to {
     clip-path: polygon(41.267% 13.87%, 44.692% 25.685%, 52.397% 25.685%);
-    background-color: #b7b6be;
   }
 }
 @keyframes transform3 {
   from {
     clip-path: polygon(15.873% 29.63%, 14.212% 40.411%, 31.5% 36.815%);
-    background-color: #d76644;
   }
   to {
     clip-path: polygon(35.274% 38.356%, 44.692% 25.685%, 56.678% 50.685%);
-    background-color: #eee7e7;
   }
 }
 @keyframes transform4 {
   from {
     clip-path: polygon(14.212% 40.411%, 21.164% 46.032%, 38.095% 35.45%);
-    background-color: #e64d2d;
   }
   to {
     clip-path: polygon(44.692% 25.685%, 56.678% 50.685%, 68.322% 25.685%);
-    background-color: #b7b6be;
   }
 }
 @keyframes transform5 {
   from {
     clip-path: polygon(38.095% 35.45%, 11.64% 51.323%, 41.27% 59.259%);
-    background-color: #e64d2d;
   }
   to {
     clip-path: polygon(68.322% 25.685%, 56.678% 50.685%, 77.911% 38.356%);
-    background-color: #eee7e7;
   }
 }
 @keyframes transform6 {
   from {
     clip-path: polygon(11.64% 51.323%, 38.356% 82.534%, 41.27% 59.259%);
-    background-color: #e64d2d;
   }
   to {
     clip-path: polygon(71.404% 13.87%, 59.932% 25.685%, 68.322% 25.685%);
-    background-color: #b7b6be;
   }
 }
 @keyframes transform7 {
   from {
     clip-path: polygon(11.64% 51.323%, 19.349% 83.048%, 28.596% 71%);
-    background-color: #a93f32;
   }
   to {
     clip-path: polygon(71.404% 13.87%, 68.322% 25.685%, 72.603% 31.164%);
-    background-color: #787681;
   }
 }
 @keyframes transform8 {
   from {
     clip-path: polygon(41.27% 59.259%, 38.356% 82.534%, 62.842% 83.39%);
-    background-color: #e64d2d;
   }
   to {
     clip-path: polygon(42.466% 42.5%, 48.288% 87.329%, 56.678% 50.685%);
-    background-color: #c8c6d3;
   }
 }
 @keyframes transform9 {
   from {
     clip-path: polygon(62.842% 83.39%, 59.589% 59.589%, 41.27% 59.259%);
-    background-color: #e64d2d;
   }
   to {
     clip-path: polygon(56.678% 50.685%, 56.66% 83.904%, 48.288% 87.329%);
-    background-color: #c8c6d3;
   }
 }
 @keyframes transform10 {
   from {
     clip-path: polygon(41.27% 59.259%, 38.095% 35.45%, 59.589% 59.589%);
-    background-color: #e64d2d;
   }
   to {
     clip-path: polygon(56.66% 83.904%, 56.678% 50.685%, 64.555% 87.158%);
-    background-color: #c8c6d3;
   }
 }
 @keyframes transform11 {
   from {
     clip-path: polygon(63.243% 35.243%, 59.589% 59.589%, 38.095% 35.45%);
-    background-color: #e64d2d;
   }
   to {
     clip-path: polygon(71.377% 42.123%, 64.555% 87.158%, 56.678% 50.685%);
-    background-color: #c8c6d3;
   }
 }
 @keyframes transform12 {
   from {
     clip-path: polygon(63.243% 35.243%, 59.589% 59.589%, 89.405% 51.784%);
-    background-color: #e64d2d;
   }
   to {
     clip-path: polygon(56.66% 83.904%, 48.288% 87.329%, 56.66% 87.329%);
-    background-color: #eee7e7;
   }
 }
 @keyframes transform13 {
   from {
     clip-path: polygon(59.589% 59.589%, 89.405% 51.784%, 62.842% 83.39%);
-    background-color: #e64d2d;
   }
   to {
     clip-path: polygon(56.66% 83.904%, 64.555% 87.158%, 56.66% 87.329%);
-    background-color: #eee7e7;
   }
 }
 @keyframes transform14 {
   from {
     clip-path: polygon(89.405% 51.892%, 73% 71%, 83.048% 82.919%);
-    background-color: #a93f32;
   }
   to {
     clip-path: polygon(42.466% 42.5%, 29.11% 63.527%, 45.205% 62.842%);
-    background-color: #b7b6be;
   }
 }
 @keyframes transform15 {
   from {
     clip-path: polygon(63.243% 35.243%, 79.795% 45.89%, 88.185% 40.753%);
-    background-color: #e64d2d;
   }
   to {
     clip-path: polygon(29.11% 63.527%, 45.205% 62.842%, 29.11% 78.082%);
-    background-color: #b7b6be;
   }
 }
 @keyframes transform16 {
   from {
     clip-path: polygon(86.815% 29.281%, 69.404% 36.644%, 88.185% 40.753%);
-    background-color: #d76644;
   }
   to {
     clip-path: polygon(29.11% 78.082%, 45.205% 62.842%, 41.438% 87.329%);
-    background-color: #b7b6be;
   }
 }
 @keyframes transform17 {
   from {
     clip-path: polygon(86.815% 29.281%, 72.801% 35.25%, 75.342% 12.158%);
-    background-color: #d76644;
   }
   to {
     clip-path: polygon(41.438% 87.329%, 45.205% 62.842%, 48.288% 87.329%);
-    background-color: #b7b6be;
   }
 }
 @keyframes transform18 {
   from {
     clip-path: polygon(67.096% 16.438%, 75.342% 12.158%, 74.2% 22.603%);
-    background-color: #a93f32;
   }
   to {
     clip-path: polygon(29.11% 78.082%, 16.267% 86.473%, 40.897% 86.644%);
-    background-color: #787681;
   }
 }
 
+/* gradiente animado */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* sombra */
 @keyframes animateShadow {
   from {
     width: 170px;
