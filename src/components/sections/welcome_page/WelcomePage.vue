@@ -190,9 +190,9 @@ onUnmounted(() => {
 .section {
   height: 100vh;
   display: flex;
-  align-items: center;       
+  align-items: center;
   justify-content: flex-start;
-  padding: 0 10vw;
+  padding: 0 12vw;
   position: relative;
   overflow: hidden;
 }
@@ -200,6 +200,7 @@ onUnmounted(() => {
 .content {
   position: relative;
   z-index: 2;
+  max-width: 780px;
 }
 
 /* Canvas para partículas conectadas */
@@ -393,13 +394,15 @@ onUnmounted(() => {
 
 /* Título com efeito gradiente */
 h1 {
-  font-size: clamp(48px, 6vw, 72px);
-  line-height: 1.1;
+  font-size: clamp(80px, 8vw, 100px);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
   color: white;
   font-family: sans-serif;
-  font-weight: 600;
+  font-weight: 800;
+
   opacity: 0;
-  transform: translateX(-60px);
+  transform: translateX(-100px);
   transition: transform 1s ease, opacity 1s ease;
 }
 
