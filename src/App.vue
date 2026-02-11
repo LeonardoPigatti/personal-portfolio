@@ -17,12 +17,16 @@
       <CurriculumPage :active="currentIndex === 1" />
       <RecommendationPage :active="currentIndex === 2" />
     </div>
+
+        <Avatar src="/src/assets/tc.jpg" alt="Minha Foto"/>
+
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Navbar from './Navbar.vue'
+import Avatar from './Avatar.vue'
 import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
 import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
 import RecommendationPage from '@/components/sections/recommendation_page/RecommendationPage.vue'
