@@ -94,12 +94,12 @@ defineEmits(["next", "prev", "open-course"])
 
 /* BOTÃO PDF PEQUENO À ESQUERDA */
 .download-btn {
-  margin-right: auto;
-  margin-left: 40px;
+  margin-left: auto;   /* empurra o botão para a direita */
+  margin-right: 40px;  /* distância da borda direita */
 
-  height: 38px;          /* maior */
-  padding: 0 18px;       /* mais largo */
-  border-radius: 14px;   /* retangular mas suave */
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 14px;
 
   display: inline-flex;
   align-items: center;
@@ -118,6 +118,7 @@ defineEmits(["next", "prev", "open-course"])
 
   transition: all 0.2s ease;
 }
+
 
 .download-btn:hover {
   transform: translateY(-1px) scale(1.04);

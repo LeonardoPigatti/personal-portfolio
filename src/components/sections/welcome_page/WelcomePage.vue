@@ -2,9 +2,9 @@
   <section class="section s1">
     <div class="content">
       <h1 :class="{ show: isVisible }">
-        I design and build<br />
-        <span class="gradient-text">digital experiences</span>
-      </h1>
+  I design and build<br />
+  <span class="gradient-text">{{ currentText }}</span>
+</h1>
   
       <!-- Canvas para partículas conectadas -->
       <canvas ref="canvasRef" class="particle-canvas"></canvas>
@@ -42,6 +42,50 @@
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import GeometricCanvas from "/src/components/sections/welcome_page/GeometricCanvas.vue";
+
+const phrases = [
+  'digital experiences',
+  'amazing websites',
+  'interactive apps',
+  'creative designs'
+]
+
+const currentText = ref('')   // texto que aparece no h1
+let phraseIndex = 0
+let charIndex = 0
+let typingTimeout = null
+let deleting = false
+
+const typeEffect = () => {
+  const phrase = phrases[phraseIndex]
+
+  if (!deleting) {
+    // digitando
+    currentText.value = phrase.slice(0, charIndex + 1)
+    charIndex++
+
+    if (charIndex === phrase.length) {
+      // terminou de digitar, espera 2s e começa apagar
+      deleting = true
+      typingTimeout = setTimeout(typeEffect, 1500)
+      return
+    }
+  } else {
+    // apagando
+    currentText.value = phrase.slice(0, charIndex - 1)
+    charIndex--
+
+    if (charIndex === 0) {
+      // terminou de apagar, próxima frase
+      deleting = false
+      phraseIndex = (phraseIndex + 1) % phrases.length
+    }
+  }
+
+  typingTimeout = setTimeout(typeEffect, deleting ? 50 : 100) // mais rápido apagando
+}
+
+
 
 const props = defineProps({
   active: {
@@ -173,7 +217,9 @@ onMounted(() => {
       isVisible.value = true
     })
   }
-  
+
+  typeEffect()
+
   initCanvas()
   window.addEventListener('resize', handleResize)
 })
@@ -468,5 +514,18 @@ p.show {
   width: 220px;      /* tamanho do LowPolyAnimation */
   height: 220px;
 }
+
+.gradient-text::after {
+  content: '|';
+  animation: blink 1s step-start infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 
 </style>
