@@ -10,9 +10,9 @@
         <CurriculumPage :active="currentIndex === 1" />
       
 
-      <section class="section s3">
-        <h1>Seção 3</h1>
-      </section>
+  
+       <RecommendationPage :active="currentIndex === 2" />
+      
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
 import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
+import RecommendationPage from '@/components/sections/recommendation_page/RecommendationPage.vue'
 
 /**
  * ESTADO

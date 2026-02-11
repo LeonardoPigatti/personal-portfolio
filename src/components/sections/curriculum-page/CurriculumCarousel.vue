@@ -61,12 +61,13 @@ defineEmits(["next", "prev", "open-course"])
 
 <style scoped>
 .info-curriculum {
-  height: 810px;
+  height: 1000px;
   width: 1000px;
   border-radius: 10px;
   background-color: white;
   display: flex;
   flex-direction: column;
+  margin-top: 150px;
 }
 
 .content-wrapper {
@@ -89,6 +90,7 @@ defineEmits(["next", "prev", "open-course"])
   border-radius: 0 0 10px 10px;
   flex-shrink: 0;
 }
+
 
 /* BOTÃO PDF PEQUENO À ESQUERDA */
 .download-btn {
