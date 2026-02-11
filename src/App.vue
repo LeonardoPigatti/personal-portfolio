@@ -1,13 +1,13 @@
 <template>
   <div class="viewport">
     <!-- Navbar Componentizada -->
-  <Navbar 
-  :sections="sections" 
-  :currentIndex="currentIndex"
-  :backgroundColor="currentIndex % 2 === 0 ? 'white' : 'black'"
-  :textColor="currentIndex % 2 === 0 ? 'black' : 'white'"
-  @updateIndex="goTo"
-/>
+    <Navbar 
+      :sections="sections" 
+      :currentIndex="currentIndex"
+      :backgroundColor="currentIndex % 2 === 0 ? 'white' : 'black'"
+      :textColor="currentIndex % 2 === 0 ? 'black' : 'white'"
+      @updateIndex="goTo"
+    />
 
     <div
       class="container"
@@ -18,7 +18,12 @@
       <RecommendationPage :active="currentIndex === 2" />
     </div>
 
-        <Avatar src="/src/assets/tc.jpg" alt="Minha Foto"/>
+    <!-- Avatar com Chat integrado -->
+    <Avatar 
+      src="/src/assets/tc.jpg" 
+      alt="Minha Foto"
+      chatName="Thiago"
+    />
 
   </div>
 </template>
@@ -54,7 +59,6 @@ function goPrev() {
   setTimeout(() => (isAnimating = false), ANIMATION_TIME)
 }
 
-// Navegar para seção específica (via Navbar)
 function goTo(index) {
   if (isAnimating || index === currentIndex.value) return
   isAnimating = true
