@@ -1,11 +1,13 @@
 <template>
   <div class="viewport">
     <!-- Navbar Componentizada -->
-    <Navbar 
-      :sections="sections" 
-      :currentIndex="currentIndex"
-      @updateIndex="goTo"
-    />
+  <Navbar 
+  :sections="sections" 
+  :currentIndex="currentIndex"
+  :backgroundColor="currentIndex % 2 === 0 ? 'white' : 'black'"
+  :textColor="currentIndex % 2 === 0 ? 'black' : 'white'"
+  @updateIndex="goTo"
+/>
 
     <div
       class="container"
@@ -27,7 +29,7 @@ import RecommendationPage from '@/components/sections/recommendation_page/Recomm
 
 const currentIndex = ref(0)
 const totalSections = 3
-const sections = ['Welcome', 'Curriculum', 'Recommendations']
+const sections = ['WELCOME', 'CURRICULUM', 'RECOMMEDATIONS']
 
 let isAnimating = false
 const ANIMATION_TIME = 800
