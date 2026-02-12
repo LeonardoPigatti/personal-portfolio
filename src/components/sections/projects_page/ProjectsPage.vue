@@ -109,31 +109,40 @@ onMounted(async () => {
   padding: 0 12vw;
   position: relative;
   overflow: hidden;
-}
-
-.s1 {
   background: #ffffff;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+/* caixa principal */
 .black-box {
   width: 3500px;
   height: 1100px;
-  background: #000;
+
+  /* em vez de preto chapado */
+  background: #0f0f12;
+
   position: relative;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 28px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  /* mais elegante */
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+/* carrossel */
 .carousel {
-  width: 75%;
-  height: 75%;
+  width: 78%;
+  height: 78%;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 22px;
 }
 
+/* track */
 .track {
   display: flex;
   width: 100%;
@@ -141,60 +150,82 @@ onMounted(async () => {
   transition: transform 0.6s ease;
 }
 
+/* slide */
 .slide {
   min-width: 100%;
   height: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-}
-
-/* texto carregando */
-.loading-text {
-  color: white;
-  font-size: 28px;
-  font-weight: 600;
-  opacity: 0.9;
+  gap: 18px;
 }
 
 /* caption embaixo */
 .caption {
-  color: white;
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
   margin: 0;
   text-align: center;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+
+  /* mesmo tom do seu texto */
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* layout do slide (imagem + texto) */
+/* layout imagem + texto */
 .slide-layout {
   width: 100%;
   height: 85%;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  gap: 50px;
+
   transition: 0.5s ease;
 }
 
-/* área da imagem */
+/* imagem */
 .image-area {
   width: 100%;
   height: 100%;
-  transition: 0.5s ease;
+
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 22px;
   overflow: hidden;
+
+  transition: 0.5s ease;
+  position: relative;
+}
+
+/* overlay sutil com o gradient */
+.image-area::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(102, 126, 234, 0.08) 0%,
+    rgba(118, 75, 162, 0.06) 50%,
+    rgba(240, 147, 251, 0.05) 100%
+  );
+  opacity: 0;
+  transition: 0.4s ease;
+}
+
+.image-area:hover::after {
+  opacity: 1;
 }
 
 .image-area img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 20px;
+  border-radius: 22px;
 }
 
 /* texto direita */
@@ -203,10 +234,10 @@ onMounted(async () => {
   opacity: 0;
   overflow: hidden;
   transition: 0.5s ease;
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* QUANDO EXPANDIDO */
+/* expandido */
 .slide-layout.expanded {
   justify-content: flex-start;
 }
@@ -222,40 +253,72 @@ onMounted(async () => {
   padding-right: 10px;
 }
 
-/* texto */
+/* titulo do repo */
 .text-area h2 {
-  font-size: 40px;
-  margin: 0 0 20px 0;
+  margin: 0 0 18px 0;
+
+  font-size: 2.4rem;
   font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+
+  /* gradient igual seu tooltip */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease infinite;
 }
 
+/* descrição */
 .desc {
-  font-size: 22px;
+  font-size: 1.15rem;
   line-height: 1.6;
-  margin: 0 0 25px 0;
-  opacity: 0.9;
+  letter-spacing: 1px;
+  font-weight: 500;
+
+  margin: 0 0 22px 0;
+  color: rgba(255, 255, 255, 0.78);
+  text-transform: none;
 }
 
+/* meta infos */
 .meta p {
-  font-size: 20px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  letter-spacing: 1px;
+  font-weight: 600;
+
   margin: 10px 0;
-  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.72);
+  text-transform: uppercase;
 }
 
+/* link */
 .repo-link {
   display: inline-block;
-  margin-top: 30px;
-  font-size: 22px;
-  font-weight: 700;
-  color: white;
+  margin-top: 28px;
+
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+
   text-decoration: none;
-  opacity: 0.9;
-  transition: 0.2s;
+
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 3s ease infinite;
+
+  transition: 0.2s ease;
 }
 
 .repo-link:hover {
-  opacity: 1;
-  text-decoration: underline;
+  filter: brightness(1.2);
 }
 
 /* botões */
@@ -263,23 +326,30 @@ onMounted(async () => {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 70px;
-  height: 70px;
+
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   border: none;
+
   cursor: pointer;
-  font-size: 45px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  font-size: 48px;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.2s;
+
+  transition: 0.25s ease;
   z-index: 10;
 }
 
 .nav:hover {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .left {
@@ -289,4 +359,24 @@ onMounted(async () => {
 .right {
   right: 30px;
 }
+
+/* loading */
+.loading-text {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
 </style>
+
