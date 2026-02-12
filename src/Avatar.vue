@@ -492,23 +492,29 @@ function sendTypedMessage() {
 </script>
 
 <style scoped>
-/* ===== AVATAR ===== */
+/* ===== AVATAR (2x) ===== */
 .avatar {
   position: fixed;
   bottom: 80px;
   right: 80px;
-  width: 150px;
-  height: 150px;
+
+  width: 165px;
+  height: 165px;
+
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 3px solid white;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
   cursor: pointer;
   transition: transform 0.2s ease;
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.avatar:hover {
+  transform: scale(1.03);
 }
 
 .avatar img {
@@ -544,17 +550,20 @@ function sendTypedMessage() {
   100% { background-position: 0% 50%; }
 }
 
-/* ===== CHAT CONTAINER ===== */
+/* ===== CHAT CONTAINER (2x) ===== */
 .chat-container {
   position: fixed;
   bottom: 80px;
   right: 80px;
-  width: 420px;
-  height: 620px;
+
+  width: 840px;
+  height: 1240px;
+
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-radius: 28px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
   z-index: 1000;
+
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -566,29 +575,39 @@ function sendTypedMessage() {
   to { transform: translateY(0); opacity: 1; }
 }
 
-/* ===== CHAT HEADER ===== */
+/* ===== CHAT HEADER (2x) ===== */
 .chat-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 16px;
+
+  padding: 26px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .chat-name {
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: 800;
+  font-size: 28px;
+  letter-spacing: 0.2px;
 }
 
 .close-btn {
   background: transparent;
   border: none;
   color: white;
-  font-size: 22px;
+
+  font-size: 34px;
+
   cursor: pointer;
-  width: 44px;
-  height: 44px;
+  width: 72px;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border-radius: 50%;
   transition: background 0.2s;
 }
@@ -597,31 +616,32 @@ function sendTypedMessage() {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* ===== CHAT BODY ===== */
+/* ===== CHAT BODY (2x) ===== */
 .chat-body {
   flex: 1;
-  padding: 16px;
+  padding: 26px;
   overflow-y: auto;
   background: #f5f5f5;
 }
 
 .chat-message {
-  margin-bottom: 12px;
-  max-width: 80%;
+  margin-bottom: 18px;
+  max-width: 82%;
 }
 
 .chat-message p {
-  padding: 10px 14px;
-  border-radius: 16px;
+  padding: 18px 22px;
+  border-radius: 22px;
   margin: 0;
-  font-size: 14px;
-  line-height: 1.4;
+
+  font-size: 22px;
+  line-height: 1.45;
 }
 
 .chat-message.received p {
   background: white;
   color: #333;
-  border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 6px;
 }
 
 .chat-message.sent {
@@ -631,47 +651,54 @@ function sendTypedMessage() {
 .chat-message.sent p {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 6px;
 }
 
-/* ===== OPÇÕES ===== */
+/* ===== OPÇÕES (2x) ===== */
 .options-area {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 14px;
+  gap: 12px;
+  margin-top: 18px;
 }
 
 .option-btn {
   background: white;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
+
   border-radius: 999px;
-  padding: 10px 14px;
-  font-size: 13px;
+  padding: 16px 20px;
+
+  font-size: 20px;
   cursor: pointer;
+
   transition: transform 0.15s ease, border 0.15s ease;
 }
 
 .option-btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   border-color: #667eea;
 }
 
-/* ===== CHAT FOOTER ===== */
+/* ===== CHAT FOOTER (2x) ===== */
 .chat-footer {
-  padding: 14px;
+  padding: 22px;
   background: white;
-  border-top: 1px solid #e0e0e0;
+  border-top: 2px solid #e0e0e0;
+
   display: flex;
-  gap: 8px;
+  gap: 12px;
 }
 
 .chat-input {
   flex: 1;
-  padding: 10px 14px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  font-size: 14px;
+
+  padding: 18px 22px;
+
+  border: 2px solid #ddd;
+  border-radius: 999px;
+
+  font-size: 22px;
   outline: none;
 }
 
@@ -680,46 +707,111 @@ function sendTypedMessage() {
 }
 
 .send-btn {
-  width: 44px;
-  height: 44px;
+  width: 72px;
+  height: 72px;
+
   border-radius: 50%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
   border: none;
   color: white;
-  font-size: 16px;
+
+  font-size: 26px;
   cursor: pointer;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transition: transform 0.2s ease;
 }
 
-/* Scrollbar */
+.send-btn:hover {
+  transform: scale(1.06);
+}
+
+.send-btn:active {
+  transform: scale(0.95);
+}
+
+/* ===== Scrollbar (um pouco maior) ===== */
 .chat-body::-webkit-scrollbar {
-  width: 10px;
+  width: 14px;
 }
+
 .chat-body::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 3px;
+  background: #c9c9c9;
+  border-radius: 6px;
 }
+
 .chat-body::-webkit-scrollbar-thumb:hover {
   background: #999;
 }
 
-/* RESPONSIVO */
+/* =========================================
+   RESPONSIVO INTELIGENTE (pra não quebrar)
+   ========================================= */
+
+/* Se a altura da tela for menor, limita o chat */
+@media (max-height: 1100px) {
+  .chat-container {
+    height: 82vh;
+  }
+}
+
+/* Se a largura da tela for menor, reduz automaticamente */
+@media (max-width: 1100px) {
+  .chat-container {
+    width: 92vw;
+    right: 20px;
+    left: 20px;
+  }
+}
+
+/* Mobile */
 @media (max-width: 600px) {
   .chat-container {
     right: 12px;
     left: 12px;
     width: auto;
-    height: 70vh;
+
+    height: 75vh;
     bottom: 12px;
+
+    border-radius: 20px;
   }
 
   .avatar {
     right: 16px;
     bottom: 16px;
-    width: 90px;
-    height: 90px;
+
+    width: 110px;
+    height: 110px;
+  }
+
+  .chat-name {
+    font-size: 20px;
+  }
+
+  .chat-message p {
+    font-size: 18px;
+  }
+
+  .option-btn {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+
+  .chat-input {
+    font-size: 18px;
+    padding: 14px 16px;
+  }
+
+  .send-btn {
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
   }
 }
 </style>
+
