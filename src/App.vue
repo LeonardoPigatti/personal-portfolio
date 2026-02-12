@@ -9,13 +9,15 @@
       @updateIndex="goTo"
     />
 
-    <div
-      class="container"
+   <div
+  class="container"
       :style="{ transform: translateY }"
-    >
+>
       <WelcomePage :active="currentIndex === 0" />
       <CurriculumPage :active="currentIndex === 1" />
       <RecommendationPage :active="currentIndex === 2" />
+      <ProjectsPage :active="currentIndex === 3" /> <!-- NOVA SEÇÃO -->
+      <SocialMedia :active="currentIndex === 4" /> <!-- NOVA SEÇÃO -->
     </div>
 
     <!-- Avatar com Chat integrado -->
@@ -35,10 +37,14 @@ import Avatar from './Avatar.vue'
 import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
 import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
 import RecommendationPage from '@/components/sections/recommendation_page/RecommendationPage.vue'
+import ProjectsPage from '@/components/sections/projects_page/ProjectsPage.vue'
+import SocialMedia from '@/components/sections/social-media-page/SocialMedia.vue'
+
+
 
 const currentIndex = ref(0)
-const totalSections = 3
-const sections = ['WELCOME', 'CURRICULUM', 'RECOMMEDATIONS']
+const totalSections = 5
+const sections = ['WELCOME', 'CURRICULUM', 'RECOMMENDATIONS', 'FOURTH', 'SOCIAL']
 
 let isAnimating = false
 const ANIMATION_TIME = 800
