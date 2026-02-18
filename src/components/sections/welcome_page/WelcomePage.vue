@@ -1,17 +1,41 @@
 <template>
   <section class="section s1">
     <div class="content">
+      <!-- TAG -->
+      <p class="tag" :class="{ show: isVisible }">
+        UX Designer & Developer
+      </p>
+
+      <!-- TITULO -->
       <h1 :class="{ show: isVisible }">
-  I design and build<br />
-  <span class="gradient-text">{{ currentText }}</span>
-</h1>
-  
+        I design and build<br />
+        <span class="gradient-text">{{ currentText }}</span>
+      </h1>
+
+      <!-- BIO -->
+      <p class="bio" :class="{ show: isVisible }">
+        Focused on crafting clean interfaces, smooth experiences and products
+        that feel fast and premium.
+      </p>
+
+      <!-- BOTÕES -->
+      <div class="actions" :class="{ show: isVisible }">
+        <button class="btn primary">Ver Projetos</button>
+        <button class="btn ghost">Baixar CV</button>
+        <button class="btn outline">Fale Comigo</button>
+      </div>
+
       <!-- Canvas para partículas conectadas -->
       <canvas ref="canvasRef" class="particle-canvas"></canvas>
 
       <!-- Partículas flutuantes no fundo -->
       <div class="particles">
-        <span v-for="i in 20" :key="i" class="particle" :style="getParticleStyle(i)"></span>
+        <span
+          v-for="i in 20"
+          :key="i"
+          class="particle"
+          :style="getParticleStyle(i)"
+        ></span>
       </div>
 
       <!-- Efeito de grade no fundo -->
@@ -32,16 +56,16 @@
         <div class="shape shape-4"></div>
       </div>
     </div>
-      <div class="lowpoly-wrapper">
-  <GeometricCanvas />
-</div>
 
+    <div class="lowpoly-wrapper">
+      <GeometricCanvas />
+    </div>
   </section>
 </template>
 
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from 'vue'
-import GeometricCanvas from "/src/components/sections/welcome_page/GeometricCanvas.vue";
+import GeometricCanvas from '/src/components/sections/welcome_page/GeometricCanvas.vue'
 
 const phrases = [
   'digital experiences',
@@ -50,7 +74,7 @@ const phrases = [
   'creative designs'
 ]
 
-const currentText = ref('')   // texto que aparece no h1
+const currentText = ref('')
 let phraseIndex = 0
 let charIndex = 0
 let typingTimeout = null
@@ -60,32 +84,26 @@ const typeEffect = () => {
   const phrase = phrases[phraseIndex]
 
   if (!deleting) {
-    // digitando
     currentText.value = phrase.slice(0, charIndex + 1)
     charIndex++
 
     if (charIndex === phrase.length) {
-      // terminou de digitar, espera 2s e começa apagar
       deleting = true
       typingTimeout = setTimeout(typeEffect, 1500)
       return
     }
   } else {
-    // apagando
     currentText.value = phrase.slice(0, charIndex - 1)
     charIndex--
 
     if (charIndex === 0) {
-      // terminou de apagar, próxima frase
       deleting = false
       phraseIndex = (phraseIndex + 1) % phrases.length
     }
   }
 
-  typingTimeout = setTimeout(typeEffect, deleting ? 50 : 100) // mais rápido apagando
+  typingTimeout = setTimeout(typeEffect, deleting ? 50 : 100)
 }
-
-
 
 const props = defineProps({
   active: {
@@ -136,10 +154,12 @@ const initCanvas = () => {
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
 
-  // Criar partículas
   particles = []
-  const particleCount = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000))
-  
+  const particleCount = Math.min(
+    80,
+    Math.floor((canvas.width * canvas.height) / 15000)
+  )
+
   for (let i = 0; i < particleCount; i++) {
     particles.push(new Particle(canvas))
   }
@@ -147,21 +167,21 @@ const initCanvas = () => {
   const animate = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    // Atualizar e desenhar partículas
-    particles.forEach(particle => {
+    particles.forEach((particle) => {
       particle.update()
       particle.draw(ctx)
     })
 
-    // Conectar partículas próximas
     particles.forEach((particleA, indexA) => {
-      particles.slice(indexA + 1).forEach(particleB => {
+      particles.slice(indexA + 1).forEach((particleB) => {
         const dx = particleA.x - particleB.x
         const dy = particleA.y - particleB.y
         const distance = Math.sqrt(dx * dx + dy * dy)
 
         if (distance < 120) {
-          ctx.strokeStyle = `rgba(102, 126, 234, ${0.15 * (1 - distance / 120)})`
+          ctx.strokeStyle = `rgba(102, 126, 234, ${
+            0.15 * (1 - distance / 120)
+          })`
           ctx.lineWidth = 1
           ctx.beginPath()
           ctx.moveTo(particleA.x, particleA.y)
@@ -184,12 +204,12 @@ const handleResize = () => {
   }
 }
 
-const getParticleStyle = (index) => {
+const getParticleStyle = () => {
   const randomX = Math.random() * 100
   const randomY = Math.random() * 100
   const randomDelay = Math.random() * 5
   const randomDuration = 10 + Math.random() * 10
-  
+
   return {
     left: `${randomX}%`,
     top: `${randomY}%`,
@@ -225,9 +245,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  if (animationId) {
-    cancelAnimationFrame(animationId)
-  }
+  if (animationId) cancelAnimationFrame(animationId)
   window.removeEventListener('resize', handleResize)
 })
 </script>
@@ -263,8 +281,7 @@ onUnmounted(() => {
 .grid-bg {
   position: absolute;
   inset: 0;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
   animation: gridMove 20s linear infinite;
@@ -297,7 +314,8 @@ onUnmounted(() => {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) translateX(0);
     opacity: 0;
   }
@@ -369,7 +387,8 @@ onUnmounted(() => {
 }
 
 @keyframes floatShape {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) translateX(0) rotate(0deg);
   }
   25% {
@@ -428,7 +447,8 @@ onUnmounted(() => {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1) translate(0, 0);
     opacity: 0.15;
   }
@@ -440,15 +460,15 @@ onUnmounted(() => {
 
 /* Título com efeito gradiente */
 h1 {
-  font-size: clamp(80px, 8vw, 100px);
-  line-height: 1.0;
-  letter-spacing: -0.02em;
+  font-size: clamp(90px, 9vw, 150px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
   color: white;
   font-family: sans-serif;
-  font-weight: 800;
+  font-weight: 900;
 
   opacity: 0;
-  transform: translateX(-100px);
+  transform: translateX(-120px);
   transition: transform 1s ease, opacity 1s ease;
 }
 
@@ -467,29 +487,13 @@ h1.show {
 }
 
 @keyframes gradientShift {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {
     background-position: 100% 50%;
   }
-}
-
-/* Parágrafo */
-p {
-  margin-top: 24px;
-  font-size: 18px;
-  line-height: 1.6;
-  color: #cbd5e1;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease;
-  transition-delay: 0.3s;
-}
-
-p.show {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .s1 {
@@ -503,18 +507,20 @@ p.show {
   }
 }
 
+/* LOWPOLY - mantido igual ao seu */
 .lowpoly-wrapper {
   position: absolute;
-  top: 25%;          /* centraliza verticalmente */
-  right:40vw;       /* distância do lado direito */
-  transform: translateY(-50%); /* ajuste perfeito vertical */
-  pointer-events: none; /* não interfere em cliques */
-  z-index: 2;        /* acima do fundo mas abaixo do texto */
-  
-  width: 220px;      /* tamanho do LowPolyAnimation */
+  top: 25%;
+  right: 40vw;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 2;
+
+  width: 220px;
   height: 220px;
 }
 
+/* Cursor piscando */
 .gradient-text::after {
   content: '|';
   animation: blink 1s step-start infinite;
@@ -527,5 +533,107 @@ p.show {
   }
 }
 
+/* ======== NOVO (LADO ESQUERDO) ======== */
 
+/* Tag acima do título */
+.tag {
+  font-size: 20px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 26px;
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.8s ease;
+}
+
+
+.tag.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bio abaixo do h1 */
+.bio {
+  margin-top: 26px;
+  max-width: 650px;
+  font-size: 24px;
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.8);
+
+  opacity: 0;
+  transform: translateY(18px);
+  transition: all 0.8s ease;
+  transition-delay: 0.2s;
+}
+
+
+.bio.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Botões */
+.actions {
+  margin-top: 34px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  opacity: 0;
+  transform: translateY(18px);
+  transition: all 0.8s ease;
+  transition-delay: 0.3s;
+}
+
+
+.actions.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn {
+  padding: 16px 26px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  border: none;
+}
+
+
+.btn.primary {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: white;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+}
+
+.btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 26px rgba(168, 85, 247, 0.35);
+}
+
+.btn.ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn.ghost:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateY(-2px);
+}
+
+.btn.outline {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+}
+
+.btn.outline:hover {
+  background: rgba(168, 85, 247, 0.1);
+  transform: translateY(-2px);
+}
 </style>
