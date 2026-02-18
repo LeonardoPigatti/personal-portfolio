@@ -42,7 +42,7 @@
             </div>
 
             <!-- NOME EMBAIXO -->
-            <p class="caption">{{ repo.name }}</p>
+            <p v-if="!expanded" class="caption">{{ repo.name }}</p>
           </div>
         </div>
       </div>
@@ -248,9 +248,11 @@ onMounted(async () => {
 }
 
 .slide-layout.expanded .text-area {
-  width: 45%;
+  width: 65%;
   opacity: 1;
   padding-right: 10px;
+  align-self: flex-start;
+  padding-top: 30px; /* ajusta aqui */
 }
 
 /* titulo do repo */

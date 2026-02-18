@@ -252,6 +252,48 @@ const downloadAllAsZip = async () => {
   animation: gradientShift 3s ease infinite;
 }
 
+.tile {
+  aspect-ratio: 1 / 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+
+  background: #f6f7fb;
+
+  border: 1px solid #d1d5db;
+  border-radius: 16px;
+
+  padding: 1px; /* ESSENCIAL pra borda gradiente aparecer */
+
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+
+/* hover com borda gradiente */
+.tile:hover {
+  border: 1px solid transparent;
+
+  background:
+    linear-gradient(#f6f7fb, #f6f7fb) padding-box,
+    linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) border-box;
+
+  background-size: 100% 100%, 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+
+/* animação do gradiente */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%, 0% 50%; }
+  50% { background-position: 0% 50%, 100% 50%; }
+  100% { background-position: 0% 50%, 0% 50%; }
+}
+
+
 .gallery-close {
   border: none;
   background: transparent;
