@@ -21,6 +21,9 @@
       :course="selectedCourse"
       @close="closeGallery"
     />
+
+      <div class="purple-reflection" />
+
   </section>
 </template>
 

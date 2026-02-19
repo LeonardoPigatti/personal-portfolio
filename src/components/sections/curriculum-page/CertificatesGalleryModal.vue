@@ -15,13 +15,15 @@
             </button>
 
             <button
-              v-if="course?.verifyUrl"
-              class="gallery-download secondary"
-              @click="openVerifyLink"
-              title="Open credential verification"
-            >
-              🔎 Verify Credential
-            </button>
+  v-if="course?.verifyUrl"
+  class="gallery-download secondary"
+  @click="openVerifyLink"
+  :disabled="!course?.certificates?.length"
+  title="Open credential verification"
+>
+  🔎 Verify Credential
+</button>
+
 
             <button
               class="gallery-download secondary"
@@ -52,7 +54,8 @@
           <button class="gallery-nav right" @click="nextCertificate">›</button>
         </div>
 
-        <div v-else class="gallery-empty">No certificates uploaded yet.</div>
+        <div v-else class="gallery-empty">O curso encontra-se em andamento; o certificado será emitido ao seu término.
+</div>
 
         <div v-if="course?.certificates?.length > 1" class="gallery-thumbs">
           <img

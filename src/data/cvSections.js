@@ -125,16 +125,26 @@ export const cvSections = [
     ],
   },
 
-  {
-    type: "languages",
-    title: "Languages",
-    content: "",
-    subtitle: "Technological Languages",
-    subcontent: ["TESTE 1", "TESTE 2"],
-    items: [
-      { language: "Portuguese", level: "Native" },
-      { language: "English", level: "Advanced (C1)" },
-      { language: "Spanish", level: "Intermediate (B2)" },
-    ],
-  },
+{
+  type: "languages",
+  title: "Languages",
+  content: "",
+  subtitle: "Technological Languages",
+  subcontent: [
+    "Laravel",
+    "Node.js",
+    "Python",
+    "APIs REST",
+    "GraphQL",
+    "MySQL",
+    "SQL Server",
+    "MongoDB"
+  ],
+  items: [
+    { language: "Portuguese", level: "Native" },
+    { language: "English", level: "Advanced (C1)" },
+    { language: "Spanish", level: "Intermediate (B2)" },
+  ],
+}
+
 ]

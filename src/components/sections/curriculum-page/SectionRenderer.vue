@@ -34,7 +34,12 @@
       <h1 class="leo" style="white-space: nowrap;" :class="{ show: isVisible }">
         {{ section.subtitle }}
       </h1>
-
+  <!-- Tecnologias / skills -->
+  <ul v-if="section.subcontent?.length" class="skills-list">
+    <li v-for="(skill, index) in section.subcontent" :key="index" class="skill-item">
+      {{ skill }}
+    </li>
+  </ul>
       <!-- SUMMARY -->
       <ul v-if="section.type === 'summary'" class="skills-list">
       <li
