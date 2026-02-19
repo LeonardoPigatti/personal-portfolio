@@ -42,9 +42,10 @@ defineProps({
   padding: 12px 14px;
   border-radius: 999px;
 
-  background: black;
+  /* Gradiente sutil: preto com toque roxo */
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a0a 100%);
+  
   border: 1px solid rgba(255, 255, 255, 0.07);
-
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
@@ -54,6 +55,7 @@ defineProps({
 
   transition: 0.3s ease;
 }
+
 
 /* Container */
 .nav-inner {
@@ -77,12 +79,12 @@ defineProps({
   border: none;
   cursor: pointer;
 
-  padding: 10px 14px;
+  padding: 14px 18px;
   border-radius: 999px;
 
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-weight: 650;
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: 0.02em;
 
   color: rgba(255, 255, 255, 0.72);
@@ -165,12 +167,12 @@ defineProps({
 @media (max-width: 768px) {
   .navbar {
     top: 16px;
-    padding: 10px 12px;
+    padding: 14px 16px;
   }
 
   .navbar button {
-    font-size: 13px;
-    padding: 9px 12px;
+    font-size: 18px;
+    padding: 13px 16px;
   }
 }
 </style>

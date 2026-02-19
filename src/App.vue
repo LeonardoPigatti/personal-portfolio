@@ -43,7 +43,7 @@ import SocialMedia from '@/components/sections/social-media-page/SocialMedia.vue
 
 const currentIndex = ref(0)
 const totalSections = 5
-const sections = ['WELCOME', 'CURRICULUM', 'RECOMMENDATIONS', 'FOURTH', 'SOCIAL']
+const sections = ['BOAS-VINDAS', 'SOBRE MIM', 'REFERÊNCIAS', 'PROJETOS', 'CONECTE-SE']
 
 let isAnimating = false
 const ANIMATION_TIME = 800
