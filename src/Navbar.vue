@@ -42,7 +42,7 @@ defineProps({
   padding: 12px 14px;
   border-radius: 999px;
 
-  background: rgba(255, 255, 255, 0.035);
+  background: black;
   border: 1px solid rgba(255, 255, 255, 0.07);
 
   backdrop-filter: blur(18px);
@@ -73,7 +73,7 @@ defineProps({
 /* Botões */
 .navbar button {
   position: relative;
-  background: transparent;
+  background: black;
   border: none;
   cursor: pointer;
 
