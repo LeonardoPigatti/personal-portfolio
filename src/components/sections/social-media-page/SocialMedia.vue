@@ -1,5 +1,15 @@
 <template>
   <section class="section social">
+    <!-- shapes animadas -->
+<!-- shapes animadas -->
+<div
+  class="shape"
+  v-for="n in 400"
+  :key="n"
+></div>
+
+
+
     <div class="wrap">
       <!-- ===== header ===== -->
       <header class="header">
@@ -158,14 +168,14 @@ const hoverTile = ref(null)
 const activeTile = ref(null)
 
 const tileLinks = {
-  linkedin: "https://www.linkedin.com/in/seu-perfil",
+  linkedin: "https://www.linkedin.com/in/leonardo-pigatti-6bb369206/",
   instagram: "https://www.instagram.com/seu-perfil",
-  whatsapp: "https://wa.me/seunumerodetelefone",
+  whatsapp: "https://wa.me/19998946859",
   youtube: "https://www.youtube.com/seu-canal",
   upwork: "https://www.upwork.com/freelancers/~seuperfil",
-  beecrowd: "https://www.beecrowd.com.br/judge/users/seuperfil",
-  github: "https://github.com/seuperfil",
-  email: "mailto:seuemail@exemplo.com"
+  beecrowd: "https://judge.beecrowd.com/pt/profile/1210654",
+  github: "https://github.com/LeonardoPigatti",
+  email: "mailto:leonardopigatti@yahoo.com.br"
 };
 
 
@@ -237,14 +247,39 @@ function selectTile(id) {
 <style scoped>
 /* ===== mantém todo o seu CSS original ===== */
 .social {
+  position: relative;
   min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
   padding: 60px 10vw;
-  background: #fefefe;
+  overflow: hidden; /* para esconder formas que saem da tela */
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
+
+/* formas geométricas animadas */
+.shape {
+  position: absolute;
+  bottom: -50px; /* começa fora da tela */
+  width: 30px;
+  height: 30px;
+  opacity: 0.6;
+  border-radius: 50%; /* circulos, você pode trocar por quadrados ou triângulos com clip-path */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  animation: floatUp linear infinite;
+}
+
+/* diferentes tamanhos e durações */
+.shape:nth-child(1) { left: 10%; width: 20px; height: 20px; animation-duration: 12s; animation-delay: 0s; }
+.shape:nth-child(2) { left: 30%; width: 25px; height: 25px; animation-duration: 16s; animation-delay: 3s; }
+.shape:nth-child(3) { left: 50%; width: 15px; height: 15px; animation-duration: 10s; animation-delay: 1s; }
+.shape:nth-child(4) { left: 70%; width: 30px; height: 30px; animation-duration: 20s; animation-delay: 5s; }
+.shape:nth-child(5) { left: 90%; width: 18px; height: 18px; animation-duration: 14s; animation-delay: 2s; }
+
+/* animação subindo */
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+}
+
 
 .wrap { 
   width: 100%; 
