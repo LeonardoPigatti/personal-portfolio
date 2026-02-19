@@ -1,187 +1,297 @@
 <template>
   <section class="section s1">
-    <!-- Vídeo de fundo -->
-    <video autoplay muted loop class="background-video">
-      <source :src="videoSrc" type="video/mp4" />
-      Seu navegador não suporta vídeo.
+    <!-- Vídeo -->
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="@/assets/videos/institutional-tech-culture.mp4" type="video/mp4" />
     </video>
 
-    <!-- Overlay roxa -->
+    <!-- Overlay -->
     <div class="overlay"></div>
 
-    <!-- Conteúdo central -->
-    <div class="content-wrapper">
-      <!-- Frase de destaque -->
-      <h2 class="highlight-text">
-        O que nossos clientes e colegas dizem sobre nós
-      </h2>
+    <!-- Conteúdo -->
+    <div class="black-box">
+      <button class="nav left" @click="prev">‹</button>
 
-      <!-- Cards de depoimentos -->
-      <div class="cards-container">
+      <div class="carousel">
         <div
-          v-for="(testimonial, index) in testimonials"
-          :key="index"
-          class="testimonial-card"
+          class="track"
+          :style="{ transform: `translateX(-${current * 100}%)` }"
         >
-          <div class="avatar">
-            <span v-if="!testimonial.photo">{{ getInitials(testimonial.author) }}</span>
-            <img v-else :src="testimonial.photo" alt="Foto do autor" />
+          <div v-if="loading" class="slide">
+            <p class="loading-text">Carregando projetos do GitHub...</p>
           </div>
-          <div class="card-content">
-            <p class="card-text">"{{ testimonial.shortMessage }}"</p>
-            <p class="card-author">{{ testimonial.author }}</p>
-            <p class="card-role">{{ testimonial.role }}</p>
+
+          <div
+            v-else
+            class="slide"
+            v-for="repo in repos"
+            :key="repo.id"
+          >
+            <div class="slide-layout" :class="{ expanded }">
+              <div class="image-area" @click="toggleExpanded">
+                <img :src="repo.image" :alt="repo.name" />
+              </div>
+
+              <div class="text-area">
+                <h2>{{ repo.name }}</h2>
+
+                <p class="desc">
+                  {{ repo.description || "Sem descrição ainda." }}
+                </p>
+
+                <div class="meta">
+                  <p><b>Linguagem:</b> {{ repo.language || "Não definida" }}</p>
+                  <p><b>Stars:</b> ⭐ {{ repo.stargazers_count }}</p>
+                  <p><b>Forks:</b> 🍴 {{ repo.forks_count }}</p>
+                </div>
+
+                <a
+                  class="repo-link"
+                  :href="repo.html_url"
+                  target="_blank"
+                >
+                  Ver no GitHub →
+                </a>
+              </div>
+            </div>
+
+            <p v-if="!expanded" class="caption">{{ repo.name }}</p>
           </div>
         </div>
       </div>
+
+      <button class="nav right" @click="next">›</button>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import videoFile from '@/assets/videos/institutional-tech-culture.mp4'
+import { ref, onMounted, watch } from "vue"
 
-const videoSrc = videoFile
+const repos = ref([])
+const loading = ref(true)
+const current = ref(0)
+const expanded = ref(false)
 
-const testimonials = [
-  {
-    author: 'William Hideki Nishijima Yohei',
-    role: 'AI Engineer | Full-Stack Developer',
-    shortMessage: 'Leonardo é extremamente detalhista e garante alta qualidade em tudo que faz.',
-    photo: null // coloque link de foto se tiver, ou null para iniciais
-  },
-  {
-    author: 'Maria Silva',
-    role: 'Product Manager',
-    shortMessage: 'Trabalhar com Leonardo foi incrível; sempre proativo e colaborativo.',
-    photo: null
-  },
-  {
-    author: 'Carlos Oliveira',
-    role: 'UX Designer',
-    shortMessage: 'Recomendo Leonardo para qualquer projeto que exija dedicação e precisão.',
-    photo: null
-  }
-]
-
-const getInitials = (name) => {
-  return name
-    .split(' ')
-    .map(n => n[0])
-    .join('')
-    .toUpperCase()
+const next = () => {
+  if (!repos.value.length) return
+  current.value = (current.value + 1) % repos.value.length
 }
+
+const prev = () => {
+  if (!repos.value.length) return
+  current.value =
+    (current.value - 1 + repos.value.length) % repos.value.length
+}
+
+const toggleExpanded = () => {
+  expanded.value = !expanded.value
+}
+
+watch(current, () => {
+  expanded.value = false
+})
+
+onMounted(async () => {
+  try {
+    const res = await fetch(
+      "https://api.github.com/users/LeonardoPigatti/repos"
+    )
+    const data = await res.json()
+
+    const sorted = data
+      .filter(r => !r.fork)
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+
+    repos.value = sorted.map(repo => ({
+      ...repo,
+      image: `https://picsum.photos/seed/${repo.name}/1600/900`
+    }))
+  } catch (err) {
+    console.error(err)
+  } finally {
+    loading.value = false
+  }
+})
 </script>
 
 <style scoped>
 .section {
   position: relative;
-  width: 100%;
-  min-height: 100vh;
-  padding: 4rem 2rem;
+  height: 100vh;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* VIDEO */
 .background-video {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: -3;
+  filter: brightness(0.55) contrast(1.1) saturate(1.15);
 }
 
+/* OVERLAY */
 .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
   opacity: 0.3;
   z-index: -2;
 }
 
-.content-wrapper {
+/* BLACK BOX */
+.black-box {
   position: relative;
-  z-index: 1;
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-}
+  z-index: 2;
+  width: 85%;
+  max-width: 1400px;
+  height: 75vh;
 
-.highlight-text {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 3rem;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
+  background: rgba(15, 15, 18, 0.92);
+  backdrop-filter: blur(14px);
+  border-radius: 28px;
 
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-}
-
-.testimonial-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  border-radius: 1rem;
-  padding: 2rem;
-  max-width: 300px;
-  flex: 1 1 250px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: #764ba2;
-  color: #fff;
-  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
-  margin: 0 auto 1rem auto;
-  overflow: hidden;
+
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.avatar img {
+/* CAROUSEL */
+.carousel {
+  width: 85%;
+  height: 80%;
+  overflow: hidden;
+  border-radius: 22px;
+}
+
+.track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s ease;
+}
+
+.slide {
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.slide-layout {
+  width: 100%;
+  height: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  transition: 0.5s ease;
+}
+
+/* IMAGE */
+.image-area {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image-area img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.card-content {
-  color: #fff;
+/* EXPANDED */
+.slide-layout.expanded {
+  justify-content: flex-start;
 }
 
-.card-text {
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  line-height: 1.5;
+.slide-layout.expanded .image-area {
+  width: 55%;
 }
 
-.card-author {
-  font-weight: bold;
-  margin-bottom: 0.3rem;
+.slide-layout.expanded .text-area {
+  width: 45%;
+  opacity: 1;
 }
 
-.card-role {
-  font-style: italic;
-  font-size: 0.85rem;
-  color: #ddd;
+/* TEXT */
+.text-area {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: 0.5s ease;
+  color: white;
+}
+
+.text-area h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.desc {
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.meta p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+}
+
+.repo-link {
+  display: inline-block;
+  margin-top: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.caption {
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* NAV */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  font-size: 36px;
+  cursor: pointer;
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.left { left: 20px; }
+.right { right: 20px; }
+
+.loading-text {
+  color: white;
+  font-weight: 600;
 }
 </style>

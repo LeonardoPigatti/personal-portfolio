@@ -16,8 +16,7 @@
       <WelcomePage :active="currentIndex === 0" />
       <CurriculumPage :active="currentIndex === 1" />
       <RecommendationPage :active="currentIndex === 2" />
-      <ProjectsPage :active="currentIndex === 3" /> <!-- NOVA SEÇÃO -->
-      <SocialMedia :active="currentIndex === 4" /> <!-- NOVA SEÇÃO -->
+      <SocialMedia :active="currentIndex === 3" /> <!-- NOVA SEÇÃO -->
     </div>
 
     <!-- Avatar com Chat integrado -->
@@ -36,14 +35,13 @@ import Avatar from './Avatar.vue'
 import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
 import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
 import RecommendationPage from '@/components/sections/recommendation_page/RecommendationPage.vue'
-import ProjectsPage from '@/components/sections/projects_page/ProjectsPage.vue'
 import SocialMedia from '@/components/sections/social-media-page/SocialMedia.vue'
 
 
 
 const currentIndex = ref(0)
 const totalSections = 5
-const sections = ['BOAS-VINDAS', 'SOBRE MIM', 'REFERÊNCIAS', 'PROJETOS', 'CONECTE-SE']
+const sections = ['BOAS-VINDAS', 'SOBRE MIM', 'PROJETOS', 'CONECTE-SE']
 
 let isAnimating = false
 const ANIMATION_TIME = 800
