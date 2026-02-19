@@ -1,5 +1,6 @@
 <template>
   <section class="section s1">
+    <!-- Vídeo de fundo -->
     <video autoplay muted loop class="background-video">
       <source :src="videoSrc" type="video/mp4" />
       Seu navegador não suporta vídeo.
@@ -8,49 +9,77 @@
     <!-- Overlay roxa -->
     <div class="overlay"></div>
 
-    <!-- Div cinza central para recomendações -->
-    <div class="middle-gray">
-      <div class="testimonial">
-        <p class="text">"{{ testimonials[currentIndex].message }}"</p>
-        <p class="author">- {{ testimonials[currentIndex].author }}</p>
-        <p class="role">{{ testimonials[currentIndex].role }}</p>
+    <!-- Conteúdo central -->
+    <div class="content-wrapper">
+      <!-- Frase de destaque -->
+      <h2 class="highlight-text">
+        O que nossos clientes e colegas dizem sobre nós
+      </h2>
+
+      <!-- Cards de depoimentos -->
+      <div class="cards-container">
+        <div
+          v-for="(testimonial, index) in testimonials"
+          :key="index"
+          class="testimonial-card"
+        >
+          <div class="avatar">
+            <span v-if="!testimonial.photo">{{ getInitials(testimonial.author) }}</span>
+            <img v-else :src="testimonial.photo" alt="Foto do autor" />
+          </div>
+          <div class="card-content">
+            <p class="card-text">"{{ testimonial.shortMessage }}"</p>
+            <p class="card-author">{{ testimonial.author }}</p>
+            <p class="card-role">{{ testimonial.role }}</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import videoFile from '@/assets/videos/institutional-tech-culture.mp4'
 
 const videoSrc = videoFile
 
-// Lista de recomendações
 const testimonials = [
   {
-    message: `Leonardo demonstrou grande competência como Quality Assurance Specialist durante seu tempo na Yeb Inteligência de Mercado. Ele tinha um olhar apurado para detalhes e realizava testes rigorosos que asseguravam a alta qualidade dos nossos projetos. Sempre proativo e colaborativo, Leonardo também contribuía para a melhoria contínua dos processos, garantindo entregas consistentes e sem falhas. Recomendo Leonardo para qualquer posição que exija dedicação, precisão e trabalho em equipe`,
     author: 'William Hideki Nishijima Yohei',
-    role: 'AI Engineer | Full-Stack Developer | Bachelor’s in Computer Science'
+    role: 'AI Engineer | Full-Stack Developer',
+    shortMessage: 'Leonardo é extremamente detalhista e garante alta qualidade em tudo que faz.',
+    photo: null // coloque link de foto se tiver, ou null para iniciais
   },
-  // Aqui você pode adicionar outras recomendações
+  {
+    author: 'Maria Silva',
+    role: 'Product Manager',
+    shortMessage: 'Trabalhar com Leonardo foi incrível; sempre proativo e colaborativo.',
+    photo: null
+  },
+  {
+    author: 'Carlos Oliveira',
+    role: 'UX Designer',
+    shortMessage: 'Recomendo Leonardo para qualquer projeto que exija dedicação e precisão.',
+    photo: null
+  }
 ]
 
-// Controle do índice atual
-const currentIndex = ref(0)
-
-// Função para trocar de recomendação a cada 8 segundos
-onMounted(() => {
-  setInterval(() => {
-    currentIndex.value = (currentIndex.value + 1) % testimonials.length
-  }, 8000)
-})
+const getInitials = (name) => {
+  return name
+    .split(' ')
+    .map(n => n[0])
+    .join('')
+    .toUpperCase()
+}
 </script>
 
 <style scoped>
 .section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 4rem 2rem;
   overflow: hidden;
 }
 
@@ -70,53 +99,89 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #764ba2;
-  opacity: 0.22;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  opacity: 0.3;
   z-index: -2;
 }
 
-.middle-gray {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 60%;
-  max-width: 800px;
-  min-height: 200px;
-  background-color: rgba(128, 128, 128, 0.5);
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  border-radius: 10px;
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.highlight-text {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 3rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 1rem;
   padding: 2rem;
+  max-width: 300px;
+  flex: 1 1 250px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #764ba2;
+  color: #fff;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  transition: opacity 0.5s ease;
+  font-size: 1.2rem;
+  margin: 0 auto 1rem auto;
+  overflow: hidden;
 }
 
-.testimonial .text {
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  color: #fff;
+}
+
+.card-text {
   font-size: 1rem;
   margin-bottom: 1rem;
-  color: #fff;
+  line-height: 1.5;
 }
 
-.testimonial .author {
+.card-author {
   font-weight: bold;
-  color: #fff;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
-.testimonial .role {
+.card-role {
   font-style: italic;
-  color: #eee;
-}
-
-.content {
-  position: relative;
-  z-index: 1;
-  color: white;
-  text-align: center;
-  padding-top: 40vh;
-  font-size: 2rem;
+  font-size: 0.85rem;
+  color: #ddd;
 }
 </style>
