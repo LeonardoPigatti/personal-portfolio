@@ -1,45 +1,52 @@
 <template>
-  <section class="section">
+  <div class="slide">
 
-    <!-- VIDEO -->
-    <video autoplay muted loop playsinline class="background-video">
-      <source src="@/assets/videos/institutional-tech-culture.mp4" type="video/mp4" />
-    </video>
+    <div class="slide-layout" :class="{ expanded }">
 
-    <!-- OVERLAY -->
-    <div class="overlay"></div>
+      <!-- IMAGEM -->
+      <div class="image-area" @click="$emit('toggle')">
+        <img :src="repo.image" :alt="repo.name" />
+      </div>
 
-    <!-- SETA -->
-    <div 
-      v-if="!showProjects" 
-      class="scroll-indicator" 
-      @click="revealProjects"
-    >
-      <span>↓</span>
+      <!-- TEXTO -->
+      <div class="text-area">
+        <h2>{{ repo.name }}</h2>
+
+        <p class="desc">
+          {{ repo.description || "Sem descrição ainda." }}
+        </p>
+
+        <div class="meta">
+          <p><b>Linguagem:</b> {{ repo.language || "Não definida" }}</p>
+          <p><b>Stars:</b> ⭐ {{ repo.stargazers_count }}</p>
+          <p><b>Forks:</b> 🍴 {{ repo.forks_count }}</p>
+        </div>
+
+        <a
+          class="repo-link"
+          :href="repo.html_url"
+          target="_blank"
+        >
+          Ver no GitHub →
+        </a>
+      </div>
+
     </div>
 
-    <!-- CAROUSEL -->
-    <ProjectsCarousel v-if="showProjects" />
+    <p v-if="!expanded" class="caption">
+      {{ repo.name }}
+    </p>
 
-  </section>
+  </div>
 </template>
 
 <script setup>
-import { ref } from "vue"
-import ProjectsCarousel from "@/components/sections/recommendation_page/ProjectsCarousel.vue"
+defineProps({
+  repo: Object,
+  expanded: Boolean
+})
 
-const showProjects = ref(false)
-
-const revealProjects = () => {
-  showProjects.value = true
-
-  setTimeout(() => {
-    document.querySelector(".black-box")?.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    })
-  }, 100)
-}
+defineEmits(["toggle"])
 </script>
 
 <style scoped>

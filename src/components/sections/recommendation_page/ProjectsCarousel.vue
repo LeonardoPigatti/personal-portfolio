@@ -1,45 +1,86 @@
 <template>
-  <section class="section">
+  <div class="black-box">
 
-    <!-- VIDEO -->
-    <video autoplay muted loop playsinline class="background-video">
-      <source src="@/assets/videos/institutional-tech-culture.mp4" type="video/mp4" />
-    </video>
+    <button class="nav left" @click="prev">‹</button>
 
-    <!-- OVERLAY -->
-    <div class="overlay"></div>
+    <div class="carousel">
+      <div
+        class="track"
+        :style="{ transform: `translateX(-${current * 100}%)` }"
+      >
 
-    <!-- SETA -->
-    <div 
-      v-if="!showProjects" 
-      class="scroll-indicator" 
-      @click="revealProjects"
-    >
-      <span>↓</span>
+        <!-- LOADING -->
+        <div v-if="loading" class="slide">
+          <p class="loading-text">Carregando projetos do GitHub...</p>
+        </div>
+
+        <!-- SLIDES -->
+        <ProjectSlide
+          v-else
+          v-for="repo in repos"
+          :key="repo.id"
+          :repo="repo"
+          :expanded="expanded"
+          @toggle="toggleExpanded"
+        />
+
+      </div>
     </div>
 
-    <!-- CAROUSEL -->
-    <ProjectsCarousel v-if="showProjects" />
+    <button class="nav right" @click="next">›</button>
 
-  </section>
+  </div>
 </template>
 
 <script setup>
-import { ref } from "vue"
-import ProjectsCarousel from "@/components/sections/recommendation_page/ProjectsCarousel.vue"
+import { ref, onMounted, watch } from "vue"
+import ProjectSlide from "@/components/sections/recommendation_page/ProjectSlide.vue"
 
-const showProjects = ref(false)
+const repos = ref([])
+const loading = ref(true)
+const current = ref(0)
+const expanded = ref(false)
 
-const revealProjects = () => {
-  showProjects.value = true
-
-  setTimeout(() => {
-    document.querySelector(".black-box")?.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    })
-  }, 100)
+const next = () => {
+  if (!repos.value.length) return
+  current.value = (current.value + 1) % repos.value.length
 }
+
+const prev = () => {
+  if (!repos.value.length) return
+  current.value =
+    (current.value - 1 + repos.value.length) % repos.value.length
+}
+
+const toggleExpanded = () => {
+  expanded.value = !expanded.value
+}
+
+watch(current, () => {
+  expanded.value = false
+})
+
+onMounted(async () => {
+  try {
+    const res = await fetch(
+      "https://api.github.com/users/LeonardoPigatti/repos"
+    )
+    const data = await res.json()
+
+    const sorted = data
+      .filter(r => !r.fork)
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+
+    repos.value = sorted.map(repo => ({
+      ...repo,
+      image: `https://picsum.photos/seed/${repo.name}/1600/900`
+    }))
+  } catch (err) {
+    console.error(err)
+  } finally {
+    loading.value = false
+  }
+})
 </script>
 
 <style scoped>
