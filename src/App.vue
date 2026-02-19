@@ -23,7 +23,6 @@
     <!-- Avatar com Chat integrado -->
     <Avatar 
       src="/src/assets/tc.jpg" 
-      alt="Minha Foto"
       chatName="Thiago"
     />
 

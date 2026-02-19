@@ -18,13 +18,6 @@
         that feel fast and premium.
       </p>
 
-      <!-- BOTÕES -->
-      <div class="actions" :class="{ show: isVisible }">
-        <button class="btn primary">Ver Projetos</button>
-        <button class="btn ghost">Baixar CV</button>
-        <button class="btn outline">Fale Comigo</button>
-      </div>
-
       <!-- Canvas para partículas conectadas -->
       <canvas ref="canvasRef" class="particle-canvas"></canvas>
 
