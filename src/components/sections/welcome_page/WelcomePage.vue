@@ -7,7 +7,7 @@
       </p>
 
       <!-- TITULO -->
-      <h1 :class="{ show: isVisible }">
+      <h1 style="font-size: 90px; white-space: nowrap;" :class="{ show: isVisible }">
         I design and build<br />
         <span class="gradient-text">{{ currentText }}</span>
       </h1>
@@ -535,9 +535,9 @@ h1.show {
 
 /* ======== NOVO (LADO ESQUERDO) ======== */
 
-/* Tag acima do título */
+/* Tag acima do título AQUI */
 .tag {
-  font-size: 20px;
+  font-size: 40px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.65);
@@ -557,8 +557,8 @@ h1.show {
 /* Bio abaixo do h1 */
 .bio {
   margin-top: 26px;
-  max-width: 650px;
-  font-size: 24px;
+  max-width: 800px;
+  font-size: 48px;
   line-height: 1.55;
   color: rgba(226, 232, 240, 0.8);
 
@@ -579,29 +579,32 @@ h1.show {
   margin-top: 34px;
   display: flex;
   gap: 16px;
-  flex-wrap: wrap;
-
+  flex-wrap: nowrap;          /* garante que fiquem na mesma linha */
+  justify-content: flex-start; /* alinha à esquerda */
   opacity: 0;
   transform: translateY(18px);
   transition: all 0.8s ease;
   transition-delay: 0.3s;
 }
 
-
 .actions.show {
   opacity: 1;
   transform: translateY(0);
 }
 
+
+
+
 .btn {
-  padding: 16px 26px;
-  border-radius: 16px;
+  padding: 24px 39px;       /* 16px → 32px, 26px → 52px */
+  border-radius: 32px;      /* 16px → 32px */
   font-weight: 700;
-  font-size: 16px;
+  font-size: 24px;          /* 16px → 32px */
   cursor: pointer;
   transition: 0.25s ease;
   border: none;
 }
+
 
 
 .btn.primary {
