@@ -1,15 +1,24 @@
 <template>
-  <section class="section s1">
-    <!-- Vídeo -->
+  <section class="section">
+
+    <!-- VIDEO -->
     <video autoplay muted loop playsinline class="background-video">
       <source src="@/assets/videos/institutional-tech-culture.mp4" type="video/mp4" />
     </video>
 
-    <!-- Overlay -->
+    <!-- OVERLAY -->
     <div class="overlay"></div>
 
-    <!-- Conteúdo -->
-    <div class="black-box">
+    <!-- SETA -->
+    <div v-if="!showProjects" class="scroll-indicator" @click="revealProjects">
+      
+  <span>↓</span>
+
+    </div>
+
+    <!-- BLACK BOX -->
+    <div v-if="showProjects" class="black-box">
+
       <button class="nav left" @click="prev">‹</button>
 
       <div class="carousel">
@@ -17,10 +26,13 @@
           class="track"
           :style="{ transform: `translateX(-${current * 100}%)` }"
         >
+
+          <!-- LOADING -->
           <div v-if="loading" class="slide">
             <p class="loading-text">Carregando projetos do GitHub...</p>
           </div>
 
+          <!-- SLIDES -->
           <div
             v-else
             class="slide"
@@ -28,10 +40,13 @@
             :key="repo.id"
           >
             <div class="slide-layout" :class="{ expanded }">
+
+              <!-- IMAGEM -->
               <div class="image-area" @click="toggleExpanded">
                 <img :src="repo.image" :alt="repo.name" />
               </div>
 
+              <!-- TEXTO -->
               <div class="text-area">
                 <h2>{{ repo.name }}</h2>
 
@@ -53,15 +68,18 @@
                   Ver no GitHub →
                 </a>
               </div>
+
             </div>
 
             <p v-if="!expanded" class="caption">{{ repo.name }}</p>
           </div>
+
         </div>
       </div>
 
       <button class="nav right" @click="next">›</button>
     </div>
+
   </section>
 </template>
 
@@ -72,6 +90,18 @@ const repos = ref([])
 const loading = ref(true)
 const current = ref(0)
 const expanded = ref(false)
+const showProjects = ref(false)
+
+const revealProjects = () => {
+  showProjects.value = true
+
+  setTimeout(() => {
+    document.querySelector(".black-box")?.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    })
+  }, 100)
+}
 
 const next = () => {
   if (!repos.value.length) return
@@ -145,6 +175,78 @@ onMounted(async () => {
   z-index: -2;
 }
 
+/* SETA */
+.scroll-indicator {
+  position: absolute;
+  bottom: 1200px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  border: none;
+  cursor: pointer;
+  font-size: 2.2rem;
+  font-weight: 700;
+
+  width: 55px;
+  height: 55px;
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    160deg,
+    #ffffff 0%,
+    #f4f2f8 35%,
+    #e6e1f0 65%,
+    #d4cde3 100%
+  );
+
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  transition: 0.25s ease;
+  animation: pulse 1.6s infinite;
+}
+
+
+.scroll-indicator span {
+  background: linear-gradient(
+    135deg,
+    #1e2a78 0%,
+    #2b1055 50%,
+    #4a044e 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.scroll-indicator:hover {
+  transform: translateX(-50%) scale(1.07);
+}
+
+
+@keyframes pulse {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.7;
+  }
+}
+
+
 /* BLACK BOX */
 .black-box {
   position: relative;
@@ -163,7 +265,23 @@ onMounted(async () => {
 
   box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
+
+animation: fadeSlideDown 1.6s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
+transform: translateY(-30px);
+
 }
+
+@keyframes fadeSlideDown {
+  from { 
+    opacity: 0; 
+    transform: translateY(-60px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
 
 /* CAROUSEL */
 .carousel {
@@ -192,13 +310,10 @@ onMounted(async () => {
   width: 100%;
   height: 85%;
   display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 50px;
   transition: 0.5s ease;
 }
 
-/* IMAGE */
 .image-area {
   width: 100%;
   height: 100%;
@@ -213,27 +328,21 @@ onMounted(async () => {
   object-fit: cover;
 }
 
-/* EXPANDED */
-.slide-layout.expanded {
-  justify-content: flex-start;
-}
-
 .slide-layout.expanded .image-area {
   width: 55%;
 }
 
-.slide-layout.expanded .text-area {
-  width: 45%;
-  opacity: 1;
-}
-
-/* TEXT */
 .text-area {
   width: 0;
   opacity: 0;
   overflow: hidden;
   transition: 0.5s ease;
   color: white;
+}
+
+.slide-layout.expanded .text-area {
+  width: 45%;
+  opacity: 1;
 }
 
 .text-area h2 {
