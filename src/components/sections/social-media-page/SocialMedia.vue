@@ -125,11 +125,28 @@
 
 
       <!-- Conteúdo explicativo -->
-      <div v-if="activeTile" class="tile-content">
-        <p>
-          {{ tileDescriptions[activeTile] }}
-        </p>
-      </div>
+<div v-if="activeTile" class="tile-content">
+  <p v-for="(paragraph, index) in tileDescriptions[activeTile]" :key="index">
+    {{ paragraph }}
+  </p>
+
+  <!-- Última frase com link gradiente dentro do texto -->
+  <p>
+    <span>
+      <a
+        :href="tileLinks[activeTile]"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="gradient-link"
+      >
+        Clique aqui para acessar.
+      </a>
+      .
+    </span>
+  </p>
+</div>
+
+
     </div>
   </section>
 </template>
@@ -140,12 +157,77 @@ import { ref } from 'vue'
 const hoverTile = ref(null)
 const activeTile = ref(null)
 
+const tileLinks = {
+  linkedin: "https://www.linkedin.com/in/seu-perfil",
+  instagram: "https://www.instagram.com/seu-perfil",
+  whatsapp: "https://wa.me/seunumerodetelefone",
+  youtube: "https://www.youtube.com/seu-canal",
+  upwork: "https://www.upwork.com/freelancers/~seuperfil",
+  beecrowd: "https://www.beecrowd.com.br/judge/users/seuperfil",
+  github: "https://github.com/seuperfil",
+  email: "mailto:seuemail@exemplo.com"
+};
+
+
 const tileDescriptions = {
-  linkedin: 'Acesse meu LinkedIn para ver meu perfil profissional e experiências.',
-  instagram: 'Siga meu Instagram para ver projetos, fotos e bastidores.',
-  github: 'Veja meus projetos de programação no GitHub.',
-  email: 'Entre em contato via e-mail para mensagens diretas.'
-}
+  linkedin: [
+    "No meu LinkedIn, você encontrará uma visão completa do meu percurso profissional.",
+    "Inclui meu histórico de empregos, cargos ocupados, habilidades específicas e certificações relevantes.",
+    "Também é possível conferir recomendações de colegas e gestores, meus interesses profissionais e conexões de networking.",
+    "Esta plataforma é ideal para quem quer entender minha trajetória, analisar minha experiência em projetos e áreas específicas, ou para oportunidades de colaboração, parcerias e recrutamento profissional."
+  ],
+
+  instagram: [
+    "No meu Instagram, você terá acesso a um conteúdo visual e dinâmico, incluindo fotos, vídeos e stories sobre meus projetos.",
+    "Mostro processos criativos, bastidores do meu trabalho, momentos do dia a dia e inspirações que influenciam minhas atividades.",
+    "Além disso, compartilho dicas, novidades e insights que podem ser úteis para outros profissionais ou pessoas interessadas no meu campo de atuação.",
+    "É um espaço para acompanhar de forma leve e visual minhas experiências e realizações."
+  ],
+
+  whatsapp: [
+    "O WhatsApp é a forma mais direta e rápida de entrar em contato comigo.",
+    "Você pode enviar mensagens instantâneas, esclarecer dúvidas, combinar reuniões ou solicitar informações específicas sobre projetos ou serviços.",
+    "Este canal é voltado para comunicação pessoal e profissional de forma imediata, permitindo interações rápidas e objetivas.",
+    "Ideal para assuntos que exigem respostas ágeis ou negociações em tempo real."
+  ],
+
+  youtube: [
+    "No meu canal do YouTube, você encontrará uma variedade de vídeos detalhados sobre minhas áreas de atuação.",
+    "Incluo tutoriais passo a passo, demonstrações de projetos, análises, reviews e conteúdos educativos voltados para profissionais ou entusiastas da tecnologia e criatividade.",
+    "Cada vídeo é pensado para ensinar, inspirar ou fornecer insights práticos, permitindo que você compreenda melhor meu trabalho, metodologias aplicadas e soluções que desenvolvo.",
+    "Também compartilho vídeos de eventos, palestras e experiências que considero relevantes para aprendizado e networking."
+  ],
+
+  upwork: [
+    "No meu perfil do Upwork, você poderá explorar detalhadamente meus serviços de freelancer.",
+    "Está listado o histórico completo de projetos realizados, incluindo descrições, prazos, tecnologias utilizadas e feedback de clientes.",
+    "Você verá minhas principais habilidades, certificações e áreas de especialização, além de informações sobre disponibilidade e forma de trabalho.",
+    "Este espaço é ideal para clientes que desejam contratar serviços de qualidade e conhecer exemplos concretos de entregas já realizadas."
+  ],
+
+  beecrowd: [
+    "No Beecrowd (antigo URI Online Judge), você encontrará uma coleção extensa de desafios de programação que resolvi ao longo do tempo.",
+    "Cada solução demonstra meu raciocínio lógico, capacidade de análise de problemas e aplicação de algoritmos eficientes.",
+    "As resoluções incluem explicações, otimizações e abordagens diferentes para problemas variados, mostrando minha habilidade em codificação, lógica matemática e desenvolvimento de soluções precisas.",
+    "É um excelente espaço para quem deseja avaliar meu desempenho técnico e minha experiência prática em programação competitiva."
+  ],
+
+  github: [
+    "No meu GitHub, você terá acesso completo aos meus projetos públicos de programação.",
+    "Cada repositório contém códigos-fonte, documentação, instruções de uso e exemplos de implementação.",
+    "Você poderá explorar minhas contribuições para projetos open-source, ver a organização do meu código e analisar diferentes linguagens, frameworks e tecnologias que utilizo.",
+    "Este espaço é voltado para quem deseja conhecer minha capacidade técnica, estilo de programação, metodologia de desenvolvimento e projetos concretos que desenvolvi ou colaborei."
+  ],
+
+  email: [
+    "Através do meu e-mail, você pode entrar em contato para conversas formais, propostas de trabalho, dúvidas detalhadas, colaborações ou qualquer comunicação que exija registro escrito.",
+    "É o canal oficial para tratar de assuntos profissionais, enviar documentos, agendar reuniões ou discutir projetos de maneira estruturada.",
+    "O e-mail permite detalhar solicitações, fornecer informações completas e manter histórico de comunicação, sendo ideal para interações mais formais e bem organizadas."
+  ]
+};
+
+
+
 
 function selectTile(id) {
   activeTile.value = activeTile.value === id ? null : id
@@ -183,7 +265,37 @@ function selectTile(id) {
 /* Gradiente só quando hover/ativo via Vue (já no HTML acima) */
 
 /* conteúdo explicativo */
-.tile-content { margin-top: 16px; padding: 16px; background: #f0f4ff; border-radius: 12px; }
+.tile-content {
+  margin-top: 16px;
+  padding: 24px 28px;             /* Mais espaço interno para textos longos */
+  background-color: #e6e0ff;       /* Lilás clarinho */
+  border-radius: 16px;             /* Borda arredondada suave */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra leve para destaque */
+  color: #1e1e2f;                  /* Texto escuro para bom contraste */
+  font-size: 1.25rem;              /* Texto maior */
+  line-height: 1.8;                /* Espaçamento maior entre linhas para leitura confortável */
+  font-family: 'Inter', sans-serif; /* Fonte moderna e elegante */
+  transition: all 0.3s ease;       /* Suaviza mudanças se houver animação */
+}
+
+/* Texto dentro do tile */
+.tile-content p {
+  margin: 0;
+}
+
+.gradient-link {
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.gradient-link:hover {
+  filter: brightness(1.2);
+}
+
 
 /* responsivo */
 @media (max-width: 980px) { .grid { grid-template-columns: repeat(2, 1fr); } }
