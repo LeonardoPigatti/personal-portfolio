@@ -1,9 +1,8 @@
 <template>
   <!-- Wrapper externo sem transform -->
   <div>
-    <!-- Leo fora do viewport para não ser afetado pelo transform -->
-    <div class="leo-fixed">
-      <leo />
+    <div class="LangSelector-fixed">
+      <LangSelector  />
     </div>
 
     <div class="viewport">
@@ -30,7 +29,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Navbar from './Navbar.vue'
-import leo from './leo.vue'
+import LangSelector  from './LangSelector.vue'
 import Avatar from './Avatar.vue'
 import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
 import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
@@ -121,7 +120,7 @@ onUnmounted(() => {
 .s2 { background: #1e293b; }
 .s3 { background: #334155; }
 
-.leo-fixed {
+.LangSelector-fixed {
   position: fixed;
   top: 16px;    /* distância do topo */
   right: 16px;  /* distância da borda direita */
