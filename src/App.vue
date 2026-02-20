@@ -1,43 +1,41 @@
 <template>
-  <div class="viewport">
-    <!-- Navbar Componentizada -->
-    <Navbar 
-      :sections="sections" 
-      :currentIndex="currentIndex"
-      :backgroundColor="currentIndex % 2 === 0 ? 'white' : 'black'"
-      :textColor="currentIndex % 2 === 0 ? 'black' : 'white'"
-      @updateIndex="goTo"
-    />
-
-   <div
-  class="container"
-      :style="{ transform: translateY }"
->
-      <WelcomePage :active="currentIndex === 0" />
-      <CurriculumPage :active="currentIndex === 1" />
-      <RecommendationPage :active="currentIndex === 2" />
-      <SocialMedia :active="currentIndex === 3" /> <!-- NOVA SEÇÃO -->
+  <!-- Wrapper externo sem transform -->
+  <div>
+    <!-- Leo fora do viewport para não ser afetado pelo transform -->
+    <div class="leo-fixed">
+      <leo />
     </div>
 
-    <!-- Avatar com Chat integrado -->
-    <Avatar 
-      src="/src/assets/tc.jpg" 
-      chatName="Thiago"
-    />
+    <div class="viewport">
+      <Navbar 
+        :sections="sections" 
+        :currentIndex="currentIndex"
+        :backgroundColor="currentIndex % 2 === 0 ? 'white' : 'black'"
+        :textColor="currentIndex % 2 === 0 ? 'black' : 'white'"
+        @updateIndex="goTo"
+      />
 
+      <div class="container" :style="{ transform: translateY }">
+        <WelcomePage :active="currentIndex === 0" />
+        <CurriculumPage :active="currentIndex === 1" />
+        <RecommendationPage :active="currentIndex === 2" />
+        <SocialMedia :active="currentIndex === 3" />
+      </div>
+
+      <Avatar src="/src/assets/tc.jpg" chatName="Thiago" />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Navbar from './Navbar.vue'
+import leo from './leo.vue'
 import Avatar from './Avatar.vue'
 import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
 import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
 import RecommendationPage from '@/components/sections/recommendation_page/RecommendationPage.vue'
 import SocialMedia from '@/components/sections/social-media-page/SocialMedia.vue'
-
-
 
 const currentIndex = ref(0)
 const totalSections = 5
@@ -122,4 +120,13 @@ onUnmounted(() => {
 
 .s2 { background: #1e293b; }
 .s3 { background: #334155; }
+
+.leo-fixed {
+  position: fixed;
+  top: 16px;    /* distância do topo */
+  right: 16px;  /* distância da borda direita */
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+}
 </style>
