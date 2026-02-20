@@ -10,7 +10,7 @@
 
 
 
-    <div class="wrap">
+    <div style="border: 2px solid red;" class="wrap">
       <!-- ===== header ===== -->
       <header class="header">
         <h1 class="title">Connect With Me</h1>
@@ -284,7 +284,7 @@ function selectTile(id) {
 .wrap { 
   width: 100%; 
   max-width: 900px; 
-  margin-top: 100px; /* empurra para baixo */
+  margin-top: -45px; /* empurra para baixo */
 }
 .header { margin-bottom: 32px; text-align: center;}
 .title { font-size: 3.8rem; font-weight: 900; letter-spacing: -0.5px; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }

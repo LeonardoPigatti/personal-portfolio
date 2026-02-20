@@ -23,7 +23,12 @@
         <WelcomePage :active="currentIndex === 0" />
         <CurriculumPage :active="currentIndex === 1" />
         <RecommendationPage :active="currentIndex === 2" />
-        <SocialMedia :active="currentIndex === 3" />
+
+        <!-- Última seção: position relative para o Footer se ancorar -->
+        <div class="last-section">
+          <SocialMedia :active="currentIndex === 3" />
+          <Footer />
+        </div>
       </div>
     </div>
   </div>
@@ -35,13 +40,14 @@ import Navbar from './Navbar.vue'
 import ThemeSelector from './ThemeSelector.vue'
 import LangSelector from './LangSelector.vue'
 import Avatar from './Avatar.vue'
+import Footer from './Footer.vue'
 import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
 import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
 import RecommendationPage from '@/components/sections/recommendation_page/RecommendationPage.vue'
 import SocialMedia from '@/components/sections/social-media-page/SocialMedia.vue'
 
 const currentIndex = ref(0)
-const totalSections = 5
+const totalSections = 4
 const sections = ['BOAS-VINDAS', 'SOBRE MIM', 'PROJETOS', 'CONECTE-SE']
 
 let isAnimating = false
@@ -104,8 +110,14 @@ onUnmounted(() => {
 }
 
 .container {
-  height: 300vh;
+  height: 400vh; /* 4 × 100vh */
   transition: transform 0.8s ease;
+}
+
+/* Última seção com position relative para o Footer se ancorar no bottom */
+.last-section {
+  position: relative;
+  height: 100vh;
 }
 
 .section {
