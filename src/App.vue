@@ -1,10 +1,15 @@
 <template>
-  <!-- Wrapper externo sem transform -->
   <div>
+    <!-- Tudo que usa position: fixed fica FORA do viewport -->
     <div class="LangSelector-fixed">
-      <LangSelector  />
+      <LangSelector />
     </div>
 
+    <ThemeSelector />
+
+    <Avatar src="/src/assets/tc.jpg" chatName="Thiago" />
+
+    <!-- Viewport isolado apenas para o scroll por seções -->
     <div class="viewport">
       <Navbar 
         :sections="sections" 
@@ -20,8 +25,6 @@
         <RecommendationPage :active="currentIndex === 2" />
         <SocialMedia :active="currentIndex === 3" />
       </div>
-
-      <Avatar src="/src/assets/tc.jpg" chatName="Thiago" />
     </div>
   </div>
 </template>
@@ -29,7 +32,8 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import Navbar from './Navbar.vue'
-import LangSelector  from './LangSelector.vue'
+import ThemeSelector from './ThemeSelector.vue'
+import LangSelector from './LangSelector.vue'
 import Avatar from './Avatar.vue'
 import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
 import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
@@ -122,8 +126,8 @@ onUnmounted(() => {
 
 .LangSelector-fixed {
   position: fixed;
-  top: 16px;    /* distância do topo */
-  right: 16px;  /* distância da borda direita */
+  top: 16px;
+  right: 16px;
   z-index: 1000;
   width: 60px;
   height: 60px;
