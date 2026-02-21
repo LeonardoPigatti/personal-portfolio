@@ -70,10 +70,10 @@ const chatBodyRef = ref(null);
 // ========== LINKS ==========
 const links = {
   linkedin:  "https://www.linkedin.com/in/leonardo-pigatti-6bb369206/",
-  instagram: "https://www.instagram.com/seu-perfil",
+  instagram: "https://www.instagram.com/leonardopigatti.tech?igsh=dHQ4OXhyczgyYmkx&utm_source=qr",
   whatsapp:  "https://wa.me/19998946859",
-  youtube:   "https://www.youtube.com/seu-canal",
-  upwork:    "https://www.upwork.com/freelancers/~seuperfil",
+  youtube:   "hthttps://www.youtube.com/",
+  upwork:    "https://www.upwork.com/",
   beecrowd:  "https://judge.beecrowd.com/pt/profile/1210654",
   github:    "https://github.com/LeonardoPigatti",
   email:     "mailto:leonardopigatti@yahoo.com.br",
