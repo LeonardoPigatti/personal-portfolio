@@ -1,4 +1,5 @@
 <template>
+  <Teleport to="body">
   <Transition name="modal">
     <div v-if="open" class="gallery-overlay" @click.self="emit('close')">
       <div class="gallery-modal">
@@ -70,6 +71,7 @@
       </div>
     </div>
   </Transition>
+  </Teleport>
 </template>
 
 <script setup>

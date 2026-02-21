@@ -12,8 +12,8 @@
       </Transition>
     </div>
     <a
-        href="/src\assets\curriculum\Leonardo_Pigatti_Full_Stack_Developer.pdf"
-        download="Curriculo.pdf"
+        href="/src\assets\curriculum\Leonardo_Pigatti_Desenvolvedor_Full_Stack.pdf"
+        download="Leonardo_Pigatti_Desenvolvedor_Full_Stack.pdf"
         class="download-btn"
         aria-label="Baixar PDF"
         title="Baixar PDF"
@@ -89,6 +89,7 @@ defineEmits(["next", "prev", "open-course"])
   background-color: white;
   border-radius: 0 0 10px 10px;
   flex-shrink: 0;
+  padding-left: 100px;
 }
 
 

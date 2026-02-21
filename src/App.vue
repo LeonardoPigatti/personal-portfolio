@@ -7,7 +7,7 @@
 
     <ThemeSelector />
 
-    <Avatar src="/src/assets/tc.jpg" chatName="Thiago" />
+    <Avatar src="/src/assets/tc.jpg" chatName="Leonardo - ChatBot" />
 
     <!-- Viewport isolado apenas para o scroll por seções -->
     <div class="viewport">

@@ -10,7 +10,7 @@
 
 
 
-    <div style="border: 2px solid red;" class="wrap">
+    <div class="wrap">
       <!-- ===== header ===== -->
       <header class="header">
         <h1 class="title">Connect With Me</h1>
