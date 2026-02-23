@@ -7,6 +7,7 @@ const translations = {
   EUA: {
     tag: 'UX Designer & Developer',
     title: 'I design and build',
+    downloadCV: 'Get Full CV (PDF)',
     sections: ['WELCOME', 'ABOUT ME', 'PROJECTS', 'CONNECT'],
     phrases: ['digital experiences', 'amazing websites', 'interactive apps', 'creative designs'],
     bio: 'Focused on crafting clean interfaces, smooth experiences and products that feel fast and premium.',
@@ -427,6 +428,7 @@ const translations = {
 
   Brasil: {
     tag: 'Designer & Desenvolvedor UX',
+    downloadCV: 'Baixar CV Completo (PDF)',
     title: 'Eu projeto e construo',
     sections: ['BOAS-VINDAS', 'SOBRE MIM', 'PROJETOS', 'CONECTE-SE'],
     phrases: ['experiências digitais', 'sites incríveis', 'apps interativos', 'designs criativos'],
@@ -849,6 +851,7 @@ const translations = {
   Italia: {
     tag: 'Designer & Sviluppatore UX',
     title: 'Progetto e costruisco',
+    downloadCV: 'Scarica CV Completo (PDF)',
     sections: ['BENVENUTO', 'CHI SONO', 'PROGETTI', 'CONNETTITI'],
     phrases: ['esperienze digitali', 'siti straordinari', 'app interattive', 'design creativi'],
     bio: 'Concentrato sulla creazione di interfacce pulite, esperienze fluide e prodotti veloci e premium.',

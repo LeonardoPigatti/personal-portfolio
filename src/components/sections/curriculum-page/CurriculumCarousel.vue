@@ -12,18 +12,16 @@
       </Transition>
     </div>
     <a
-        href="/src\assets\curriculum\Leonardo_Pigatti_Desenvolvedor_Full_Stack.pdf"
-        download="Leonardo_Pigatti_Desenvolvedor_Full_Stack.pdf"
-        class="download-btn"
-        aria-label="Baixar PDF"
-        title="Baixar PDF"
-      >
-        Get Full CV (PDF)
-      </a>
-    <div class="carousel-nav">
-      <!-- BOTÃO PDF (pequeno à esquerda) -->
-  
+      href="/src\assets\curriculum\Leonardo_Pigatti_Desenvolvedor_Full_Stack.pdf"
+      download="Leonardo_Pigatti_Desenvolvedor_Full_Stack.pdf"
+      class="download-btn"
+      aria-label="Baixar PDF"
+      title="Baixar PDF"
+    >
+      {{ t().downloadCV }}
+    </a>
 
+    <div class="carousel-nav">
       <button @click="$emit('prev')" class="nav-btn" aria-label="Anterior">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="15 18 9 12 15 6"></polyline>
@@ -31,8 +29,8 @@
       </button>
 
       <div class="dots">
-        <span 
-          v-for="(_, index) in sections" 
+        <span
+          v-for="(_, index) in sections"
           :key="index"
           :class="['dot', { active: index === currentSection }]"
         ></span>
@@ -48,7 +46,10 @@
 </template>
 
 <script setup>
-import SectionRenderer from "./SectionRenderer.vue"
+import SectionRenderer from './SectionRenderer.vue'
+import { useLang } from '@/useLang'
+
+const { t } = useLang()
 
 defineProps({
   sections: Array,
@@ -56,7 +57,7 @@ defineProps({
   isVisible: Boolean,
 })
 
-defineEmits(["next", "prev", "open-course"])
+defineEmits(['next', 'prev', 'open-course'])
 </script>
 
 <style scoped>
@@ -92,34 +93,25 @@ defineEmits(["next", "prev", "open-course"])
   padding-left: 100px;
 }
 
-
-/* BOTÃO PDF PEQUENO À ESQUERDA */
 .download-btn {
-  margin-left: auto;   /* empurra o botão para a direita */
-  margin-right: 40px;  /* distância da borda direita */
-
+  margin-left: auto;
+  margin-right: 40px;
   height: 38px;
   padding: 0 18px;
   border-radius: 14px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.6px;
-
   text-decoration: none;
   color: white;
-
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   background-size: 200% 200%;
   animation: gradientShift 3s ease infinite;
-
   transition: all 0.2s ease;
 }
-
 
 .download-btn:hover {
   transform: translateY(-1px) scale(1.04);
@@ -133,19 +125,15 @@ defineEmits(["next", "prev", "open-course"])
 .nav-btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   background-size: 200% 200%;
-
   color: white;
   border: none;
-
   width: 40px;
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   animation: gradientShift 3s ease infinite;
   transition: all 0.2s ease;
 }
@@ -181,18 +169,13 @@ defineEmits(["next", "prev", "open-course"])
 }
 
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
 .fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s;
-}
-
+.fade-leave-active { transition: opacity 0.3s; }
 .fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+.fade-leave-to { opacity: 0; }
 </style>
