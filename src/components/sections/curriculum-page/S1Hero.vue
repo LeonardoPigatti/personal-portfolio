@@ -14,13 +14,13 @@
       <h1 :class="{ show: isVisible }">
         <span style="color: black;" class="line name nowrap">Leonardo Vinicius Pigatti</span><br />
         <span class="line l1 nowrap">
-          <span class="gradient-text hoverable">Creative Technologist</span>
+          <span class="gradient-text hoverable">{{ t().role1 }}</span>
         </span><br />
         <span class="line l2 nowrap">
-          <span class="gradient-text hoverable">UX Designer</span>
+          <span class="gradient-text hoverable">{{ t().role2 }}</span>
         </span><br />
         <span class="line l3 nowrap">
-          <span class="gradient-text hoverable">Builder</span>
+          <span class="gradient-text hoverable">{{ t().role3 }}</span>
         </span>
       </h1>
     </div>
@@ -29,6 +29,9 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useLang } from '@/useLang'
+
+const { t } = useLang()
 
 const props = defineProps({
   isVisible: Boolean,
@@ -36,7 +39,7 @@ const props = defineProps({
 
 const images = [
   '/src/assets/tc.jpg',
-  '/src/assets/fp.jpg' // adicione o caminho da segunda imagem aqui
+  '/src/assets/fp.jpg'
 ]
 
 const currentImageIndex = ref(0)
@@ -45,16 +48,14 @@ const isFlipping = ref(false)
 const currentImage = computed(() => images[currentImageIndex.value])
 
 const flipImage = () => {
-  if (isFlipping.value) return // evita cliques durante a animação
+  if (isFlipping.value) return
   
   isFlipping.value = true
   
-  // troca a imagem no meio da animação (quando está de lado)
   setTimeout(() => {
     currentImageIndex.value = (currentImageIndex.value + 1) % images.length
-  }, 300) // metade da duração da animação
+  }, 300)
   
-  // remove a classe após a animação
   setTimeout(() => {
     isFlipping.value = false
   }, 600)

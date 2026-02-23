@@ -1,20 +1,16 @@
 <template>
   <footer class="footer">
     <canvas ref="canvasRef" class="footer-dust" />
-
     <div class="footer-line" />
-
     <div class="footer-inner">
       <div class="footer-brand">
         <span class="footer-name">Leonardo Vinicius Pigatti</span>
       </div>
-
       <p class="footer-phrase">
-        Construindo interfaces que <em>importam</em>.
+        {{ t().footer.phrase[0] }} <em>{{ t().footer.phrase[1] }}</em>{{ t().footer.phrase[2] }}
       </p>
-
       <p class="footer-copy">
-        © {{ year }} — Todos os direitos reservados.
+        © {{ year }} — {{ t().footer.rights }}
       </p>
     </div>
   </footer>
@@ -22,7 +18,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useLang } from '@/useLang'
 
+const { t } = useLang()
 const year = new Date().getFullYear()
 const canvasRef = ref(null)
 let animFrame = null
@@ -93,7 +91,6 @@ onUnmounted(() => cancelAnimationFrame(animFrame))
   pointer-events: none;
 }
 
-/* Canvas de partículas */
 .footer-dust {
   position: absolute;
   inset: 0;

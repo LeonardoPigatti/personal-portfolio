@@ -26,6 +26,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useLang } from '@/useLang'
+
+const { selectedLang, setLang } = useLang()
 
 const languages = ['EUA', 'Brasil', 'Italia']
 const flags = {
@@ -33,11 +36,10 @@ const flags = {
   Brasil: 'https://flagcdn.com/w40/br.png',
   Italia: 'https://flagcdn.com/w40/it.png',
 }
-const selectedLang = ref('EUA')
 const open = ref(false)
 
 function selectLang(lang) {
-  selectedLang.value = lang
+  setLang(lang)
   open.value = false
 }
 </script>

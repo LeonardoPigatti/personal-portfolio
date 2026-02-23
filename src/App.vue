@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Tudo que usa position: fixed fica FORA do viewport -->
     <div class="LangSelector-fixed">
       <LangSelector />
     </div>
@@ -9,7 +8,6 @@
 
     <Avatar src="/src/assets/tc.jpg" chatName="Leonardo - ChatBot" />
 
-    <!-- Viewport isolado apenas para o scroll por seções -->
     <div class="viewport">
       <Navbar 
         :sections="sections" 
@@ -24,7 +22,6 @@
         <CurriculumPage :active="currentIndex === 1" />
         <RecommendationPage :active="currentIndex === 2" />
 
-        <!-- Última seção: position relative para o Footer se ancorar -->
         <div class="last-section">
           <SocialMedia :active="currentIndex === 3" />
           <Footer />
@@ -45,10 +42,14 @@ import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
 import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
 import RecommendationPage from '@/components/sections/recommendation_page/RecommendationPage.vue'
 import SocialMedia from '@/components/sections/social-media-page/SocialMedia.vue'
+import { useLang } from '@/useLang'
+
+const { t } = useLang()
+
+const sections = computed(() => t().sections)
 
 const currentIndex = ref(0)
 const totalSections = 4
-const sections = ['BOAS-VINDAS', 'SOBRE MIM', 'PROJETOS', 'CONECTE-SE']
 
 let isAnimating = false
 const ANIMATION_TIME = 800
@@ -110,11 +111,10 @@ onUnmounted(() => {
 }
 
 .container {
-  height: 400vh; /* 4 × 100vh */
+  height: 400vh;
   transition: transform 0.8s ease;
 }
 
-/* Última seção com position relative para o Footer se ancorar no bottom */
 .last-section {
   position: relative;
   height: 100vh;

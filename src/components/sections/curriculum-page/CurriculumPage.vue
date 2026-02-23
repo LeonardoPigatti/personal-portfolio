@@ -1,6 +1,5 @@
 <template>
   <section class="section s1">
-
     <div class="content">
       <S1Hero :isVisible="isVisible" />
 
@@ -22,19 +21,21 @@
       @close="closeGallery"
     />
 
-      <div class="purple-reflection" />
-
+    <div class="purple-reflection" />
   </section>
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from "vue"
+import { ref, computed, watch, onMounted } from 'vue'
 
-import S1Hero from "/src/components/sections/curriculum-page/S1Hero.vue"
-import CurriculumCarousel from "/src/components/sections/curriculum-page/CurriculumCarousel.vue"
-import CertificatesGalleryModal from "/src/components/sections/curriculum-page/CertificatesGalleryModal.vue"
+import S1Hero from '/src/components/sections/curriculum-page/S1Hero.vue'
+import CurriculumCarousel from '/src/components/sections/curriculum-page/CurriculumCarousel.vue'
+import CertificatesGalleryModal from '/src/components/sections/curriculum-page/CertificatesGalleryModal.vue'
 
-import { cvSections } from "@/data/cvSections"
+import { getCvSections } from '@/data/cvSections'
+import { useLang } from '@/useLang'
+
+const { selectedLang } = useLang()
 
 const props = defineProps({
   active: {
@@ -56,16 +57,21 @@ onMounted(() => {
   if (props.active) isVisible.value = true
 })
 
-// ===== Carrossel =====
-const sections = cvSections
+// ===== Carrossel reativo ao idioma =====
+const sections = computed(() => getCvSections(selectedLang.value))
 const currentSection = ref(0)
 
+// Reseta o carrossel quando o idioma muda
+watch(selectedLang, () => {
+  currentSection.value = 0
+})
+
 const nextSection = () => {
-  currentSection.value = (currentSection.value + 1) % sections.length
+  currentSection.value = (currentSection.value + 1) % sections.value.length
 }
 
 const previousSection = () => {
-  currentSection.value = (currentSection.value - 1 + sections.length) % sections.length
+  currentSection.value = (currentSection.value - 1 + sections.value.length) % sections.value.length
 }
 
 // ===== Modal certificados =====

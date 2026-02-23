@@ -3,19 +3,18 @@
     <div class="content">
       <!-- TAG -->
       <p class="tag" :class="{ show: isVisible }">
-        UX Designer & Developer
+        {{ t().tag }}
       </p>
 
       <!-- TITULO -->
       <h1 style="font-size: 90px; white-space: nowrap;" :class="{ show: isVisible }">
-        I design and build<br />
+        {{ t().title }}<br />
         <span class="gradient-text">{{ currentText }}</span>
       </h1>
 
       <!-- BIO -->
       <p class="bio" :class="{ show: isVisible }">
-        Focused on crafting clean interfaces, smooth experiences and products
-        that feel fast and premium.
+        {{ t().bio }}
       </p>
 
       <!-- Canvas para partículas conectadas -->
@@ -59,13 +58,11 @@
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import GeometricCanvas from '/src/components/sections/welcome_page/GeometricCanvas.vue'
+import { useLang } from '@/useLang'
 
-const phrases = [
-  'digital experiences',
-  'amazing websites',
-  'interactive apps',
-  'creative designs'
-]
+const { selectedLang, t } = useLang()
+
+// ─── Typing effect ───────────────────────────────────────────────────────────
 
 const currentText = ref('')
 let phraseIndex = 0
@@ -74,7 +71,8 @@ let typingTimeout = null
 let deleting = false
 
 const typeEffect = () => {
-  const phrase = phrases[phraseIndex]
+  const phrases = t().phrases
+  const phrase = phrases[phraseIndex % phrases.length]
 
   if (!deleting) {
     currentText.value = phrase.slice(0, charIndex + 1)
@@ -98,6 +96,18 @@ const typeEffect = () => {
   typingTimeout = setTimeout(typeEffect, deleting ? 50 : 100)
 }
 
+// Reinicia o typing quando o idioma muda
+watch(selectedLang, () => {
+  clearTimeout(typingTimeout)
+  currentText.value = ''
+  phraseIndex = 0
+  charIndex = 0
+  deleting = false
+  typeEffect()
+})
+
+// ─── Props / visibilidade ─────────────────────────────────────────────────────
+
 const props = defineProps({
   active: {
     type: Boolean,
@@ -106,6 +116,22 @@ const props = defineProps({
 })
 
 const isVisible = ref(false)
+
+watch(
+  () => props.active,
+  (isActive) => {
+    if (isActive) {
+      requestAnimationFrame(() => {
+        isVisible.value = true
+      })
+    } else {
+      isVisible.value = false
+    }
+  }
+)
+
+// ─── Canvas de partículas ─────────────────────────────────────────────────────
+
 const canvasRef = ref(null)
 let animationId = null
 let particles = []
@@ -172,9 +198,7 @@ const initCanvas = () => {
         const distance = Math.sqrt(dx * dx + dy * dy)
 
         if (distance < 120) {
-          ctx.strokeStyle = `rgba(102, 126, 234, ${
-            0.15 * (1 - distance / 120)
-          })`
+          ctx.strokeStyle = `rgba(102, 126, 234, ${0.15 * (1 - distance / 120)})`
           ctx.lineWidth = 1
           ctx.beginPath()
           ctx.moveTo(particleA.x, particleA.y)
@@ -211,18 +235,7 @@ const getParticleStyle = () => {
   }
 }
 
-watch(
-  () => props.active,
-  (isActive) => {
-    if (isActive) {
-      requestAnimationFrame(() => {
-        isVisible.value = true
-      })
-    } else {
-      isVisible.value = false
-    }
-  }
-)
+// ─── Lifecycle ────────────────────────────────────────────────────────────────
 
 onMounted(() => {
   if (props.active) {
@@ -232,13 +245,13 @@ onMounted(() => {
   }
 
   typeEffect()
-
   initCanvas()
   window.addEventListener('resize', handleResize)
 })
 
 onUnmounted(() => {
   if (animationId) cancelAnimationFrame(animationId)
+  clearTimeout(typingTimeout)
   window.removeEventListener('resize', handleResize)
 })
 </script>
