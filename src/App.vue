@@ -6,7 +6,7 @@
 
     <ThemeSelector />
 
-    <Avatar src="/src/assets/bubble-chat.png" chatName="Leonardo - ChatBot" />
+    <Avatar src="/src/assets/cvs.png" chatName="Leonardo - ChatBot" />
 
     <div class="viewport">
       <Navbar 
