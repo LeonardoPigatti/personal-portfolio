@@ -182,7 +182,7 @@ function matchKeywords(text) {
   height: 165px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid white;
+  /* border: 3px solid white; */
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
   cursor: pointer;
   transition: transform 0.2s ease;

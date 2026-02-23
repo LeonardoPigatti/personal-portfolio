@@ -1,12 +1,11 @@
 <template>
   <div class="hero">
     <div class="left-side">
-      <div class="profile-wrap" @click="flipImage">
+      <div class="profile-wrap">
         <img 
-          :src="currentImage" 
+          src="/src/assets/leo3.jpg" 
           alt="Profile" 
           class="profile-image"
-          :class="{ flipping: isFlipping }"
         />
       </div>
     </div>
@@ -28,7 +27,6 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
 import { useLang } from '@/useLang'
 
 const { t } = useLang()
@@ -36,30 +34,6 @@ const { t } = useLang()
 const props = defineProps({
   isVisible: Boolean,
 })
-
-const images = [
-  '/src/assets/tc.jpg',
-  '/src/assets/fp.jpg'
-]
-
-const currentImageIndex = ref(0)
-const isFlipping = ref(false)
-
-const currentImage = computed(() => images[currentImageIndex.value])
-
-const flipImage = () => {
-  if (isFlipping.value) return
-  
-  isFlipping.value = true
-  
-  setTimeout(() => {
-    currentImageIndex.value = (currentImageIndex.value + 1) % images.length
-  }, 300)
-  
-  setTimeout(() => {
-    isFlipping.value = false
-  }, 600)
-}
 </script>
 
 <style scoped>
@@ -80,28 +54,6 @@ const flipImage = () => {
   border-radius: 12px;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
-  cursor: pointer;
-}
-
-.profile-image:hover:not(.flipping) {
-  transform: scale(1.07);
-}
-
-.profile-image.flipping {
-  animation: flipHorizontal 0.6s ease-in-out;
-}
-
-@keyframes flipHorizontal {
-  0% {
-    transform: rotateY(0deg) scale(1);
-  }
-  50% {
-    transform: rotateY(90deg) scale(1.05);
-  }
-  100% {
-    transform: rotateY(0deg) scale(1);
-  }
 }
 
 .hero-title {
@@ -185,7 +137,6 @@ h1.show .l3 {
   position: relative;
   width: 100%;
   border-radius: 12px;
-  perspective: 1000px; /* importante para o efeito 3D */
 }
 
 .profile-wrap::before {
@@ -196,7 +147,16 @@ h1.show .l3 {
   background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
   transform: translate(-18px, -18px);
   z-index: -1;
-  filter: blur(0px);
   opacity: 0.9;
+}
+
+/* 👇 filtro roxo clarinho */
+.profile-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+background: rgba(118, 75, 162, 0.35);
+  pointer-events: none;
 }
 </style>
