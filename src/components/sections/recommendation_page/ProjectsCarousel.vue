@@ -1,45 +1,103 @@
 <template>
-  <div class="black-box">
+  <div class="carousel-wrapper">
 
-    <button class="nav left" @click="prev">‹</button>
+    <!-- Ambient glow background -->
+    <div class="ambient-glow" :style="glowStyle" />
 
-    <div class="carousel">
+    <!-- Counter -->
+    <div class="slide-counter">
+      <span class="counter-current">{{ String(current + 1).padStart(2, '0') }}</span>
+      <span class="counter-sep"> / </span>
+      <span class="counter-total">{{ String(repos.length).padStart(2, '0') }}</span>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="progress-track">
+      <div
+        class="progress-fill"
+        :style="{ width: repos.length ? `${((current + 1) / repos.length) * 100}%` : '0%' }"
+      />
+    </div>
+
+    <!-- Main carousel -->
+    <div class="carousel" ref="carouselRef">
       <div
         class="track"
         :style="{ transform: `translateX(-${current * 100}%)` }"
       >
-
-        <!-- LOADING -->
-        <div v-if="loading" class="slide">
-          <p class="loading-text">Carregando projetos do GitHub...</p>
+        <div v-if="loading" class="slide slide--loading">
+          <div class="loading-ring" />
+          <p class="loading-label">Buscando repositórios</p>
         </div>
 
-        <!-- SLIDES -->
+        <div v-else-if="error" class="slide slide--loading">
+          <p class="loading-label">{{ error }}</p>
+        </div>
+
         <ProjectSlide
           v-else
-          v-for="repo in repos"
+          v-for="(repo, i) in repos"
           :key="repo.id"
           :repo="repo"
           :expanded="expanded"
+          :active="i === current"
           @toggle="toggleExpanded"
         />
-
       </div>
     </div>
 
-    <button class="nav right" @click="next">›</button>
+    <!-- Navigation -->
+    <button class="nav nav--prev" @click="prev" :disabled="loading">
+      <span class="nav-arrow">←</span>
+      <span class="nav-label">Anterior</span>
+    </button>
+
+    <button class="nav nav--next" @click="next" :disabled="loading">
+      <span class="nav-label">Próximo</span>
+      <span class="nav-arrow">→</span>
+    </button>
+
+    <!-- Dot indicators -->
+    <div class="dots" v-if="!loading">
+      <button
+        v-for="(_, i) in repos"
+        :key="i"
+        class="dot"
+        :class="{ 'dot--active': i === current }"
+        @click="goTo(i)"
+      />
+    </div>
 
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue"
+import { ref, computed, onMounted, watch } from "vue"
 import ProjectSlide from "@/components/sections/recommendation_page/ProjectSlide.vue"
+import { projects as staticProjects } from "@/data/Projects.js"
 
 const repos = ref([])
 const loading = ref(true)
+const error = ref(null)
 const current = ref(0)
 const expanded = ref(false)
+
+// Paleta de cores para glow ambiente por slide
+const glowColors = [
+  "118, 75, 162",
+  "102, 126, 234",
+  "240, 147, 251",
+  "67, 206, 162",
+  "238, 156, 167",
+  "85, 98, 212",
+]
+
+const glowStyle = computed(() => {
+  const color = glowColors[current.value % glowColors.length]
+  return {
+    background: `radial-gradient(ellipse 60% 50% at 50% 50%, rgba(${color}, 0.18) 0%, transparent 70%)`,
+  }
+})
 
 const next = () => {
   if (!repos.value.length) return
@@ -48,8 +106,11 @@ const next = () => {
 
 const prev = () => {
   if (!repos.value.length) return
-  current.value =
-    (current.value - 1 + repos.value.length) % repos.value.length
+  current.value = (current.value - 1 + repos.value.length) % repos.value.length
+}
+
+const goTo = (i) => {
+  current.value = i
 }
 
 const toggleExpanded = () => {
@@ -62,21 +123,42 @@ watch(current, () => {
 
 onMounted(async () => {
   try {
-    const res = await fetch(
-      "https://api.github.com/users/LeonardoPigatti/repos"
-    )
-    const data = await res.json()
+    // Busca todos os repos públicos do usuário na API do GitHub
+    const res = await fetch("https://api.github.com/users/LeonardoPigatti/repos?per_page=100")
 
-    const sorted = data
-      .filter(r => !r.fork)
-      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+    if (!res.ok) throw new Error(`GitHub API error: ${res.status}`)
 
-    repos.value = sorted.map(repo => ({
-      ...repo,
-      image: `https://picsum.photos/seed/${repo.name}/1600/900`
-    }))
+    const apiData = await res.json()
+
+    // Cria um Map para lookup rápido por nome
+    const apiMap = new Map(apiData.map(repo => [repo.name, repo]))
+
+    // Monta a lista final na ordem definida em projects.js
+    // Apenas projetos que existem tanto no arquivo estático quanto na API são exibidos
+    const merged = staticProjects.reduce((acc, staticProject) => {
+      const apiRepo = apiMap.get(staticProject.repoName)
+
+      if (!apiRepo) {
+        // Repo não encontrado na API (pode ser privado ou nome errado) — ignora
+        console.warn(`[ProjectCarousel] Repo "${staticProject.repoName}" não encontrado na API do GitHub.`)
+        return acc
+      }
+
+      acc.push({
+        // Todos os campos da API (id, stars, forks, linguagem, url, etc.)
+        ...apiRepo,
+        // Sobrescreve apenas imagem e descrição com os dados estáticos
+        image: staticProject.image,
+        description: staticProject.description,
+      })
+
+      return acc
+    }, [])
+
+    repos.value = merged
   } catch (err) {
-    console.error(err)
+    console.error("[ProjectCarousel]", err)
+    error.value = "Não foi possível carregar os projetos."
   } finally {
     loading.value = false
   }
@@ -84,41 +166,146 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.section {
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap');
+
+/* ── WRAPPER ─────────────────────────────────────── */
+.carousel-wrapper {
   position: relative;
-  height: 100vh;
-  overflow: hidden;
+  width: 92%;
+  max-width: 1520px;
+  height: 82vh;
+  min-height: 580px;
+
+  background: rgba(8, 8, 12, 0.85);
+  backdrop-filter: blur(24px) saturate(1.4);
+  border-radius: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 60px 160px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+
+  overflow: hidden;
+  font-family: 'Syne', sans-serif;
+
+  animation: revealBox 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* VIDEO */
-.background-video {
+@keyframes revealBox {
+  from { opacity: 0; transform: translateY(40px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+/* ── AMBIENT GLOW ────────────────────────────────── */
+.ambient-glow {
   position: absolute;
   inset: 0;
-  width: 100%;
+  pointer-events: none;
+  transition: background 1s ease;
+  z-index: 0;
+}
+
+/* ── COUNTER ─────────────────────────────────────── */
+.slide-counter {
+  position: absolute;
+  top: 36px;
+  left: 48px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  z-index: 10;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.counter-current {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1;
+}
+
+.counter-sep,
+.counter-total {
+  color: rgba(255,255,255,0.3);
+  font-size: 0.8rem;
+}
+
+/* ── PROGRESS BAR ────────────────────────────────── */
+.progress-track {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255,255,255,0.06);
+  z-index: 10;
+}
+
+.progress-fill {
   height: 100%;
-  object-fit: cover;
-  z-index: -3;
-  filter: brightness(0.55) contrast(1.1) saturate(1.15);
+  background: linear-gradient(90deg, #667eea, #f093fb);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 12px rgba(240, 147, 251, 0.6);
 }
 
-/* OVERLAY */
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-  opacity: 0.3;
-  z-index: -2;
+/* ── CAROUSEL ────────────────────────────────────── */
+.carousel {
+  position: relative;
+  z-index: 1;
+  width: calc(100% - 200px);
+  height: calc(100% - 100px);
+  overflow: hidden;
+  border-radius: 24px;
 }
 
-/* SETA */
-.scroll-indicator {
+.track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+/* ── LOADING / ERROR ─────────────────────────────── */
+.slide--loading {
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.loading-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.1);
+  border-top-color: #f093fb;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+/* ── NAV BUTTONS ─────────────────────────────────── */
+.nav {
   position: absolute;
-  bottom: 1200px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
 
   border: none;
   cursor: pointer;
@@ -141,204 +328,66 @@ onMounted(async () => {
     #d4cde3 100%
   );
 
-  box-shadow: 
+  box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.7);
 
   transition: 0.25s ease;
-  animation: pulse 1.6s infinite;
 }
 
+.nav:hover:not(:disabled) {
+  transform: translateY(-50%) scale(1.07);
+}
 
-.scroll-indicator span {
+.nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.nav-label { display: none; }
+
+.nav-arrow {
   background: linear-gradient(
     135deg,
     #1e2a78 0%,
-    #2b1055 50%,
-    #4a044e 100%
+    #764ba2 50%,
+    #f093fb 100%
   );
-
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  line-height: 1;
 }
 
+.nav--prev { left: 24px; }
+.nav--next { right: 24px; }
 
-.scroll-indicator:hover {
-  transform: translateX(-50%) scale(1.07);
-}
-
-
-@keyframes pulse {
-  0% {
-    transform: translateX(-50%) translateY(0);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translateX(-50%) translateY(8px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) translateY(0);
-    opacity: 0.7;
-  }
-}
-
-
-/* BLACK BOX */
-.black-box {
-  position: relative;
-  z-index: 2;
-  width: 85%;
-  max-width: 1400px;
-  height: 75vh;
-
-  background: rgba(15, 15, 18, 0.92);
-  backdrop-filter: blur(14px);
-  border-radius: 28px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-animation: fadeSlideDown 1.6s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
-transform: translateY(-30px);
-
-}
-
-@keyframes fadeSlideDown {
-  from { 
-    opacity: 0; 
-    transform: translateY(-60px); 
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
-}
-
-
-/* CAROUSEL */
-.carousel {
-  width: 85%;
-  height: 80%;
-  overflow: hidden;
-  border-radius: 22px;
-}
-
-.track {
-  display: flex;
-  height: 100%;
-  transition: transform 0.6s ease;
-}
-
-.slide {
-  min-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.slide-layout {
-  width: 100%;
-  height: 85%;
-  display: flex;
-  gap: 50px;
-  transition: 0.5s ease;
-}
-
-.image-area {
-  width: 100%;
-  height: 100%;
-  border-radius: 22px;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.image-area img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.slide-layout.expanded .image-area {
-  width: 55%;
-}
-
-.text-area {
-  width: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: 0.5s ease;
-  color: white;
-}
-
-.slide-layout.expanded .text-area {
-  width: 45%;
-  opacity: 1;
-}
-
-.text-area h2 {
-  font-size: 2rem;
-  font-weight: 800;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.desc {
-  margin-bottom: 20px;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.meta p {
-  margin: 8px 0;
-  font-size: 0.95rem;
-}
-
-.repo-link {
-  display: inline-block;
-  margin-top: 20px;
-  font-weight: 700;
-  text-decoration: none;
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.caption {
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* NAV */
-.nav {
+/* ── DOTS ────────────────────────────────────────── */
+.dots {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 60px;
-  height: 60px;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   border: none;
-  font-size: 36px;
+  background: rgba(255,255,255,0.2);
   cursor: pointer;
-  color: white;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
+  padding: 0;
+  transition: all 0.3s ease;
 }
 
-.left { left: 20px; }
-.right { right: 20px; }
-
-.loading-text {
-  color: white;
-  font-weight: 600;
+.dot--active {
+  width: 24px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #667eea, #f093fb);
+  box-shadow: 0 0 10px rgba(240,147,251,0.5);
 }
 </style>
