@@ -107,7 +107,7 @@ defineEmits(['next', 'prev', 'open-course'])
   letter-spacing: 0.6px;
   text-decoration: none;
   color: white;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
   animation: gradientShift 3s ease infinite;
   transition: all 0.2s ease;
@@ -123,7 +123,7 @@ defineEmits(['next', 'prev', 'open-course'])
 }
 
 .nav-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
   color: white;
   border: none;
@@ -163,7 +163,7 @@ defineEmits(['next', 'prev', 'open-course'])
 .dot.active {
   width: 24px;
   border-radius: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
   animation: gradientShift 3s ease infinite;
 }

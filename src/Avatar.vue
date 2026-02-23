@@ -182,7 +182,6 @@ function matchKeywords(text) {
   height: 165px;
   border-radius: 50%;
   overflow: hidden;
-  /* border: 3px solid white; */
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
   cursor: pointer;
   transition: transform 0.2s ease;
@@ -205,7 +204,7 @@ function matchKeywords(text) {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(102,126,234,0.45) 0%, rgba(118,75,162,0.45) 50%, rgba(240,147,251,0.45) 100%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 45%, transparent) 0%, color-mix(in srgb, var(--color-secondary) 45%, transparent) 50%, color-mix(in srgb, var(--color-accent) 45%, transparent) 100%);
   background-size: 200% 200%;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -244,7 +243,7 @@ function matchKeywords(text) {
 }
 
 .chat-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   color: white;
   padding: 26px;
   display: flex;
@@ -297,7 +296,7 @@ function matchKeywords(text) {
 .chat-message.sent { margin-left: auto; }
 
 .chat-message.sent p {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   color: white;
   border-bottom-right-radius: 6px;
 }
@@ -314,7 +313,7 @@ function matchKeywords(text) {
   transition: transform 0.15s ease, border 0.15s ease;
 }
 
-.option-btn:hover { transform: translateY(-2px); border-color: #667eea; }
+.option-btn:hover { transform: translateY(-2px); border-color: var(--color-primary); }
 
 .chat-footer {
   padding: 22px;
@@ -333,13 +332,13 @@ function matchKeywords(text) {
   outline: none;
 }
 
-.chat-input:focus { border-color: #667eea; }
+.chat-input:focus { border-color: var(--color-primary); }
 
 .send-btn {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
   border: none;
   color: white;
   font-size: 26px;

@@ -8,8 +8,8 @@
         :key="theme.id"
         class="bubble option-bubble"
         :style="[
-          { background: theme.color, transitionDelay: isOpen ? `${idx * 60}ms` : `${(themes.length - idx) * 40}ms` },
-          selectedTheme === theme.id ? { boxShadow: `0 0 0 3px white, 0 0 0 5px ${theme.color}` } : {}
+          { background: theme.previewColor, transitionDelay: isOpen ? `${idx * 60}ms` : `${(themes.length - idx) * 40}ms` },
+          selectedTheme === theme.id ? { boxShadow: `0 0 0 3px white, 0 0 0 5px ${theme.previewColor}` } : {}
         ]"
         :title="theme.label"
         @click="selectTheme(theme)"
@@ -30,17 +30,70 @@
 <script setup>
 import { ref, computed } from "vue";
 
+// ─── Definição das paletas ────────────────────────────────────────────────────
 const themes = [
-  { id: "aurora",  label: "Aurora",  color: "#7c3aed" },
-  { id: "ocean",   label: "Ocean",   color: "#0ea5e9" },
-  { id: "forest",  label: "Forest",  color: "#16a34a" },
+  {
+    id: "aurora",
+    label: "Aurora",
+    previewColor: "#7c3aed",
+    vars: {
+      "--bg-primary":       "#000000",
+      "--color-primary":    "#667eea",
+      "--color-secondary":  "#764ba2",
+      "--color-accent":     "#f093fb",
+      "--color-extra":      "#7c3aed",
+      "--color-extra2":     "#a855f7",
+      "--circle-1":         "#3b82f6",
+      "--circle-2":         "#8b5cf6",
+      "--circle-3":         "#ec4899",
+      "--text-tag":         "rgba(255,255,255,0.65)",
+      "--text-bio":         "rgba(226,232,240,0.8)",
+    },
+  },
+  {
+    id: "sunset",
+    label: "Sunset",
+    previewColor: "#ff6b35",
+    vars: {
+      "--bg-primary":       "#0d0608",
+      "--color-primary":    "#ff6b35",
+      "--color-secondary":  "#e84393",
+      "--color-accent":     "#f7c59f",
+      "--color-extra":      "#e84393",
+      "--color-extra2":     "#ff6b35",
+      "--circle-1":         "#ff6b35",
+      "--circle-2":         "#e84393",
+      "--circle-3":         "#f7c59f",
+      "--text-tag":         "rgba(255,220,200,0.75)",
+      "--text-bio":         "rgba(255,235,220,0.85)",
+    },
+  },
+  {
+    id: "hacker",
+    label: "Hacker",
+    previewColor: "#00ff41",
+    vars: {
+      "--bg-primary":       "#000000",
+      "--color-primary":    "#00ff41",
+      "--color-secondary":  "#00cc33",
+      "--color-accent":     "#39ff14",
+      "--color-extra":      "#00cc33",
+      "--color-extra2":     "#00ff41",
+      "--circle-1":         "#00ff41",
+      "--circle-2":         "#00cc33",
+      "--circle-3":         "#003b00",
+      "--text-tag":         "rgba(0,255,65,0.7)",
+      "--text-bio":         "rgba(180,255,200,0.85)",
+    },
+  },
 ];
 
+// ─── Estado ───────────────────────────────────────────────────────────────────
 const isOpen = ref(false);
 const selectedTheme = ref("aurora");
 
 const currentColor = computed(
-  () => themes.find((t) => t.id === selectedTheme.value)?.color ?? "#7c3aed"
+  () => themes.find((t) => t.id === selectedTheme.value)?.previewColor ?? "#7c3aed"
 );
 
 let closeTimer = null;
@@ -56,17 +109,31 @@ function close() {
   }, 200);
 }
 
+// ─── Aplica o tema via CSS variables no :root ─────────────────────────────────
+function applyTheme(theme) {
+  const root = document.documentElement;
+  Object.entries(theme.vars).forEach(([key, value]) => {
+    root.style.setProperty(key, value);
+  });
+}
+
 function selectTheme(theme) {
   selectedTheme.value = theme.id;
-  // Emite evento para o pai aplicar o tema
+  applyTheme(theme);
   emit("change", theme);
 }
+
+// Aplica o tema inicial ao montar
+import { onMounted } from "vue";
+onMounted(() => {
+  const initial = themes.find((t) => t.id === selectedTheme.value);
+  if (initial) applyTheme(initial);
+});
 
 const emit = defineEmits(["change"]);
 </script>
 
 <style scoped>
-/* ── Wrapper ── */
 .selector-wrapper {
   position: fixed;
   left: 96px;
@@ -78,7 +145,6 @@ const emit = defineEmits(["change"]);
   gap: 12px;
 }
 
-/* ── Stack de opções ── */
 .options-stack {
   display: flex;
   flex-direction: column-reverse;
@@ -86,7 +152,6 @@ const emit = defineEmits(["change"]);
   gap: 12px;
 }
 
-/* ── Bolha base ── */
 .bubble {
   width: 52px;
   height: 52px;
@@ -104,7 +169,6 @@ const emit = defineEmits(["change"]);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
 }
 
-/* ── Bolha principal ── */
 .main-bubble {
   width: 60px;
   height: 60px;
@@ -120,12 +184,10 @@ const emit = defineEmits(["change"]);
   transform: scale(1.1);
 }
 
-/* ── Bolhas de opção ── */
 .option-bubble:hover {
   transform: scale(1.18) translateX(6px);
 }
 
-/* ── Label tooltip ── */
 .bubble-label {
   position: absolute;
   left: calc(100% + 10px);
@@ -148,7 +210,6 @@ const emit = defineEmits(["change"]);
   transform: translateX(0);
 }
 
-/* ── Animação de entrada/saída ── */
 .bubble-enter-active,
 .bubble-leave-active {
   transition:
@@ -166,7 +227,6 @@ const emit = defineEmits(["change"]);
   transform: translateY(16px) scale(0.6);
 }
 
-/* ── Mobile ── */
 @media (max-width: 600px) {
   .selector-wrapper {
     left: 16px;

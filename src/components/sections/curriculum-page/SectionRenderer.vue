@@ -176,7 +176,7 @@ defineEmits(['open-course'])
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.8s ease, transform 0.8s ease;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -193,41 +193,35 @@ defineEmits(['open-course'])
 .tooltip--always {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
-  /* começa preto */
   -webkit-text-fill-color: #333;
   background: none;
   -webkit-background-clip: unset;
   background-clip: unset;
   animation: spotlightPass linear infinite;
-  /* duration e delay vêm do :style inline */
 }
 
 @keyframes spotlightPass {
-  /* fora da janela de destaque: preto */
-  0%   {
+  0% {
     -webkit-text-fill-color: #333;
     background: none;
     -webkit-background-clip: unset;
     background-clip: unset;
   }
-  /* entrando no gradiente */
-  10%  {
+  10% {
     -webkit-text-fill-color: transparent;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
   }
-  /* saindo do gradiente */
-  26%  {
+  26% {
     -webkit-text-fill-color: transparent;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
   }
-  /* volta ao preto */
-  36%  {
+  36% {
     -webkit-text-fill-color: #333;
     background: none;
     -webkit-background-clip: unset;
@@ -264,7 +258,7 @@ defineEmits(['open-course'])
 }
 
 .course-item:hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;

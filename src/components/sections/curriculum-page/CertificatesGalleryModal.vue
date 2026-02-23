@@ -249,7 +249,7 @@ const downloadAllAsZip = async () => {
   color: #222;
   max-width: 90%;
   margin: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -259,45 +259,32 @@ const downloadAllAsZip = async () => {
 
 .tile {
   aspect-ratio: 1 / 1;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   text-decoration: none;
-
   background: #f6f7fb;
-
   border: 1px solid #d1d5db;
   border-radius: 16px;
-
-  padding: 1px; /* ESSENCIAL pra borda gradiente aparecer */
-
+  padding: 1px;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
-
-/* hover com borda gradiente */
 .tile:hover {
   border: 1px solid transparent;
-
   background:
     linear-gradient(#f6f7fb, #f6f7fb) padding-box,
-    linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) border-box;
-
+    linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%) border-box;
   background-size: 100% 100%, 200% 200%;
   animation: gradientShift 3s ease infinite;
 }
 
-
-/* animação do gradiente */
 @keyframes gradientShift {
-  0% { background-position: 0% 50%, 0% 50%; }
-  50% { background-position: 0% 50%, 100% 50%; }
+  0%   { background-position: 0% 50%, 0% 50%; }
+  50%  { background-position: 0% 50%, 100% 50%; }
   100% { background-position: 0% 50%, 0% 50%; }
 }
-
 
 .gallery-close {
   border: none;
@@ -313,7 +300,7 @@ const downloadAllAsZip = async () => {
 
 .gallery-close:hover {
   transform: scale(1.1);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -349,7 +336,7 @@ const downloadAllAsZip = async () => {
   height: 55px;
   border-radius: 999px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -360,13 +347,8 @@ const downloadAllAsZip = async () => {
   transform: translateY(-50%) scale(1.07);
 }
 
-.gallery-nav.left {
-  left: 18px;
-}
-
-.gallery-nav.right {
-  right: 18px;
-}
+.gallery-nav.left  { left: 18px; }
+.gallery-nav.right { right: 18px; }
 
 .gallery-thumbs {
   display: flex;
@@ -394,8 +376,9 @@ const downloadAllAsZip = async () => {
 
 .thumb.active {
   border: 6px solid transparent;
-  background: linear-gradient(white, white) padding-box,
-    linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) border-box;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%) border-box;
 }
 
 .gallery-empty {
@@ -433,7 +416,7 @@ const downloadAllAsZip = async () => {
   font-weight: 700;
   font-size: 0.9rem;
   color: white;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
   transition: 0.25s ease;
 }

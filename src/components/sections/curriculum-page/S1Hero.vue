@@ -73,7 +73,7 @@ h1 {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -82,12 +82,8 @@ h1 {
 }
 
 @keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
 }
 
 .line {
@@ -100,21 +96,10 @@ h1.show .line {
   animation: slideInLeft 0.75s ease forwards;
 }
 
-h1.show .name {
-  animation-delay: 0s;
-}
-
-h1.show .l1 {
-  animation-delay: 0.45s;
-}
-
-h1.show .l2 {
-  animation-delay: 0.9s;
-}
-
-h1.show .l3 {
-  animation-delay: 1.35s;
-}
+h1.show .name  { animation-delay: 0s; }
+h1.show .l1    { animation-delay: 0.45s; }
+h1.show .l2    { animation-delay: 0.9s; }
+h1.show .l3    { animation-delay: 1.35s; }
 
 @keyframes slideInLeft {
   to {
@@ -144,19 +129,18 @@ h1.show .l3 {
   position: absolute;
   inset: 0;
   border-radius: 12px;
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
   transform: translate(-18px, -18px);
   z-index: -1;
   opacity: 0.9;
 }
 
-/* 👇 filtro roxo clarinho */
 .profile-wrap::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 12px;
-background: rgba(118, 75, 162, 0.35);
+  background: color-mix(in srgb, var(--color-secondary) 35%, transparent);
   pointer-events: none;
 }
 </style>

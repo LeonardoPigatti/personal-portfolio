@@ -67,7 +67,7 @@ const revealProjects = () => {
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
   opacity: 0.3;
   z-index: -2;
 }
@@ -100,14 +100,13 @@ const revealProjects = () => {
     #d4cde3 100%
   );
 
-  box-shadow: 
+  box-shadow:
     0 12px 40px rgba(0, 0, 0, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.7);
 
   transition: 0.25s ease;
   animation: pulse 1.6s infinite;
 }
-
 
 .scroll-indicator span {
   background: linear-gradient(
@@ -116,33 +115,20 @@ const revealProjects = () => {
     #2b1055 50%,
     #4a044e 100%
   );
-
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-
 .scroll-indicator:hover {
   transform: translateX(-50%) scale(1.07);
 }
 
-
 @keyframes pulse {
-  0% {
-    transform: translateX(-50%) translateY(0);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translateX(-50%) translateY(8px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-50%) translateY(0);
-    opacity: 0.7;
-  }
+  0%   { transform: translateX(-50%) translateY(0);  opacity: 0.7; }
+  50%  { transform: translateX(-50%) translateY(8px); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(0);  opacity: 0.7; }
 }
-
 
 /* BLACK BOX */
 .black-box {
@@ -163,22 +149,14 @@ const revealProjects = () => {
   box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
 
-animation: fadeSlideDown 1.6s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
-transform: translateY(-30px);
-
+  animation: fadeSlideDown 1.6s cubic-bezier(0.12, 0.8, 0.25, 1) forwards;
+  transform: translateY(-30px);
 }
 
 @keyframes fadeSlideDown {
-  from { 
-    opacity: 0; 
-    transform: translateY(-60px); 
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
-  }
+  from { opacity: 0; transform: translateY(-60px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 
 /* CAROUSEL */
 .carousel {
@@ -246,7 +224,7 @@ transform: translateY(-30px);
   font-size: 2rem;
   font-weight: 800;
   margin-bottom: 20px;
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -266,7 +244,7 @@ transform: translateY(-30px);
   margin-top: 20px;
   font-weight: 700;
   text-decoration: none;
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

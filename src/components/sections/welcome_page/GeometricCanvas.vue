@@ -55,7 +55,7 @@
   position: absolute;
 
   /* ✅ gradiente aplicado em TODOS os pedaços */
-  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
   background-position: 0% 50%;
 }
@@ -180,170 +180,88 @@
    ============================================================ */
 
 @keyframes transform1 {
-  from {
-    clip-path: polygon(33.862% 16.402%, 27.513% 21.693%, 26.455% 12.698%);
-  }
-  to {
-    clip-path: polygon(41.267% 13.87%, 44.692% 25.685%, 40.411% 31.507%);
-  }
+  from { clip-path: polygon(33.862% 16.402%, 27.513% 21.693%, 26.455% 12.698%); }
+  to   { clip-path: polygon(41.267% 13.87%, 44.692% 25.685%, 40.411% 31.507%); }
 }
 @keyframes transform2 {
-  from {
-    clip-path: polygon(26.455% 12.698%, 15.873% 29.63%, 29.042% 35.921%);
-  }
-  to {
-    clip-path: polygon(41.267% 13.87%, 44.692% 25.685%, 52.397% 25.685%);
-  }
+  from { clip-path: polygon(26.455% 12.698%, 15.873% 29.63%, 29.042% 35.921%); }
+  to   { clip-path: polygon(41.267% 13.87%, 44.692% 25.685%, 52.397% 25.685%); }
 }
 @keyframes transform3 {
-  from {
-    clip-path: polygon(15.873% 29.63%, 14.212% 40.411%, 31.5% 36.815%);
-  }
-  to {
-    clip-path: polygon(35.274% 38.356%, 44.692% 25.685%, 56.678% 50.685%);
-  }
+  from { clip-path: polygon(15.873% 29.63%, 14.212% 40.411%, 31.5% 36.815%); }
+  to   { clip-path: polygon(35.274% 38.356%, 44.692% 25.685%, 56.678% 50.685%); }
 }
 @keyframes transform4 {
-  from {
-    clip-path: polygon(14.212% 40.411%, 21.164% 46.032%, 38.095% 35.45%);
-  }
-  to {
-    clip-path: polygon(44.692% 25.685%, 56.678% 50.685%, 68.322% 25.685%);
-  }
+  from { clip-path: polygon(14.212% 40.411%, 21.164% 46.032%, 38.095% 35.45%); }
+  to   { clip-path: polygon(44.692% 25.685%, 56.678% 50.685%, 68.322% 25.685%); }
 }
 @keyframes transform5 {
-  from {
-    clip-path: polygon(38.095% 35.45%, 11.64% 51.323%, 41.27% 59.259%);
-  }
-  to {
-    clip-path: polygon(68.322% 25.685%, 56.678% 50.685%, 77.911% 38.356%);
-  }
+  from { clip-path: polygon(38.095% 35.45%, 11.64% 51.323%, 41.27% 59.259%); }
+  to   { clip-path: polygon(68.322% 25.685%, 56.678% 50.685%, 77.911% 38.356%); }
 }
 @keyframes transform6 {
-  from {
-    clip-path: polygon(11.64% 51.323%, 38.356% 82.534%, 41.27% 59.259%);
-  }
-  to {
-    clip-path: polygon(71.404% 13.87%, 59.932% 25.685%, 68.322% 25.685%);
-  }
+  from { clip-path: polygon(11.64% 51.323%, 38.356% 82.534%, 41.27% 59.259%); }
+  to   { clip-path: polygon(71.404% 13.87%, 59.932% 25.685%, 68.322% 25.685%); }
 }
 @keyframes transform7 {
-  from {
-    clip-path: polygon(11.64% 51.323%, 19.349% 83.048%, 28.596% 71%);
-  }
-  to {
-    clip-path: polygon(71.404% 13.87%, 68.322% 25.685%, 72.603% 31.164%);
-  }
+  from { clip-path: polygon(11.64% 51.323%, 19.349% 83.048%, 28.596% 71%); }
+  to   { clip-path: polygon(71.404% 13.87%, 68.322% 25.685%, 72.603% 31.164%); }
 }
 @keyframes transform8 {
-  from {
-    clip-path: polygon(41.27% 59.259%, 38.356% 82.534%, 62.842% 83.39%);
-  }
-  to {
-    clip-path: polygon(42.466% 42.5%, 48.288% 87.329%, 56.678% 50.685%);
-  }
+  from { clip-path: polygon(41.27% 59.259%, 38.356% 82.534%, 62.842% 83.39%); }
+  to   { clip-path: polygon(42.466% 42.5%, 48.288% 87.329%, 56.678% 50.685%); }
 }
 @keyframes transform9 {
-  from {
-    clip-path: polygon(62.842% 83.39%, 59.589% 59.589%, 41.27% 59.259%);
-  }
-  to {
-    clip-path: polygon(56.678% 50.685%, 56.66% 83.904%, 48.288% 87.329%);
-  }
+  from { clip-path: polygon(62.842% 83.39%, 59.589% 59.589%, 41.27% 59.259%); }
+  to   { clip-path: polygon(56.678% 50.685%, 56.66% 83.904%, 48.288% 87.329%); }
 }
 @keyframes transform10 {
-  from {
-    clip-path: polygon(41.27% 59.259%, 38.095% 35.45%, 59.589% 59.589%);
-  }
-  to {
-    clip-path: polygon(56.66% 83.904%, 56.678% 50.685%, 64.555% 87.158%);
-  }
+  from { clip-path: polygon(41.27% 59.259%, 38.095% 35.45%, 59.589% 59.589%); }
+  to   { clip-path: polygon(56.66% 83.904%, 56.678% 50.685%, 64.555% 87.158%); }
 }
 @keyframes transform11 {
-  from {
-    clip-path: polygon(63.243% 35.243%, 59.589% 59.589%, 38.095% 35.45%);
-  }
-  to {
-    clip-path: polygon(71.377% 42.123%, 64.555% 87.158%, 56.678% 50.685%);
-  }
+  from { clip-path: polygon(63.243% 35.243%, 59.589% 59.589%, 38.095% 35.45%); }
+  to   { clip-path: polygon(71.377% 42.123%, 64.555% 87.158%, 56.678% 50.685%); }
 }
 @keyframes transform12 {
-  from {
-    clip-path: polygon(63.243% 35.243%, 59.589% 59.589%, 89.405% 51.784%);
-  }
-  to {
-    clip-path: polygon(56.66% 83.904%, 48.288% 87.329%, 56.66% 87.329%);
-  }
+  from { clip-path: polygon(63.243% 35.243%, 59.589% 59.589%, 89.405% 51.784%); }
+  to   { clip-path: polygon(56.66% 83.904%, 48.288% 87.329%, 56.66% 87.329%); }
 }
 @keyframes transform13 {
-  from {
-    clip-path: polygon(59.589% 59.589%, 89.405% 51.784%, 62.842% 83.39%);
-  }
-  to {
-    clip-path: polygon(56.66% 83.904%, 64.555% 87.158%, 56.66% 87.329%);
-  }
+  from { clip-path: polygon(59.589% 59.589%, 89.405% 51.784%, 62.842% 83.39%); }
+  to   { clip-path: polygon(56.66% 83.904%, 64.555% 87.158%, 56.66% 87.329%); }
 }
 @keyframes transform14 {
-  from {
-    clip-path: polygon(89.405% 51.892%, 73% 71%, 83.048% 82.919%);
-  }
-  to {
-    clip-path: polygon(42.466% 42.5%, 29.11% 63.527%, 45.205% 62.842%);
-  }
+  from { clip-path: polygon(89.405% 51.892%, 73% 71%, 83.048% 82.919%); }
+  to   { clip-path: polygon(42.466% 42.5%, 29.11% 63.527%, 45.205% 62.842%); }
 }
 @keyframes transform15 {
-  from {
-    clip-path: polygon(63.243% 35.243%, 79.795% 45.89%, 88.185% 40.753%);
-  }
-  to {
-    clip-path: polygon(29.11% 63.527%, 45.205% 62.842%, 29.11% 78.082%);
-  }
+  from { clip-path: polygon(63.243% 35.243%, 79.795% 45.89%, 88.185% 40.753%); }
+  to   { clip-path: polygon(29.11% 63.527%, 45.205% 62.842%, 29.11% 78.082%); }
 }
 @keyframes transform16 {
-  from {
-    clip-path: polygon(86.815% 29.281%, 69.404% 36.644%, 88.185% 40.753%);
-  }
-  to {
-    clip-path: polygon(29.11% 78.082%, 45.205% 62.842%, 41.438% 87.329%);
-  }
+  from { clip-path: polygon(86.815% 29.281%, 69.404% 36.644%, 88.185% 40.753%); }
+  to   { clip-path: polygon(29.11% 78.082%, 45.205% 62.842%, 41.438% 87.329%); }
 }
 @keyframes transform17 {
-  from {
-    clip-path: polygon(86.815% 29.281%, 72.801% 35.25%, 75.342% 12.158%);
-  }
-  to {
-    clip-path: polygon(41.438% 87.329%, 45.205% 62.842%, 48.288% 87.329%);
-  }
+  from { clip-path: polygon(86.815% 29.281%, 72.801% 35.25%, 75.342% 12.158%); }
+  to   { clip-path: polygon(41.438% 87.329%, 45.205% 62.842%, 48.288% 87.329%); }
 }
 @keyframes transform18 {
-  from {
-    clip-path: polygon(67.096% 16.438%, 75.342% 12.158%, 74.2% 22.603%);
-  }
-  to {
-    clip-path: polygon(29.11% 78.082%, 16.267% 86.473%, 40.897% 86.644%);
-  }
+  from { clip-path: polygon(67.096% 16.438%, 75.342% 12.158%, 74.2% 22.603%); }
+  to   { clip-path: polygon(29.11% 78.082%, 16.267% 86.473%, 40.897% 86.644%); }
 }
 
 /* gradiente animado */
 @keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* sombra */
 @keyframes animateShadow {
-  from {
-    width: 170px;
-  }
-  to {
-    width: 135px;
-  }
+  from { width: 170px; }
+  to   { width: 135px; }
 }
 </style>

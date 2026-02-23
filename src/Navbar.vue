@@ -42,7 +42,6 @@ defineProps({
   padding: 12px 14px;
   border-radius: 999px;
 
-  /* Gradiente sutil: preto com toque roxo */
   background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a0a 100%);
   
   border: 1px solid rgba(255, 255, 255, 0.07);
@@ -50,12 +49,11 @@ defineProps({
   -webkit-backdrop-filter: blur(18px);
 
   box-shadow:
-    0 0 0 1px rgba(168, 85, 247, 0.05),
-    0 0 50px rgba(168, 85, 247, 0.06);
+    0 0 0 1px color-mix(in srgb, var(--color-extra) 5%, transparent),
+    0 0 50px color-mix(in srgb, var(--color-extra) 6%, transparent);
 
   transition: 0.3s ease;
 }
-
 
 /* Container */
 .nav-inner {
@@ -114,7 +112,7 @@ defineProps({
   height: 2px;
   border-radius: 999px;
 
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   opacity: 0;
 
   transition: 0.35s ease;
@@ -122,18 +120,18 @@ defineProps({
 
 /* Ativo */
 .navbar button.active {
-  background: rgba(168, 85, 247, 0.10);
-  border: 1px solid rgba(168, 85, 247, 0.18);
+  background: color-mix(in srgb, var(--color-extra) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-extra) 18%, transparent);
   color: rgba(255, 255, 255, 0.95);
 
   box-shadow:
-    0 0 18px rgba(168, 85, 247, 0.10),
+    0 0 18px color-mix(in srgb, var(--color-extra) 10%, transparent),
     inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
 /* Texto ativo com gradiente */
 .navbar button.active .label {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -155,12 +153,8 @@ defineProps({
 
 /* Animação do gradiente */
 @keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
 }
 
 /* Mobile */

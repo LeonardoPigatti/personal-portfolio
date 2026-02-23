@@ -273,7 +273,6 @@ onUnmounted(() => {
   max-width: 780px;
 }
 
-/* Canvas para partículas conectadas */
 .particle-canvas {
   position: absolute;
   top: 0;
@@ -283,7 +282,6 @@ onUnmounted(() => {
   z-index: 1;
 }
 
-/* Grade de fundo animada */
 .grid-bg {
   position: absolute;
   inset: 0;
@@ -295,15 +293,10 @@ onUnmounted(() => {
 }
 
 @keyframes gridMove {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(50px, 50px);
-  }
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
 }
 
-/* Partículas flutuantes */
 .particles {
   position: absolute;
   inset: 0;
@@ -320,24 +313,12 @@ onUnmounted(() => {
 }
 
 @keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-100vh) translateX(50px);
-    opacity: 0;
-  }
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
 }
 
-/* Formas geométricas flutuantes */
 .floating-shapes {
   position: absolute;
   inset: 0;
@@ -354,7 +335,7 @@ onUnmounted(() => {
 .shape-1 {
   width: 100px;
   height: 100px;
-  border: 2px solid #667eea;
+  border: 2px solid var(--color-primary);
   border-radius: 20px;
   top: 20%;
   right: 15%;
@@ -365,7 +346,7 @@ onUnmounted(() => {
 .shape-2 {
   width: 80px;
   height: 80px;
-  border: 2px solid #764ba2;
+  border: 2px solid var(--color-secondary);
   top: 60%;
   right: 25%;
   animation-delay: 3s;
@@ -374,7 +355,7 @@ onUnmounted(() => {
 .shape-3 {
   width: 120px;
   height: 120px;
-  border: 2px solid #f093fb;
+  border: 2px solid var(--color-accent);
   border-radius: 50%;
   top: 15%;
   right: 35%;
@@ -384,7 +365,7 @@ onUnmounted(() => {
 .shape-4 {
   width: 60px;
   height: 60px;
-  border: 2px solid #667eea;
+  border: 2px solid var(--color-primary);
   border-radius: 10px;
   top: 70%;
   right: 10%;
@@ -393,22 +374,12 @@ onUnmounted(() => {
 }
 
 @keyframes floatShape {
-  0%,
-  100% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-30px) translateX(20px) rotate(90deg);
-  }
-  50% {
-    transform: translateY(-60px) translateX(0) rotate(180deg);
-  }
-  75% {
-    transform: translateY(-30px) translateX(-20px) rotate(270deg);
-  }
+  0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+  25% { transform: translateY(-30px) translateX(20px) rotate(90deg); }
+  50% { transform: translateY(-60px) translateX(0) rotate(180deg); }
+  75% { transform: translateY(-30px) translateX(-20px) rotate(270deg); }
 }
 
-/* Círculos decorativos com blur */
 .decorative-circles {
   position: absolute;
   inset: 0;
@@ -427,7 +398,7 @@ onUnmounted(() => {
 .circle-1 {
   width: 400px;
   height: 400px;
-  background: #3b82f6;
+  background: var(--circle-1);
   top: -200px;
   right: -100px;
   animation-delay: 0s;
@@ -436,7 +407,7 @@ onUnmounted(() => {
 .circle-2 {
   width: 350px;
   height: 350px;
-  background: #8b5cf6;
+  background: var(--circle-2);
   bottom: -150px;
   left: -100px;
   animation-delay: 2s;
@@ -445,7 +416,7 @@ onUnmounted(() => {
 .circle-3 {
   width: 300px;
   height: 300px;
-  background: #ec4899;
+  background: var(--circle-3);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -453,18 +424,10 @@ onUnmounted(() => {
 }
 
 @keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1) translate(0, 0);
-    opacity: 0.15;
-  }
-  50% {
-    transform: scale(1.2) translate(20px, 20px);
-    opacity: 0.25;
-  }
+  0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.15; }
+  50% { transform: scale(1.2) translate(20px, 20px); opacity: 0.25; }
 }
 
-/* Título com efeito gradiente */
 h1 {
   font-size: clamp(90px, 9vw, 150px);
   line-height: 0.95;
@@ -472,7 +435,6 @@ h1 {
   color: white;
   font-family: sans-serif;
   font-weight: 900;
-
   opacity: 0;
   transform: translateX(-120px);
   transition: transform 1s ease, opacity 1s ease;
@@ -484,7 +446,7 @@ h1.show {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -493,27 +455,18 @@ h1.show {
 }
 
 @keyframes gradientShift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .s1 {
-  background: #000000;
+  background: var(--bg-primary);
 }
 
-/* Responsivo */
 @media (max-width: 768px) {
-  .floating-shapes {
-    display: none;
-  }
+  .floating-shapes { display: none; }
 }
 
-/* LOWPOLY - mantido igual ao seu */
 .lowpoly-wrapper {
   position: absolute;
   top: 25%;
@@ -521,12 +474,10 @@ h1.show {
   transform: translateY(-50%);
   pointer-events: none;
   z-index: 2;
-
   width: 220px;
   height: 220px;
 }
 
-/* Cursor piscando */
 .gradient-text::after {
   content: '|';
   animation: blink 1s step-start infinite;
@@ -534,59 +485,48 @@ h1.show {
 }
 
 @keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  50% { opacity: 0; }
 }
 
-/* ======== NOVO (LADO ESQUERDO) ======== */
-
-/* Tag acima do título AQUI */
 .tag {
   font-size: 40px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--text-tag);
   margin-bottom: 26px;
-
   opacity: 0;
   transform: translateY(10px);
   transition: all 0.8s ease;
 }
-
 
 .tag.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Bio abaixo do h1 */
 .bio {
   margin-top: 26px;
   max-width: 800px;
   font-size: 48px;
   line-height: 1.55;
-  color: rgba(226, 232, 240, 0.8);
-
+  color: var(--text-bio);
   opacity: 0;
   transform: translateY(18px);
   transition: all 0.8s ease;
   transition-delay: 0.2s;
 }
 
-
 .bio.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Botões */
 .actions {
   margin-top: 34px;
   display: flex;
   gap: 16px;
-  flex-wrap: nowrap;          /* garante que fiquem na mesma linha */
-  justify-content: flex-start; /* alinha à esquerda */
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   opacity: 0;
   transform: translateY(18px);
   transition: all 0.8s ease;
@@ -598,23 +538,18 @@ h1.show {
   transform: translateY(0);
 }
 
-
-
-
 .btn {
-  padding: 24px 39px;       /* 16px → 32px, 26px → 52px */
-  border-radius: 32px;      /* 16px → 32px */
+  padding: 24px 39px;
+  border-radius: 32px;
   font-weight: 700;
-  font-size: 24px;          /* 16px → 32px */
+  font-size: 24px;
   cursor: pointer;
   transition: 0.25s ease;
   border: none;
 }
 
-
-
 .btn.primary {
-  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  background: linear-gradient(135deg, var(--color-extra), var(--color-extra2));
   color: white;
   box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
 }

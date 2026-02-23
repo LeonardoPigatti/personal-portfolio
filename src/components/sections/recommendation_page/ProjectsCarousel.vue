@@ -250,9 +250,9 @@ onMounted(async () => {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #667eea, #f093fb);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
   transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 0 12px rgba(240, 147, 251, 0.6);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent) 60%, transparent);
 }
 
 /* ── CAROUSEL ────────────────────────────────────── */
@@ -286,7 +286,7 @@ onMounted(async () => {
   height: 44px;
   border-radius: 50%;
   border: 2px solid rgba(255,255,255,0.1);
-  border-top-color: #f093fb;
+  border-top-color: var(--color-accent);
   animation: spin 0.8s linear infinite;
 }
 
@@ -350,8 +350,8 @@ onMounted(async () => {
   background: linear-gradient(
     135deg,
     #1e2a78 0%,
-    #764ba2 50%,
-    #f093fb 100%
+    var(--color-secondary) 50%,
+    var(--color-accent) 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -387,7 +387,7 @@ onMounted(async () => {
 .dot--active {
   width: 24px;
   border-radius: 3px;
-  background: linear-gradient(90deg, #667eea, #f093fb);
-  box-shadow: 0 0 10px rgba(240,147,251,0.5);
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 50%, transparent);
 }
 </style>

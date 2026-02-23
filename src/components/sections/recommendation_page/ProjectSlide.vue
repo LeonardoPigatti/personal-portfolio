@@ -176,7 +176,7 @@ defineEmits(["toggle"])
 
 .hint-icon { font-size: 1rem; }
 
-/* Language badge — maior e mais destacada */
+/* Language badge */
 .lang-badge {
   position: absolute;
   top: 20px;
@@ -186,33 +186,7 @@ defineEmits(["toggle"])
   gap: 8px;
   background: rgba(8, 8, 12, 0.75);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(240, 147, 251, 0.25);
-  border-radius: 100px;
-  padding: 8px 18px;
-  font-family: 'DM Mono', monospace;
-  font-size: 0.88rem;        /* era 0.7rem → agora maior */
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  /* gradiente no texto */
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  background-image: linear-gradient(135deg, #a5b4fc 0%, #f093fb 100%);
-  /* fundo separado via pseudo-element trick: usar box em vez de bg-clip */
-}
-
-/* Reescrevendo lang-badge sem conflito de bg-clip */
-.lang-badge {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(8, 8, 12, 0.75);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(240, 147, 251, 0.3);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
   border-radius: 100px;
   padding: 8px 20px;
   font-family: 'DM Mono', monospace;
@@ -221,15 +195,15 @@ defineEmits(["toggle"])
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 16px rgba(240, 147, 251, 0.15);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--color-accent) 15%, transparent);
 }
 
 .lang-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea, #f093fb);
-  box-shadow: 0 0 8px rgba(240,147,251,0.8);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent) 80%, transparent);
   flex-shrink: 0;
 }
 
@@ -278,7 +252,7 @@ defineEmits(["toggle"])
   font-weight: 800;
   line-height: 1.05;
   margin: 0;
-  background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -288,7 +262,7 @@ defineEmits(["toggle"])
 /* Divider */
 .divider {
   height: 1px;
-  background: linear-gradient(90deg, rgba(102,126,234,0.5), rgba(240,147,251,0.3), transparent);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--color-primary) 50%, transparent), color-mix(in srgb, var(--color-accent) 30%, transparent), transparent);
   margin: 32px 0;
 }
 
@@ -315,9 +289,7 @@ defineEmits(["toggle"])
   gap: 5px;
 }
 
-.stat-icon {
-  font-size: 1.1rem;
-}
+.stat-icon { font-size: 1.1rem; }
 
 .stat-value {
   font-size: 1.6rem;
@@ -342,7 +314,7 @@ defineEmits(["toggle"])
   text-decoration: none;
   padding: 14px 28px;
   border-radius: 100px;
-  border: 1px solid rgba(240, 147, 251, 0.25);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 25%, transparent);
   background: rgba(255,255,255,0.05);
   font-family: 'DM Mono', monospace;
   font-size: 0.78rem;
@@ -354,16 +326,16 @@ defineEmits(["toggle"])
 
 .cta-text,
 .cta-arrow {
-  background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .cta-link:hover {
-  background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(240,147,251,0.15));
-  border-color: rgba(240,147,251,0.5);
-  box-shadow: 0 0 28px rgba(240,147,251,0.15);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 20%, transparent), color-mix(in srgb, var(--color-accent) 15%, transparent));
+  border-color: color-mix(in srgb, var(--color-accent) 50%, transparent);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--color-accent) 15%, transparent);
 }
 
 .cta-arrow {
@@ -386,30 +358,28 @@ defineEmits(["toggle"])
   margin-top: 16px;
 }
 
-/* Título em gradiente */
 .caption-name {
   font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  background: linear-gradient(135deg, #ffffff 0%, #c4b5fd 45%, #f093fb 100%);
+  background: linear-gradient(135deg, #ffffff 0%, var(--color-secondary) 45%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Linguagem maior e mais visível */
 .caption-lang {
   font-family: 'DM Mono', monospace;
-  font-size: 0.95rem;          /* era 0.68rem → agora maior */
+  font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  background: linear-gradient(135deg, #a5b4fc 0%, #f093fb 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 6px rgba(240, 147, 251, 0.5));
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-accent) 50%, transparent));
 }
 
 /* ── TRANSITIONS ─────────────────────────────────── */

@@ -65,7 +65,7 @@ function selectLang(lang) {
   border: 1px solid rgba(255, 255, 255, 0.07);
   background: linear-gradient(135deg, #0a0a0a, #1a0a1a, #0a0a0a);
   backdrop-filter: blur(18px);
-  box-shadow: 0 0 50px rgba(168, 85, 247, 0.06);
+  box-shadow: 0 0 50px color-mix(in srgb, var(--color-extra) 6%, transparent);
   color: rgba(255, 255, 255, 0.72);
   font-size: 18px;
   font-weight: 650;
@@ -92,7 +92,7 @@ function selectLang(lang) {
   border: 1px solid rgba(255, 255, 255, 0.07);
   background: linear-gradient(135deg, #0a0a0a, #1a0a1a, #0a0a0a);
   backdrop-filter: blur(18px);
-  box-shadow: 0 0 50px rgba(168, 85, 247, 0.06);
+  box-shadow: 0 0 50px color-mix(in srgb, var(--color-extra) 6%, transparent);
   z-index: 1000;
 }
 
@@ -113,14 +113,14 @@ function selectLang(lang) {
 }
 
 .dropdown-item:hover {
-  background: rgba(168, 85, 247, 0.10);
+  background: color-mix(in srgb, var(--color-extra) 10%, transparent);
   color: rgba(255, 255, 255, 0.95);
   transform: translateY(-1px);
 }
 
 .dropdown-item.active {
-  background: rgba(168, 85, 247, 0.15);
-  border-color: rgba(168, 85, 247, 0.18);
+  background: color-mix(in srgb, var(--color-extra) 15%, transparent);
+  border-color: color-mix(in srgb, var(--color-extra) 18%, transparent);
   color: rgba(255, 255, 255, 0.95);
 }
 
