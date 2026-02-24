@@ -18,6 +18,14 @@ const translations = {
       phrase: ['Building interfaces that ', 'matter', '.'],
       rights: 'All rights reserved.',
     },
+    projects: [
+      {
+        repoName: 'netflix-clone',
+        image: '/src/assets/netflix.jpg',
+        description:
+          "A fully functional clone of the Netflix platform, built from scratch with a focus on replicating the visual and interactive experience of the world's most popular streaming service. The app features user authentication, category browsing, a dynamic title carousel, and integrated trailer playback via the YouTube API. The responsive layout ensures a smooth experience on any device, from smartphones to ultrawide monitors. Every design detail was carefully recreated — color palette, typography, animations, and visual hierarchy — making the result virtually indistinguishable from the original. A project that demonstrates mastery of external API consumption, state management, advanced componentization, and UX/UI best practices.",
+      },
+    ],
     social: {
       title: 'Connect With Me',
       subtitle: 'Stay updated and get in touch through my official social channels. Follow, collaborate, or just say hi — I love connecting with professionals, creators, and curious minds alike.',
@@ -440,6 +448,14 @@ const translations = {
       phrase: ['Construindo interfaces que ', 'importam', '.'],
       rights: 'Todos os direitos reservados.',
     },
+    projects: [
+      {
+        repoName: 'netflix-clone',
+        image: '/src/assets/netflix.jpg',
+        description:
+          'Clone funcional da plataforma Netflix, desenvolvido do zero com foco em replicar a experiência visual e interativa do serviço de streaming mais popular do mundo. A aplicação conta com autenticação de usuários, navegação por categorias, carrossel de títulos dinâmico e reprodução de trailers integrada via API do YouTube. O layout responsivo garante uma experiência fluida em qualquer dispositivo, desde smartphones até monitores ultrawide. Todo o design foi recriado com atenção aos detalhes — paleta de cores, tipografia, animações e hierarquia visual — tornando o resultado praticamente indistinguível do original. Um projeto que demonstra domínio de consumo de APIs externas, gerenciamento de estado, componentização avançada e boas práticas de UX/UI.',
+      },
+    ],
     social: {
       title: 'Conecte-se Comigo',
       subtitle: 'Fique atualizado e entre em contato através dos meus canais sociais oficiais. Siga, colabore ou apenas diga olá — adoro me conectar com profissionais, criadores e mentes curiosas.',
@@ -862,6 +878,14 @@ const translations = {
       phrase: ['Costruendo interfacce che ', 'contano', '.'],
       rights: 'Tutti i diritti riservati.',
     },
+    projects: [
+      {
+        repoName: 'netflix-clone',
+        image: '/src/assets/netflix.jpg',
+        description:
+          "Clone funzionale della piattaforma Netflix, sviluppato da zero con l'obiettivo di replicare l'esperienza visiva e interattiva del servizio di streaming più popolare al mondo. L'applicazione include autenticazione degli utenti, navigazione per categorie, carosello dinamico dei titoli e riproduzione di trailer integrata tramite le API di YouTube. Il layout responsivo garantisce un'esperienza fluida su qualsiasi dispositivo, dagli smartphone ai monitor ultrawide. Ogni dettaglio del design è stato ricreato con cura — palette di colori, tipografia, animazioni e gerarchia visiva — rendendo il risultato praticamente indistinguibile dall'originale. Un progetto che dimostra padronanza nel consumo di API esterne, gestione dello stato, componentizzazione avanzata e buone pratiche di UX/UI.",
+      },
+    ],
     social: {
       title: 'Connettiti Con Me',
       subtitle: 'Rimani aggiornato e contattami attraverso i miei canali social ufficiali. Seguimi, collabora o semplicemente salutami — adoro connettermi con professionisti, creativi e menti curiose.',
@@ -917,7 +941,7 @@ const translations = {
       },
     },
     chat: {
-      greeting: 'Ciao. Sono l\'assistente virtuale di questo portfolio. Come posso aiutarti?',
+      greeting: "Ciao. Sono l'assistente virtuale di questo portfolio. Come posso aiutarti?",
       placeholder: 'Scrivi un messaggio...',
       linkOpened: 'Il link è stato aperto in una nuova scheda. Sono a disposizione se hai bisogno di ulteriori informazioni.',
       noMatch: 'Non è stato possibile identificare la tua richiesta con precisione. Usa i pulsanti di navigazione o scrivi termini come "progetti", "competenze", "contatto" o "obiettivi".',
@@ -999,7 +1023,7 @@ const translations = {
           ],
         },
         chat_flow_buttons: {
-          text: 'Questo è esattamente l\'approccio utilizzato in questa chat — un albero di dialogo con navigazione tramite pulsanti, senza dipendenze da servizi esterni. Vuoi vedere altri progetti o metterti in contatto?',
+          text: "Questo è esattamente l'approccio utilizzato in questa chat — un albero di dialogo con navigazione tramite pulsanti, senza dipendenze da servizi esterni. Vuoi vedere altri progetti o metterti in contatto?",
           options: [
             { label: '📁 Vedere altri progetti', next: 'projects' },
             { label: '📩 Mettersi in contatto', next: 'contact' },
@@ -1007,7 +1031,7 @@ const translations = {
           ],
         },
         chat_integrate_ai: {
-          text: 'L\'integrazione con modelli di linguaggio consente risposte dinamiche tramite OpenAI, Claude o API simili. È un\'evoluzione naturale di questo componente. Vorresti discutere questa possibilità?',
+          text: "L'integrazione con modelli di linguaggio consente risposte dinamiche tramite OpenAI, Claude o API simili. È un'evoluzione naturale di questo componente. Vorresti discutere questa possibilità?",
           options: [
             { label: '📩 Mettersi in contatto', next: 'contact' },
             { label: '📁 Vedere altri progetti', next: 'projects' },
@@ -1015,7 +1039,7 @@ const translations = {
           ],
         },
         chat_storage_yes: {
-          text: 'Con localStorage, la cronologia viene preservata tra le sessioni. Vorresti includere anche un\'opzione di reset?',
+          text: "Con localStorage, la cronologia viene preservata tra le sessioni. Vorresti includere anche un'opzione di reset?",
           options: [
             { label: '✅ Sì, con pulsante di reset', next: 'chat_reset_yes' },
             { label: '🚫 Non necessario', next: 'chat_reset_no' },
@@ -1031,15 +1055,15 @@ const translations = {
           ],
         },
         chat_reset_yes: {
-          text: 'L\'opzione di reset migliora l\'esperienza nelle demo. Dove preferisci posizionarla?',
+          text: "L'opzione di reset migliora l'esperienza nelle demo. Dove preferisci posizionarla?",
           options: [
-            { label: '✅ Nell\'intestazione', next: 'end_good' },
+            { label: "✅ Nell'intestazione", next: 'end_good' },
             { label: '📌 Nel piè di pagina', next: 'end_good' },
             { label: '⬅️ Indietro', next: 'chat_storage_yes' },
           ],
         },
         chat_reset_no: {
-          text: 'Senza reset, l\'interfaccia rimane più pulita. Vuoi personalizzare il messaggio di apertura?',
+          text: "Senza reset, l'interfaccia rimane più pulita. Vuoi personalizzare il messaggio di apertura?",
           options: [
             { label: '👋 Mantenere il messaggio predefinito', next: 'end_good' },
             { label: '🎯 Messaggio contestualizzato', next: 'end_good' },
@@ -1047,7 +1071,7 @@ const translations = {
           ],
         },
         chat_typing_yes: {
-          text: 'L\'indicatore di digitazione contribuisce a un\'esperienza più naturale. Quale velocità preferisci?',
+          text: "L'indicatore di digitazione contribuisce a un'esperienza più naturale. Quale velocità preferisci?",
           options: [
             { label: '⚡ Veloce', next: 'end_good' },
             { label: '🙂 Cadenza umana', next: 'end_good' },
@@ -1055,7 +1079,7 @@ const translations = {
           ],
         },
         chat_typing_no: {
-          text: 'Le risposte immediate sono ideali in contesti ad alta efficienza. Vorresti aggiungere notifiche sonore?',
+          text: "Le risposte immediate sono ideali in contesti ad alta efficienza. Vorresti aggiungere notifiche sonore?",
           options: [
             { label: '🔊 Sì', next: 'end_good' },
             { label: '🤫 No', next: 'end_good' },
@@ -1138,7 +1162,7 @@ const translations = {
           ],
         },
         about_remote: {
-          text: 'Ho solida esperienza in routine di lavoro da remoto, inclusa la collaborazione asincrona e l\'uso di strumenti di gestione distribuita. Posso condividere il mio profilo LinkedIn se ti interessa.',
+          text: "Ho solida esperienza in routine di lavoro da remoto, inclusa la collaborazione asincrona e l'uso di strumenti di gestione distribuita. Posso condividere il mio profilo LinkedIn se ti interessa.",
           options: [
             { label: '🔗 Accedi a LinkedIn', action: 'link', url: links.linkedin },
             { label: '⬅️ Indietro', next: 'about_location' },
@@ -1191,7 +1215,7 @@ const translations = {
           ],
         },
         skills_full: {
-          text: 'Sono in grado di gestire l\'intero ciclo di sviluppo di un\'applicazione — dalla pianificazione dell\'architettura al rilascio in produzione. Vorresti vedere un esempio di progetto fullstack?',
+          text: "Sono in grado di gestire l'intero ciclo di sviluppo di un'applicazione — dalla pianificazione dell'architettura al rilascio in produzione. Vorresti vedere un esempio di progetto fullstack?",
           options: [
             { label: '🚀 Sì', next: 'end_good' },
             { label: '⬅️ Indietro', next: 'skills' },
@@ -1208,7 +1232,7 @@ const translations = {
           ],
         },
         contact_email: {
-          text: 'Puoi contattarmi direttamente all\'indirizzo leonardopigatti@yahoo.com.br. Clicca qui sotto per aprire il client email.',
+          text: "Puoi contattarmi direttamente all'indirizzo leonardopigatti@yahoo.com.br. Clicca qui sotto per aprire il client email.",
           options: [
             { label: '📧 Apri email', action: 'link', url: links.email },
             { label: '⬅️ Indietro', next: 'contact' },
@@ -1255,14 +1279,14 @@ const translations = {
           options: [
             { label: '📩 Mettersi in contatto', next: 'contact' },
             { label: '📁 Vedere altri progetti', next: 'projects' },
-            { label: '⬅️ Torna all\'inizio', next: 'start' },
+            { label: "⬅️ Torna all'inizio", next: 'start' },
           ],
         },
         end_contact: {
-          text: 'Grazie per l\'interesse. Ti risponderò a breve. Se preferisci esplorare direttamente il mio codice, i repository sono disponibili su GitHub.',
+          text: "Grazie per l'interesse. Ti risponderò a breve. Se preferisci esplorare direttamente il mio codice, i repository sono disponibili su GitHub.",
           options: [
             { label: '💻 Accedi a GitHub', action: 'link', url: links.github },
-            { label: '⬅️ Torna all\'inizio', next: 'start' },
+            { label: "⬅️ Torna all'inizio", next: 'start' },
             { label: '📁 Vedi progetti', next: 'projects' },
           ],
         },

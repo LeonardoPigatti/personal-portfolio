@@ -56,13 +56,13 @@ export const getCvSections = (lang = 'EUA') => {
         title: 'Education',
         content: '',
         subtitle: 'Courses and Certifications',
-        courses: [
+      courses: [
           { title: 'Principles and Practices of Project Management – University of São Paulo (USP)', certificates: ['/src/assets/certifications/certs-gp-usp/_1Introdução aos Princípios e Práticas da Gestão De Projetos Certificado de Especialização!_page-0001.jpg', '/src/assets/certifications/certs-gp-usp/Gestão de Riscos e de Mudanças em Projetos_page-0001.jpg', '/src/assets/certifications/certs-gp-usp/Iniciação e Planejamento de Projetos_page-0001.jpg', '/src/assets/certifications/certs-gp-usp/Orçamento e Cronograma de Projetos_page-0001.jpg', '/src/assets/certifications/certs-gp-usp/Projeto Aplicado - Introdução a Gestão de Projetos_page-0001.jpg'], verifyUrl: 'https://LINK-DA-USP-AQUI' },
           { title: 'Bug Bounty Hunting & Web Security Testing – Udemy', certificates: ['/src/assets/certifications/bug-bounty/bug-bounty.jpg'], verifyUrl: 'https://LINK-DA-UDEMY-AQUI' },
           { title: 'Tech Lead: Key Skills and Strategies for Success – Udemy', certificates: ['/src/assets/certifications/tech-leader-udemy/tech-leader.jpg'], verifyUrl: 'https://LINK-DA-UDEMY-AQUI' },
           { title: 'Cybersecurity Essentials – Cisco Networking Academy', certificates: ['/src/assets/certifications/cisco/cisco.jpg'], verifyUrl: 'https://LINK-DA-CISCO-AQUI' },
           { title: 'Specialization in Software Design and Architecture – University of Alberta (In Progress)', certificates: [], verifyUrl: 'https://LINK-DA-PLATAFORMA-AQUI' },
-        ],
+],
         items: [
           { degree: "Bachelor's Degree in Computer Engineering", school: 'FHO – Fundação Hermínio Ometto', period: '2020 – 2026' },
           { degree: 'Technical Degree in Information Technology', school: 'ETEC – São Paulo State Technical School', period: '2017 – 2019' },
@@ -75,7 +75,7 @@ export const getCvSections = (lang = 'EUA') => {
         subtitle: 'Technological Stack',
         subcontent: ['Front-end', 'Back-end', 'Testing', 'APIs & Tools', 'Databases', 'Cloud & DevOps'],
         tooltips: ['Vue.js · React · Vuex · Vue Router · TypeScript · JavaScript · HTML · CSS', 'Node.js · TypeScript · GraphQL · REST · PHP (Laravel) · Python', 'Jest · Vitest · Cypress · Playwright', 'Postman · Newman', 'MySQL · SQL Server · MongoDB · PostgreSQL', 'AWS · Docker · CI/CD · Git · Azure'],
-        items: [{ language: 'Portuguese', level: 'Native' }, { language: 'English', level: 'Advanced (C1)' }, { language: 'Spanish', level: 'Intermediate (B2)' }],
+        items: [{ language: 'Portuguese', level: 'Native' }, { language: 'English', level: 'Advanced (C1)' }, { language: 'Italian', level: 'Intermediate (B2)' }],
       },
     },
 
@@ -154,7 +154,7 @@ export const getCvSections = (lang = 'EUA') => {
         subtitle: 'Stack Tecnológica',
         subcontent: ['Front-end', 'Back-end', 'Testes', 'APIs e Ferramentas', 'Bancos de Dados', 'Cloud e DevOps'],
         tooltips: ['Vue.js · React · Vuex · Vue Router · TypeScript · JavaScript · HTML · CSS', 'Node.js · TypeScript · GraphQL · REST · PHP (Laravel) · Python', 'Jest · Vitest · Cypress · Playwright', 'Postman · Newman', 'MySQL · SQL Server · MongoDB · PostgreSQL', 'AWS · Docker · CI/CD · Git · Azure'],
-        items: [{ language: 'Português', level: 'Nativo' }, { language: 'Inglês', level: 'Avançado (C1)' }, { language: 'Espanhol', level: 'Intermediário (B2)' }],
+        items: [{ language: 'Português', level: 'Nativo' }, { language: 'Inglês', level: 'Avançado (C1)' }, { language: 'Italiano', level: 'Intermediário (B2)' }],
       },
     },
 
@@ -233,7 +233,7 @@ export const getCvSections = (lang = 'EUA') => {
         subtitle: 'Stack Tecnologico',
         subcontent: ['Front-end', 'Back-end', 'Testing', 'API e Strumenti', 'Database', 'Cloud e DevOps'],
         tooltips: ['Vue.js · React · Vuex · Vue Router · TypeScript · JavaScript · HTML · CSS', 'Node.js · TypeScript · GraphQL · REST · PHP (Laravel) · Python', 'Jest · Vitest · Cypress · Playwright', 'Postman · Newman', 'MySQL · SQL Server · MongoDB · PostgreSQL', 'AWS · Docker · CI/CD · Git · Azure'],
-        items: [{ language: 'Portoghese', level: 'Madrelingua' }, { language: 'Inglese', level: 'Avanzato (C1)' }, { language: 'Spagnolo', level: 'Intermedio (B2)' }],
+        items: [{ language: 'Portoghese', level: 'Madrelingua' }, { language: 'Inglese', level: 'Avanzato (C1)' }, { language: 'Italiano', level: 'Intermedio (B2)' }],
       },
     },
   }

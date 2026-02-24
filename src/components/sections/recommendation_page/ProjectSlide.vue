@@ -29,7 +29,7 @@
           <!-- Header -->
           <div class="repo-header">
             <p class="repo-eyebrow">Projeto</p>
-            <h2 class="repo-name">{{ repo.name }}</h2>
+<h2 class="repo-name">{{ formatName(repo.name) }}</h2>
           </div>
 
           <!-- Divider -->
@@ -86,6 +86,15 @@ defineProps({
 })
 
 defineEmits(["toggle"])
+
+function formatName(name) {
+  if (!name) return ''
+
+  return name
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join('-')
+}
 </script>
 
 <style scoped>
@@ -268,7 +277,7 @@ defineEmits(["toggle"])
 
 /* Description */
 .repo-desc {
-  font-size: 0.97rem;
+  font-size: 20px;
   line-height: 1.85;
   color: rgba(255,255,255,0.55);
   flex: 1;

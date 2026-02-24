@@ -74,13 +74,39 @@
 <script setup>
 import { ref, computed, onMounted, watch } from "vue"
 import ProjectSlide from "@/components/sections/recommendation_page/ProjectSlide.vue"
-import { projects as staticProjects } from "@/data/Projects.js"
+import { useLang } from "@/useLang"
+
+const { t, selectedLang } = useLang()
 
 const repos = ref([])
 const loading = ref(true)
 const error = ref(null)
 const current = ref(0)
 const expanded = ref(false)
+
+// Guarda os dados da API em cache para não buscar de novo ao trocar idioma
+let apiCache = null
+
+const buildRepos = () => {
+  const staticProjects = t().projects
+  if (!apiCache || !staticProjects) return
+
+  const apiMap = new Map(apiCache.map(repo => [repo.name, repo]))
+
+  repos.value = staticProjects.reduce((acc, staticProject) => {
+    const apiRepo = apiMap.get(staticProject.repoName)
+    if (!apiRepo) {
+      console.warn(`[ProjectCarousel] Repo "${staticProject.repoName}" não encontrado na API.`)
+      return acc
+    }
+    acc.push({
+      ...apiRepo,
+      image: staticProject.image,
+      description: staticProject.description,
+    })
+    return acc
+  }, [])
+}
 
 // Paleta de cores para glow ambiente por slide
 const glowColors = [
@@ -121,41 +147,17 @@ watch(current, () => {
   expanded.value = false
 })
 
+// Reconstrói repos quando o idioma mudar
+watch(selectedLang, () => {
+  buildRepos()
+})
+
 onMounted(async () => {
   try {
-    // Busca todos os repos públicos do usuário na API do GitHub
     const res = await fetch("https://api.github.com/users/LeonardoPigatti/repos?per_page=100")
-
     if (!res.ok) throw new Error(`GitHub API error: ${res.status}`)
-
-    const apiData = await res.json()
-
-    // Cria um Map para lookup rápido por nome
-    const apiMap = new Map(apiData.map(repo => [repo.name, repo]))
-
-    // Monta a lista final na ordem definida em projects.js
-    // Apenas projetos que existem tanto no arquivo estático quanto na API são exibidos
-    const merged = staticProjects.reduce((acc, staticProject) => {
-      const apiRepo = apiMap.get(staticProject.repoName)
-
-      if (!apiRepo) {
-        // Repo não encontrado na API (pode ser privado ou nome errado) — ignora
-        console.warn(`[ProjectCarousel] Repo "${staticProject.repoName}" não encontrado na API do GitHub.`)
-        return acc
-      }
-
-      acc.push({
-        // Todos os campos da API (id, stars, forks, linguagem, url, etc.)
-        ...apiRepo,
-        // Sobrescreve apenas imagem e descrição com os dados estáticos
-        image: staticProject.image,
-        description: staticProject.description,
-      })
-
-      return acc
-    }, [])
-
-    repos.value = merged
+    apiCache = await res.json()
+    buildRepos()
   } catch (err) {
     console.error("[ProjectCarousel]", err)
     error.value = "Não foi possível carregar os projetos."
