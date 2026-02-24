@@ -1,7 +1,7 @@
 <template>
   <section class="section s1">
     <div class="content">
-      <S1Hero :isVisible="isVisible" />
+      <ProfileImage :isVisible="isVisible" />
 
       <div class="curriculum-wrapper">
         <CurriculumCarousel
@@ -28,12 +28,12 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 
-import S1Hero from '/src/components/sections/curriculum-page/S1Hero.vue'
-import CurriculumCarousel from '/src/components/sections/curriculum-page/CurriculumCarousel.vue'
-import CertificatesGalleryModal from '/src/components/sections/curriculum-page/CertificatesGalleryModal.vue'
+import ProfileImage from '/src/views/curriculum-page/ProfileImage.vue'
+import CurriculumCarousel from '/src/views/curriculum-page/CurriculumCarousel.vue'
+import CertificatesGalleryModal from '/src/views/curriculum-page/CertificatesGalleryModal.vue'
 
 import { getCvSections } from '@/data/cvSections'
-import { useLang } from '@/useLang'
+import { useLang } from '@/composables/useLang'
 
 const { selectedLang } = useLang()
 

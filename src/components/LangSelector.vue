@@ -26,7 +26,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useLang } from '@/useLang'
+import { useLang } from '@/composables/useLang'
 
 const { selectedLang, setLang } = useLang()
 

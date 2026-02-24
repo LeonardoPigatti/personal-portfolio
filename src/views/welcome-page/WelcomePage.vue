@@ -57,8 +57,8 @@
 
 <script setup>
 import { ref, watch, onMounted, onUnmounted } from 'vue'
-import GeometricCanvas from '/src/components/sections/welcome_page/GeometricCanvas.vue'
-import { useLang } from '@/useLang'
+import GeometricCanvas from '/src/views/welcome-page/GeometricCanvas.vue'
+import { useLang } from '@/composables/useLang'
 
 const { selectedLang, t } = useLang()
 

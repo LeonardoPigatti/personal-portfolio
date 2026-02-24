@@ -26,7 +26,7 @@
 
 <script setup>
 import { ref } from "vue"
-import ProjectsCarousel from "@/components/sections/recommendation_page/ProjectsCarousel.vue"
+import ProjectsCarousel from "@/views/projects-page/ProjectsCarousel.vue"
 
 const showProjects = ref(false)
 

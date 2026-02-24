@@ -47,7 +47,7 @@
 
 <script setup>
 import SectionRenderer from './SectionRenderer.vue'
-import { useLang } from '@/useLang'
+import { useLang } from '@/composables/useLang'
 
 const { t } = useLang()
 

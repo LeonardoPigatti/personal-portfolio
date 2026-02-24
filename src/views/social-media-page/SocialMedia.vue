@@ -113,7 +113,7 @@
 
 <script setup>
 import { ref, reactive, onMounted, watch } from 'vue'
-import { useLang } from '@/useLang'
+import { useLang } from '@/composables/useLang'
 
 const { t } = useLang()
 

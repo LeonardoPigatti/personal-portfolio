@@ -18,7 +18,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useLang } from '@/useLang'
+import { useLang } from '@/composables/useLang'
 
 const { t } = useLang()
 const year = new Date().getFullYear()

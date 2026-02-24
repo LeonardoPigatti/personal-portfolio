@@ -73,8 +73,8 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from "vue"
-import ProjectSlide from "@/components/sections/recommendation_page/ProjectSlide.vue"
-import { useLang } from "@/useLang"
+import ProjectSlide from "@/views/projects-page/ProjectSlide.vue"
+import { useLang } from "@/composables/useLang"
 
 const { t, selectedLang } = useLang()
 

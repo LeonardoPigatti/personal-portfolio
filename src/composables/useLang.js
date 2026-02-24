@@ -21,7 +21,7 @@ const translations = {
     projects: [
       {
         repoName: 'netflix-clone',
-        image: '/src/assets/netflix.jpg',
+        image: '/src/assets/projects-image/netflix.jpg',
         description:
           "A fully functional clone of the Netflix platform, built from scratch with a focus on replicating the visual and interactive experience of the world's most popular streaming service. The app features user authentication, category browsing, a dynamic title carousel, and integrated trailer playback via the YouTube API. The responsive layout ensures a smooth experience on any device, from smartphones to ultrawide monitors. Every design detail was carefully recreated — color palette, typography, animations, and visual hierarchy — making the result virtually indistinguishable from the original. A project that demonstrates mastery of external API consumption, state management, advanced componentization, and UX/UI best practices.",
       },
@@ -451,7 +451,7 @@ const translations = {
     projects: [
       {
         repoName: 'netflix-clone',
-        image: '/src/assets/netflix.jpg',
+        image: '/src/assets/projects-image/netflix.jpg',
         description:
           'Clone funcional da plataforma Netflix, desenvolvido do zero com foco em replicar a experiência visual e interativa do serviço de streaming mais popular do mundo. A aplicação conta com autenticação de usuários, navegação por categorias, carrossel de títulos dinâmico e reprodução de trailers integrada via API do YouTube. O layout responsivo garante uma experiência fluida em qualquer dispositivo, desde smartphones até monitores ultrawide. Todo o design foi recriado com atenção aos detalhes — paleta de cores, tipografia, animações e hierarquia visual — tornando o resultado praticamente indistinguível do original. Um projeto que demonstra domínio de consumo de APIs externas, gerenciamento de estado, componentização avançada e boas práticas de UX/UI.',
       },
@@ -881,7 +881,7 @@ const translations = {
     projects: [
       {
         repoName: 'netflix-clone',
-        image: '/src/assets/netflix.jpg',
+        image: '/src/assets/projects-image/netflix.jpg',
         description:
           "Clone funzionale della piattaforma Netflix, sviluppato da zero con l'obiettivo di replicare l'esperienza visiva e interattiva del servizio di streaming più popolare al mondo. L'applicazione include autenticazione degli utenti, navigazione per categorie, carosello dinamico dei titoli e riproduzione di trailer integrata tramite le API di YouTube. Il layout responsivo garantisce un'esperienza fluida su qualsiasi dispositivo, dagli smartphone ai monitor ultrawide. Ogni dettaglio del design è stato ricreato con cura — palette di colori, tipografia, animazioni e gerarchia visiva — rendendo il risultato praticamente indistinguibile dall'originale. Un progetto che dimostra padronanza nel consumo di API esterne, gestione dello stato, componentizzazione avanzata e buone pratiche di UX/UI.",
       },

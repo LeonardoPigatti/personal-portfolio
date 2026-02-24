@@ -50,7 +50,7 @@
 
 <script setup>
 import { nextTick, ref, computed, watch } from "vue";
-import { useLang } from "@/useLang";
+import { useLang } from "@/composables/useLang";
 
 const { t, selectedLang } = useLang();
 

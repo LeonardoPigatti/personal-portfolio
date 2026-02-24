@@ -3,7 +3,7 @@
     <div class="left-side">
       <div class="profile-wrap">
         <img 
-          src="/src/assets/leo3.jpg" 
+          src="/src/assets/profile.jpg" 
           alt="Profile" 
           class="profile-image"
         />
@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { useLang } from '@/useLang'
+import { useLang } from '@/composables/useLang'
 
 const { t } = useLang()
 

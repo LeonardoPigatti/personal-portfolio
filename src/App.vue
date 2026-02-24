@@ -6,7 +6,7 @@
 
     <ThemeSelector />
 
-    <Avatar src="/src/assets/cvs.png" chatName="Leonardo - ChatBot" />
+    <Avatar src="/src/assets/icons/bubble-chat.png" chatName="Leonardo - ChatBot" />
 
     <div class="viewport">
       <Navbar 
@@ -20,7 +20,7 @@
       <div class="container" :style="{ transform: translateY }">
         <WelcomePage :active="currentIndex === 0" />
         <CurriculumPage :active="currentIndex === 1" />
-        <RecommendationPage :active="currentIndex === 2" />
+        <ProjectPage :active="currentIndex === 2" />
 
         <div class="last-section">
           <SocialMedia :active="currentIndex === 3" />
@@ -33,16 +33,16 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import Navbar from './Navbar.vue'
-import ThemeSelector from './ThemeSelector.vue'
-import LangSelector from './LangSelector.vue'
-import Avatar from './Avatar.vue'
-import Footer from './Footer.vue'
-import WelcomePage from '@/components/sections/welcome_page/WelcomePage.vue'
-import CurriculumPage from '@/components/sections/curriculum-page/CurriculumPage.vue'
-import RecommendationPage from '@/components/sections/recommendation_page/RecommendationPage.vue'
-import SocialMedia from '@/components/sections/social-media-page/SocialMedia.vue'
-import { useLang } from '@/useLang'
+import Navbar from './components/Navbar.vue'
+import ThemeSelector from './components/ThemeSelector.vue'
+import LangSelector from './components/LangSelector.vue'
+import Avatar from './components/Avatar.vue'
+import Footer from './components/Footer.vue'
+import WelcomePage from '@/views/welcome-page/WelcomePage.vue'
+import CurriculumPage from '@/views/curriculum-page/CurriculumPage.vue'
+import ProjectPage from '@/views/projects-page/ProjectPage.vue'
+import SocialMedia from '@/views/social-media-page/SocialMedia.vue'
+import { useLang } from '@/composables/useLang'
 
 const { t } = useLang()
 
